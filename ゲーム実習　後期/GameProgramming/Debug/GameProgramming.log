@@ -1,0 +1,57 @@
+﻿2020/12/07 12:39:47 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CXEnemy.cpp
+         CXEnemy.cpp
+     1>c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmodelx.h(66): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmodelx.h(147): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmodelx.h(222): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmodelx.h(225): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmodelx.h(226): warning C4150: 'CMaterial' 型を削除するため delete 演算子が呼び出されましたが、定義がありません。
+                 c:\users\森近　淳哉\desktop\ゲーム実習　後期\gameprogramming\cmyshader.h(7) : 'CMaterial' の宣言を確認してください。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\Debug\GameProgramming.exe" /INCREMENTAL /NOLOGO glew32.lib glfw3.lib glfw3dll.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\Debug\GameProgramming.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\Debug\GameProgramming.lib" /MACHINE:X86 Debug\CBillBoard.obj
+         Debug\CBullet.obj
+         Debug\CCamera.obj
+         Debug\CCharacter.obj
+         Debug\CCollider.obj
+         Debug\CCollisionManager.obj
+         Debug\CEffect.obj
+         Debug\CEye.obj
+         Debug\CInput.obj
+         Debug\CKey.obj
+         Debug\CMap.obj
+         Debug\CMaterial.obj
+         Debug\CMatrix.obj
+         Debug\CModel.obj
+         Debug\CModelX.obj
+         Debug\CMyShader.obj
+         Debug\CObj.obj
+         Debug\CPoint.obj
+         Debug\CPuddle.obj
+         Debug\CPuddle1.obj
+         Debug\CPuddle2.obj
+         Debug\CRectangle.obj
+         Debug\CSceneTitle.obj
+         Debug\CShader.obj
+         Debug\CXEnemy.obj
+         Debug\CXPlayer.obj
+         Debug\CRes.obj
+         Debug\CScene.obj
+         Debug\CSceneGame.obj
+         Debug\CSceneManager.obj
+         Debug\CTaskManager.obj
+         Debug\CText.obj
+         Debug\CTexture.obj
+         Debug\CTransform.obj
+         Debug\CTriangle.obj
+         Debug\CVector.obj
+         Debug\CXCharacter.obj
+         Debug\main.obj
+         Debug\CWaterGun.obj
+         GameProgramming.vcxproj -> C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\Debug\GameProgramming.exe
+     1>プロジェクト "C:\Users\森近　淳哉\Desktop\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:00.86
