@@ -34,7 +34,7 @@ CScene::EScene CSceneGame::GetNextScene() {
 }
 
 void CSceneGame::Init() {
-	
+
 	mScene = EGAME;
 
 	mEnd = false;
@@ -47,7 +47,18 @@ void CSceneGame::Init() {
 	//mPlane.Load("plane.obj", "plane.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
 	mCube.Load("Cube.obj", "Cube.mtl");
-	//Puddle.Load("sphere.obj", "sphere.mtl");
+	Puddle.Load("sphere.obj", "sphere.mtl");
+	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
+
+	mpPuddle = new CPuddle(&MudPuddle, CVector(-0.5f, 0.0f, -20.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle->mpModel = &Puddle;
+
+	mpPuddle1 = new CPuddle1(&MudPuddle, CVector(0.0f, 0.0f, 20.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle1->mpModel = &Puddle;
+
+	mpPuddle2 = new CPuddle2(&MudPuddle, CVector(-0.5f, 0.0f, 50.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	//mpPuddle2->mpModel = &Puddle;
+
 
 	CRes::sModelX.Load(MODEL_FILE);
 	CRes::sKnight.Load(MODEL_FILE2);
@@ -63,16 +74,17 @@ void CSceneGame::Init() {
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//10ダミー
 	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
-	new CPuddle(&Puddle, CVector(-0.5f,0.0f,-20.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
-	new CPuddle1(&Puddle, CVector(0.0f,0.0f,20.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
-	new CPuddle2(&Puddle, CVector(-0.5f,0.0f,50.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+
+	//new CPuddle(&Puddle, CVector(-0.5f, 0.0f, -20.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	//new CPuddle1(&Puddle, CVector(0.0f,0.0f,20.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+	//new CPuddle2(&Puddle, CVector(-0.5f,0.0f,50.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//キャラクターにモデルを設定する
 	mPlayer.Init(&CRes::sModelX);
 	mEnemy = new CXEnemy();
 	//敵の初期設定
 	mEnemy->Init(&CRes::sKnight);
-	
+
 	//敵の配置
 	mEnemy->mAnimationFrameSize = 1024;
 	mEnemy->mPosition = CVector(-10.0f, 0.0f, 55.0f);
@@ -80,24 +92,38 @@ void CSceneGame::Init() {
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
-	
+
 	//new CEye(&mCube, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(0.0f, 0.0f, 0.0f));
 
 	mMap = new CMap();
 
-  
+
 }
 
 
 void CSceneGame::Update() {
 
-		
+
+
+	if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EMUDPUDDLE){
+		mpPuddle->mpModel = &MudPuddle;
+	}
+
+	if (CPuddle1::mPuddle01->mPuddle1.mTag == CCollider::EMUDPUDDLE){
+		mpPuddle1->mpModel = &MudPuddle;
+	}
+
+	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
+		mpPuddle2->mpModel = &MudPuddle;
+	}
 	//歩くアニメーションに切り替える
 	//mCharacter.ChangeAnimation(1, true, 60);
 	//アニメーションを切り替える
 	//if (mPlayer.mAnimationFrame >= mPlayer.mAnimationFrameSize){
 	//	mPlayer.ChangeAnimation(mPlayer.mAnimationIndex + 1, true, 60);
 	//}
+
+
 
 	if (mEnd == false){
 		TaskManager.Update();
@@ -110,31 +136,31 @@ void CSceneGame::Update() {
 		}
 	}
 	//キャラクタークラスの更新
-	
+
 	mEye.Update();
 	//TaskManager.TaskCollision();
 	CollisionManager.Collision();
 	mEye.mPosition = mPlayer.mPosition;
-		//カメラのパラメータを作成する
-		CVector e, c, u;//視点、注視点、上方向
-		e = CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
+	//カメラのパラメータを作成する
+	CVector e, c, u;//視点、注視点、上方向
+	e = CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
 
-		c = mEye.mPosition;
+	c = mEye.mPosition;
 
-		//上方向を求める
-		u = CVector(0.0f, 1.0f, 0.0f)*mEye.mMatrixRotate;
-	
-		//
-		//視点を求める
-		//e = CVector(1.0f, 2.0f, 10.0f);
-		////注視点を求める
-		//c = CVector();
-		////上方向を求める
-		//u = CVector(0.0f, 1.0f, 0.0f);
-		//カメラの設定
-		
-		Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
-	
+	//上方向を求める
+	u = CVector(0.0f, 1.0f, 0.0f)*mEye.mMatrixRotate;
+
+	//
+	//視点を求める
+	//e = CVector(1.0f, 2.0f, 10.0f);
+	////注視点を求める
+	//c = CVector();
+	////上方向を求める
+	//u = CVector(0.0f, 1.0f, 0.0f);
+	//カメラの設定
+
+	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+
 	//行列設定
 	//glMultMatrixf(Matrix.mF);
 
@@ -142,8 +168,8 @@ void CSceneGame::Update() {
 	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
 	/*CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
 	CRes::sModelX.mAnimationSet[0]->mTime =
-		(int)CRes::sModelX.mAnimationSet[0]->mTime %
-		(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);*/
+	(int)CRes::sModelX.mAnimationSet[0]->mTime %
+	(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);*/
 	//最初のアニメーションの重みを1.0(100%)にする
 	//CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
 	//フレームの変換行列をアニメーションで更新する
@@ -159,9 +185,9 @@ void CSceneGame::Update() {
 
 	//コライダの描画
 	CollisionManager.Render();
-	
-	
-	
+
+
+
 	mSky.Render();
 	mPlane.Render();
 	//mEye.Render();

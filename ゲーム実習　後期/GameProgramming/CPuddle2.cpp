@@ -1,11 +1,13 @@
 #include"CPuddle2.h"
 #include"CXPlayer.h"
 #include"CKey.h"
+CPuddle2 *CPuddle2::mPuddle02 = 0;
 CPuddle2::CPuddle2(CModel*model, CVector position, CVector rotation, CVector scale)
-:mPuddle2(this, CVector(0.0f, 0.0f, -0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 1.0f)
+:mPuddle2(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
 
 
 {
+	mPuddle02 = this;
 	mPuddle2.mTag = CCollider::EPUDDLE2;
 
 	mpModel = model;  //ÉÇÉfÉãÇÃê›íË
@@ -13,14 +15,14 @@ CPuddle2::CPuddle2(CModel*model, CVector position, CVector rotation, CVector sca
 	mRotation = rotation;//âÒì]ÇÃê›íË
 	mScale = scale;   //ägèkÇÃê›íË
 
-	mScale = CVector(1.0f, 1.0f, 1.0f);
+	mScale = CVector(5.0f, 0.5f, 5.0f);
 }
 
 void CPuddle2::Set(const CVector &pos, float r){
 	mPosition = pos;
-	
+
 	mPuddle2.mRadius = r;
-	
+
 
 	CCharacter::Update();
 }

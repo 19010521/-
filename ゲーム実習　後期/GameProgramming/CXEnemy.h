@@ -12,6 +12,8 @@ public:
 	{
 		ENORMAL,//通常
 
+		EWALK,//歩く
+
 		ENEAR,//近ずく
 
 		EATTACK1,//突進
@@ -22,8 +24,10 @@ public:
 
 		EBACKFLIP,//後転
 
+		EWAIT,//待機
 
-	
+
+
 
 	};
 	Estate mstate;
@@ -36,11 +40,11 @@ public:
 	static CPoint *mPoint;
 	int Randam;
 	//CEnemy(モデル,位置,回転,拡縮)
-	
+
 	CXEnemy();
 	void Update();
 	CCollider mColSphereBody;//体
-	
+
 	CCollider mColSphereHead;   //頭
 	CCollider mColSphereSword0;  //剣
 	CCollider mColSphereSword1;  //剣1
@@ -54,8 +58,13 @@ public:
 	int mnearCountMax;
 	int mCount;
 	int mCountMax;
+	int fCount;
 	bool jflag;//ジャンプフラグ
-	bool lflag;//ジャンプフラグ
+	bool lflag;//後転フラグ
+	bool wflag;//止まるフラグ
+	bool mflag;//動くフラグ
+
+
 	static bool Attackflag;
 	void Init(CModelX*model);
 	//衝突処理

@@ -6,7 +6,7 @@
 class CPuddle2 :public CCharacter{
 public:
 	CCollider mPuddle2;
-
+	static CPuddle2*mPuddle02;
 	CPuddle2(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	void Set(const CVector &pos, float r);

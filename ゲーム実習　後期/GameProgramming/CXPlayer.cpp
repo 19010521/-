@@ -19,13 +19,13 @@ float CXPlayer::mHPNow = mHPMax;
 #define MOUSE_SENSE 4
 
 CXPlayer::CXPlayer()
-:mColSphereBody(this, CVector(0.0f,5.0f,0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
+:mColSphereBody(this, CVector(0.0f, 5.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
 , mColSphereLeg0(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mVelovcityJump(0), BulletCount(0), BulletCountMax(60), WaterCount(0), WaterCountMax(3), InvincibleCount(150)
-{	
+{
 	Damege = false;
 
 	jflag = false;
@@ -41,7 +41,7 @@ CXPlayer::CXPlayer()
 	mstate = ENORMAL;
 	//mColSphereSword.mTag = CCollider::ESWORD;
 	mColSphereBody.mTag = CCollider::EPLAYEREBODY;
-	
+
 
 }
 void CXPlayer::Init(CModelX*model){
@@ -86,12 +86,12 @@ void CXPlayer::Update(){
 			CBullet*bullet = new CBullet();
 			bullet->Set(0.1f, 1.5f);
 			bullet->mPosition = CVector(0.0f, 0.0f, 10.0f)*CMatrix().RotateY(s)*mMatrix;
-			bullet->mRotation = CVector(0.0f,s,0.0f);
+			bullet->mRotation = CVector(0.0f, s, 0.0f);
 			//mFireCount = 60;
 		}
 	}
-	
-	if (mAnimationIndex != 11 && mstate == EMUD||mstate==EINVINCIBLE){
+
+	if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
 		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
 			mRotation.mY = CEye::mpthis->mRotation.mY;
@@ -103,6 +103,7 @@ void CXPlayer::Update(){
 			if (CKey::Push('S')){
 
 				mRotation.mY += 180;
+
 				mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
 			}
 
@@ -155,7 +156,7 @@ void CXPlayer::Update(){
 		}
 	}
 
-	if (mAnimationIndex != 11&&mstate==ENORMAL){
+	if (mAnimationIndex != 11 && mstate == ENORMAL){
 		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
 			mRotation.mY = CEye::mpthis->mRotation.mY;
@@ -165,8 +166,8 @@ void CXPlayer::Update(){
 			mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 
 			if (CKey::Push('S')){
+				mRotation.mY = +180;
 
-				mRotation.mY += 180;
 				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 			}
 
@@ -214,13 +215,13 @@ void CXPlayer::Update(){
 
 		/*if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
 
-			if (mAnimationIndex == 0 || mAnimationIndex == 1){
-			ChangeAnimation(3, false, 30);
-			}
-			}*/
-	
-		
-	
+		if (mAnimationIndex == 0 || mAnimationIndex == 1){
+		ChangeAnimation(3, false, 30);
+		}
+		}*/
+
+
+
 		if (waterflag == true && WaterCount > 0){
 
 			if (BulletCount > 0 && jflag == false){
@@ -241,32 +242,33 @@ void CXPlayer::Update(){
 				if (WaterCount <= 0){
 					waterflag = false;
 				}
-				
+
 			}
-				//マウスの左入力で弾発射
-				else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
+			//マウスの左入力で弾発射
+			else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
 
 
-					CWaterGun*bullet = new CWaterGun();
-					bullet->Set(0.1f, 1.5f);
-					bullet->mPosition = CVector(0.0f, 1.0f, 1.0f)*mMatrix;
-					//bullet->mRotation = mRotation;
-					bullet->mForward = bullet->mForward*mMatrixRotate;
-					BulletCount = BulletCountMax;
-
-					waterflag = false;
-					
-					//bullet->mTag = CCharacter::;
+				CWaterGun*bullet = new CWaterGun();
+				bullet->Set(0.1f, 1.5f);
+				bullet->mPosition = CVector(0.0f, 1.0f, 1.0f)*mMatrix;
+				//bullet->mRotation = mRotation;
+				bullet->mForward = bullet->mForward*mMatrixRotate;
+				BulletCount = BulletCountMax;
 
 
-					/*if (mAIM == true){
-					mRotation.mX -= 20;
-					mRotation.mY -= 20;
-					}*/
+				waterflag = false;
 
-				}
+				//bullet->mTag = CCharacter::;
+
+
+				/*if (mAIM == true){
+				mRotation.mX -= 20;
+				mRotation.mY -= 20;
+				}*/
+
 			}
-		
+		}
+
 
 	}
 	//ジャンプ
@@ -279,7 +281,7 @@ void CXPlayer::Update(){
 
 	}
 	else if (CKey::Once(VK_SPACE)){
-		if (jflag == false&&mstate==ENORMAL){
+		if (jflag == false && mstate == ENORMAL){
 			mVelovcityJump = JUMPV0;
 			mPosition.mY += mVelovcityJump;
 			jflag = true;
@@ -307,20 +309,21 @@ void CXPlayer::Update(){
 		}
 
 	}
-	
-	
+
+
 	if (Damege == true){
 		mHPNow -= 20;
 		Damege = false;
 		mstate = EINVINCIBLE;
 	}
 
-		CXCharacter::Update();
-		
+	CXCharacter::Update();
+
 }
-	
+
+
 void CXPlayer::Collision(CCollider*mc, CCollider*yc){
-	
+
 	//自身コライダの判定タイプ
 	switch (mc->mType){
 	case CCollider::ESPHERE://球コライダ
@@ -343,8 +346,8 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(mc, yc)){
 
-			
-			if (yc->mTag == CCollider::EPUDDLE0 || yc->mTag == CCollider::EPUDDLE1 || yc->mTag == CCollider::EPUDDLE2  ){
+
+			if (yc->mTag == CCollider::EPUDDLE0 || yc->mTag == CCollider::EPUDDLE1 || yc->mTag == CCollider::EPUDDLE2){
 				if (mstate != EMUD){
 					if (waterflag == false){
 						//水をくむ
@@ -356,20 +359,20 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 				}
 			}
 
-				//衝突したコライダの親の種類を判定
-				switch (yc->mpParent->mTag){
-				case EENEMY:
-					if (yc->mTag == CCollider::EENEMYBODY){
-						if (mstate != EINVINCIBLE){
-							if (CXEnemy::Attackflag == false){
-								Damege = true;
+			//衝突したコライダの親の種類を判定
+			switch (yc->mpParent->mTag){
+			case EENEMY:
+				if (yc->mTag == CCollider::EENEMYBODY){
+					if (mstate != EINVINCIBLE){
+						if (CXEnemy::Attackflag == false){
+							Damege = true;
 
-								mstate = EMUD;
+							mstate = EMUD;
 
-							}
 						}
-						break;
 					}
+					break;
+				}
 			}
 		}
 	}

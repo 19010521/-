@@ -1,8 +1,10 @@
 #include"CPuddle.h"
 #include"CXPlayer.h"
 #include"CKey.h"
+
+CPuddle *CPuddle::mPuddle = 0;
 CPuddle::CPuddle(CModel*model, CVector position, CVector rotation, CVector scale)
-:mPuddle0(this, CVector(0.0f, 1.0f, -1.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 1.0f)
+:mPuddle0(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
 
 
 {
@@ -12,36 +14,36 @@ CPuddle::CPuddle(CModel*model, CVector position, CVector rotation, CVector scale
 	mRotation = rotation;//‰ñ“]‚ÌÝ’è
 	mScale = scale;   //Šgk‚ÌÝ’è
 
-	mScale = CVector(1.0f, 1.0f, 1.0f);
-
+	mScale = CVector(5.0f, 0.5f, 5.0f);
+	mPuddle = this;
 }
 
 
 void CPuddle::Set(const CVector &pos, float r){
+
 	mPosition = pos;
 	mPuddle0.mRadius = r;
 
 	CCharacter::Update();
 }
 
-void CPuddle::Collision(CCollider*m, CCollider*y){
 
+void CPuddle::Collision(CCollider*m, CCollider*y){
 	//‹¤‚É‹…ƒRƒ‰ƒCƒ_‚ÌŽž
 	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
 		//ƒRƒ‰ƒCƒ_‚Ì‚‚Æ‚™‚ªÕ“Ë‚µ‚Ä‚¢‚é‚©”»’è
 		if (CCollider::Collision(m, y)){
 			if (m->mTag == CCollider::EPUDDLE0){
-					if (y->mTag == CCollider::EPLAYEREBODY){
-						if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EMUD){
+				if (y->mTag == CCollider::EPLAYEREBODY){
+					if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EMUD){
 						if (CKey::Once('Q')){
 							CXPlayer::mpxPlayer->mstate = CXPlayer::mpxPlayer->ENORMAL;
 							mPuddle0.mTag = CCollider::EMUDPUDDLE;
 							//mEnabled = false;
 						}
 					}
+				}
 			}
-		  }
-	   
-	 }
-  }
+		}
+	}
 }

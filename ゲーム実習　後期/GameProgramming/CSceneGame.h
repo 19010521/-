@@ -22,17 +22,26 @@ public:
 	CXPlayer mPlayer;
 	//敵のインスタンス
 	CXEnemy *mEnemy;
-	 
+
 	int mMouseX;
 	int mMouseY;
+
 	CEye mEye;
 	CMap *mMap;
-	
+
 	CModel mCube;
 	CModel Puddle;
-	//CPuddle *mPuddle;
-	//CPuddle1 *mPuddle1;
-	//CPuddle2 *mPuddle2;
+	CModel MudPuddle;
+
+	CModel Puddle1;
+	CModel MudPuddle1;
+
+	CModel Puddle2;
+	CModel MudPuddle2;
+
+	CPuddle *mpPuddle;
+	CPuddle1 *mpPuddle1;
+	CPuddle2 *mpPuddle2;
 	EScene GetNextScene();
 	static int frame;//フレーム数のカウント
 	static bool Countf;

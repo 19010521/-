@@ -16,17 +16,17 @@ public:
 		ENORMAL,//ノーマル
 
 		EMUD,  //泥
-		 
+
 		EDESU, //死んだ
 
 		EINVINCIBLE, //無敵
-		
+
 	};
 	Estate mstate;
 	//デフォルトコンストラクタ
 	CXPlayer();
 	CMatrix Matrix;
-	
+
 	//コライダの宣言
 	CCamera mCamera;
 	CCollider mColSphereBody;   //体
@@ -39,7 +39,7 @@ public:
 	CEye mEye;
 
 	static CXPlayer *mpxPlayer;
-	
+
 	void Init(CModelX*model);
 
 	//更新処理
@@ -49,7 +49,7 @@ public:
 
 	static float mHPMax;//プレイヤーのHP
 	static float mHPNow;
-	
+
 	float mVelovcityJump;
 	int BulletCount;
 	int BulletCountMax;
@@ -60,7 +60,7 @@ public:
 	bool jflag;//ジャンプフラグ
 	bool waterflag;//水汲みフラグ
 	bool Damege;//ダメージ
-	
+
 	void Collision(CCollider*mc, CCollider*yc);
 
 };
