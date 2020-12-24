@@ -26,11 +26,9 @@ public:
 
 		EWAIT,//待機
 
-
-
-
 	};
 	Estate mstate;
+
 
 	static int mPointSize;//ポイントの数
 	CPoint*mpPoint;//目指すポイント
@@ -59,6 +57,8 @@ public:
 	int mCount;
 	int mCountMax;
 	int fCount;
+	int fCountMax;
+	bool nflag;//気づいたフラグ
 	bool jflag;//ジャンプフラグ
 	bool lflag;//後転フラグ
 	bool wflag;//止まるフラグ

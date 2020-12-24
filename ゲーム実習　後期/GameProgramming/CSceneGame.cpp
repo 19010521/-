@@ -13,6 +13,7 @@
 #include"CInput.h"
 #include"CObj.h"
 #include"CKey.h"
+#include"CRock.h"
 
 
 CMatrix Matrix;
@@ -45,6 +46,9 @@ void CSceneGame::Init() {
 	CXEnemy::mPoint[1].Set(CVector(35.0f, 5.0f, 0.0f), 10.0f);
 	CXEnemy::mPoint[2].Set(CVector(-35.0f, 5.0f, 50.0f), 10.0f);
 	//mPlane.Load("plane.obj", "plane.mtl");
+
+	mRock.Load("Rock1.obj", "Rock1.mtl");
+
 	mSky.Load("sky.obj", "sky.mtl");
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
@@ -75,12 +79,26 @@ void CSceneGame::Init() {
 	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
 
+	new CRock(&mRock, CVector(40.0f, 0.0f, -70.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
+	new CObj(&mCube, CVector(70.0f, 0.0f, -20.0), CVector(), CVector(55.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
+
+	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
+
+	//new CRock2(&mRock, CVector(-140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
+	//new CRock2(&mRock, CVector(-140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
+	//new CRock2(&mRock, CVector(140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
+	//new CRock2(&mRock, CVector(140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
+
 	//new CPuddle(&Puddle, CVector(-0.5f, 0.0f, -20.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	//new CPuddle1(&Puddle, CVector(0.0f,0.0f,20.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 	//new CPuddle2(&Puddle, CVector(-0.5f,0.0f,50.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//キャラクターにモデルを設定する
 	mPlayer.Init(&CRes::sModelX);
+	mPlayer.mPosition = CVector(0.0f, 0.0f, -80);
 	mEnemy = new CXEnemy();
 	//敵の初期設定
 	mEnemy->Init(&CRes::sKnight);
@@ -89,6 +107,11 @@ void CSceneGame::Init() {
 	mEnemy->mAnimationFrameSize = 1024;
 	mEnemy->mPosition = CVector(-10.0f, 0.0f, 55.0f);
 	mEnemy->ChangeAnimation(2, true, 200);
+
+	mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+	
+	
+
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -103,8 +126,7 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 
-
-
+	
 	if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle->mpModel = &MudPuddle;
 	}
@@ -116,6 +138,7 @@ void CSceneGame::Update() {
 	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle2->mpModel = &MudPuddle;
 	}
+
 	//歩くアニメーションに切り替える
 	//mCharacter.ChangeAnimation(1, true, 60);
 	//アニメーションを切り替える
@@ -149,16 +172,18 @@ void CSceneGame::Update() {
 
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f)*mEye.mMatrixRotate;
+	
+	if (CKey::Push('M')){
 
-	//
-	//視点を求める
-	//e = CVector(1.0f, 2.0f, 10.0f);
-	////注視点を求める
-	//c = CVector();
-	////上方向を求める
-	//u = CVector(0.0f, 1.0f, 0.0f);
-	//カメラの設定
 
+		//視点を求める
+		e = CVector(0.0f, 200.0f, -1.0f);
+		//注視点を求める
+		c = CVector();
+		//上方向を求める
+		u = CVector(0.0f, 1.0f, 0.0f);
+		//カメラの設定
+	}
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
 	//行列設定

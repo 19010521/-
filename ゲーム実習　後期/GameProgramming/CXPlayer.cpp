@@ -7,9 +7,7 @@
 #include"CSceneGame.h"
 #include"CBullet.h"
 #include"CCollisionManager.h"
-
 #include"CEye.h"
-
 CXPlayer *CXPlayer::mpxPlayer = 0;
 float CXPlayer::mHPMax = 100;
 float CXPlayer::mHPNow = mHPMax;
@@ -166,7 +164,7 @@ void CXPlayer::Update(){
 			mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 
 			if (CKey::Push('S')){
-				mRotation.mY = +180;
+				mRotation.mY += 180;
 
 				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 			}
@@ -244,7 +242,7 @@ void CXPlayer::Update(){
 				}
 
 			}
-			//マウスの左入力で弾発射
+			//マウスの左入力で全弾発射
 			else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
 
 
@@ -312,8 +310,11 @@ void CXPlayer::Update(){
 
 
 	if (Damege == true){
+
 		mHPNow -= 20;
+		
 		Damege = false;
+		
 		mstate = EINVINCIBLE;
 	}
 
@@ -347,15 +348,43 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		if (CCollider::Collision(mc, yc)){
 
 
-			if (yc->mTag == CCollider::EPUDDLE0 || yc->mTag == CCollider::EPUDDLE1 || yc->mTag == CCollider::EPUDDLE2){
+			
 				if (mstate != EMUD){
 					if (waterflag == false){
-						//水をくむ
-						if (CKey::Once('Q')){
-							waterflag = true;
-							WaterCount = WaterCountMax;
+						if (yc->mTag == CCollider::EPUDDLE0){
+								//水をくむ
+							if (CKey::Once('Q')){
+								if (CPuddle::mPuddle->UseCount > 0){
+									
+									waterflag = true;
+									WaterCount = WaterCountMax;
+									CPuddle::mPuddle->UseCount--;
+									
+								}
+							}
 						}
-					}
+							else if (yc->mTag == CCollider::EPUDDLE1){
+							
+									//水をくむ
+									if (CKey::Once('Q')){
+										if (CPuddle1::mPuddle01->UseCount > 0){
+										waterflag = true;
+										WaterCount = WaterCountMax;
+										CPuddle1::mPuddle01->UseCount--;
+									}
+								}
+							}
+							else if (yc->mTag == CCollider::EPUDDLE2){
+								
+									//水をくむ
+									if (CKey::Once('Q')){
+										if (CPuddle2::mPuddle02->UseCount > 0){
+										waterflag = true;
+										WaterCount = WaterCountMax;
+										CPuddle2::mPuddle02->UseCount--;
+									}
+								}
+							}
 				}
 			}
 

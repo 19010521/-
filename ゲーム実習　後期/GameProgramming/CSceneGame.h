@@ -3,6 +3,7 @@
 #include "CScene.h"
 #include"CXPlayer.h"
 #include"CXEnemy.h"
+#include"CXEnemy1.h"
 #include "CXPlayer.h"
 #include "CMap.h"
 #include"CPuddle.h"
@@ -22,13 +23,18 @@ public:
 	CXPlayer mPlayer;
 	//敵のインスタンス
 	CXEnemy *mEnemy;
+	CXEnemy1*mEnemy1;
 
 	int mMouseX;
 	int mMouseY;
 
+	
+
+
 	CEye mEye;
 	CMap *mMap;
 
+	CModel mRock;
 	CModel mCube;
 	CModel Puddle;
 	CModel MudPuddle;

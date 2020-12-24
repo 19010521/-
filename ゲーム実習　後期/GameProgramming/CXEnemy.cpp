@@ -19,14 +19,16 @@ CXEnemy::CXEnemy()
 , mColSphereSword0(this, CVector(0.7f, 3.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword1(this, CVector(0.5f, 2.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword2(this, CVector(0.3f, 1.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
-//, mSearch(this, CVector(0.0f, 0.0f, -15.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f,1.0f,1.0f), 20.0f)
-//, mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
-, mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(60)
+, mSearch(this, CVector(0.0f, 0.0f, -15.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
+, mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
+, mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
 {
 	jflag = false;
 	Attackflag = false;
+
 	mflag = false;
 
+	nflag = false;
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
 
 	mTag = EENEMY;
@@ -77,58 +79,56 @@ void CXEnemy::Update(){
 	//歩く
 	if (mAnimationIndex != 11 && mAnimationIndex != 7){
 		if (mstate == ENORMAL){
-			ChangeAnimation(1, true, 60);
-			//ポイントへのベクトルを求める
-			CVector dir = mpPoint->mPosition - mPosition;
-			//左方向のベクトルを求める
-			CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
-			//CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
-			//上方向のベクトルを求める
-			//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
-			//左右の回転処理(Y軸)
+			if (nflag == false){
+				ChangeAnimation(1, true, 60);
+				//ポイントへのベクトルを求める
+				CVector dir = mpPoint->mPosition - mPosition;
+				//左方向のベクトルを求める
+				CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
+				//CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
+				//上方向のベクトルを求める
+				//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
+				//左右の回転処理(Y軸)
 
-			if (left.Dot(dir) > 0.0f){
-				mRotation.mY -= 1.0f;
+				if (left.Dot(dir) > 0.0f){
+					mRotation.mY -= 1.0f;
+				}
+				else if (left.Dot(dir) < 0.0f){
+					mRotation.mY += 1.0f;
+				}
 			}
-			else if (left.Dot(dir) < 0.0f){
-				mRotation.mY += 1.0f;
-			}
-
 		}
 	}
-	if (mflag == true){
+	if (nflag == false){
 		if (fCount>0){
 			fCount--;
 
 		}
-		else
-		{
-			mflag = false;
-		}
-	}
-
-	if (mflag == true){
-		mstate = EWAIT;
-	}
-	//待機
-	if (mstate == EWAIT){
-		ChangeAnimation(2, false, 30);
-		if (mAnimationFrame >= mAnimationFrameSize){
-			mstate = ENORMAL;
+		//待機
+		else {
+			mstate = EWAIT;
 		}
 
+		if (mstate == EWAIT){
+			ChangeAnimation(2, false, 300);
+			if (mAnimationFrame >= mAnimationFrameSize){
+				fCount = fCountMax;
+				mstate = ENORMAL;
+			}
+		}
 	}
-
 	//ジャンプ
 	if (jflag == false){
 		mPosition.mY += mVelovcityJump;
 		mVelovcityJump -= G;
 	}
 
+
 	if (jflag == true){
 		mPosition.mY += mVelovcityJump;
-		mstate = ENORMAL;
+		//mstate = ENORMAL;
 	}
+
 
 	else if (mstate == EJUNP){
 
@@ -138,6 +138,7 @@ void CXEnemy::Update(){
 			jflag = true;
 		}
 	}
+
 
 
 	//後転
@@ -171,8 +172,8 @@ void CXEnemy::Update(){
 			}
 		}
 	}
-	//近ずくよ
 
+	//近ずくよ
 	if (mstate == ENEAR){
 
 		CVector dir = CXPlayer::mpxPlayer->mPosition - mPosition;
@@ -217,6 +218,7 @@ void CXEnemy::Update(){
 			bullet->Set(0.1f, 1.5f);
 			bullet->mPosition = CVector(0.0f, 0.0f, 10.0f)*CMatrix().RotateY(s)*mMatrix;
 			bullet->mRotation = CVector(0.0f, s, 0.0f);
+			mstate = ENORMAL;
 
 		}
 	}
@@ -255,9 +257,11 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 			//コライダがサーチか判定
 			if (m->mTag == CCollider::ESEARCH){
+				
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPLAYER:
+					
 					//位置を移動
 					CVector dir = CXPlayer::mpxPlayer->mPosition - mPosition;
 
@@ -268,8 +272,21 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					else if (left.Dot(dir) < 0.0f){
 						mRotation.mY += 1.0f;
 					}
-
+					break;
+					
 				}
+				//プレイヤーの時
+				if (y->mTag == CCollider::EPLAYEREBODY){
+					//衝突している時は無効にする
+					nflag = true;
+				}
+
+				else
+				
+				{
+					nflag = false;
+				}
+
 
 			}
 			//コライダがサーチか判定
@@ -316,23 +333,20 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 			}
 
 			else{
+				
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPOINT://ポイントの時
 					//衝突したポインタと目指しているポインタが同じとき
 					if (y->mpParent == mpPoint){
-						if (mflag == false){
-							mflag = true;
-						}
-						if (mstate == ENORMAL){
-							mPointCnt++;//次のポイントにする
-							//最後だったら最初にする
-							mPointCnt %= mPointSize;
-							//次のぽいんとのポインタを設定
-							mpPoint = &mPoint[mPointCnt];
-						}
 
+						mPointCnt++;//次のポイントにする
+						//最後だったら最初にする
+						mPointCnt %= mPointSize;
+						//次のぽいんとのポインタを設定
+						mpPoint = &mPoint[mPointCnt];
 					}
+
 					break;
 
 				}
@@ -373,6 +387,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				if (CCollider::CollisionTriangleSphere(y, m, &adjust)){
 					if (mstate == EJUNP){
 						mstate = ELANDING;
+						//mstate = ENORMAL;
 					}
 					jflag = false;
 					lflag = false;

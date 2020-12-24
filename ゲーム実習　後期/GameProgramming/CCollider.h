@@ -24,7 +24,7 @@ public:
 		EPUDDLE2,//…‚½‚Ü‚è
 		EPUDDLE3,//…‚½‚Ü‚è
 		EMUDPUDDLE,//Žg‚¦‚È‚­‚È‚Á‚½…‚½‚Ü‚è
-
+		EROCK,//Šâ
 		EWATER,//…
 		ESWORD,//Œ•
 	};

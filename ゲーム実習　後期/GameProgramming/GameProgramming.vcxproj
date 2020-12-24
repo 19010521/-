@@ -104,9 +104,11 @@
     <ClCompile Include="CPuddle1.cpp" />
     <ClCompile Include="CPuddle2.cpp" />
     <ClCompile Include="CRectangle.cpp" />
+    <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
+    <ClCompile Include="CXEnemy1.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="CRes.cpp" />
     <ClCompile Include="CScene.cpp" />
@@ -145,10 +147,12 @@
     <ClInclude Include="CPuddle1.h" />
     <ClInclude Include="CPuddle2.h" />
     <ClInclude Include="CRectangle.h" />
+    <ClInclude Include="CRock.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CVertex.h" />
     <ClInclude Include="CXEnemy.h" />
+    <ClInclude Include="CXEnemy1.h" />
     <ClInclude Include="CXPlayer.h" />
     <ClInclude Include="CRes.h" />
     <ClInclude Include="CScene.h" />

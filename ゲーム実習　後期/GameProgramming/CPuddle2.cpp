@@ -4,9 +4,12 @@
 CPuddle2 *CPuddle2::mPuddle02 = 0;
 CPuddle2::CPuddle2(CModel*model, CVector position, CVector rotation, CVector scale)
 :mPuddle2(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
-
+, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f)
 
 {
+
+	CountRetention = UseCount;
+
 	mPuddle02 = this;
 	mPuddle2.mTag = CCollider::EPUDDLE2;
 
@@ -24,9 +27,19 @@ void CPuddle2::Set(const CVector &pos, float r){
 	mPuddle2.mRadius = r;
 
 
-	CCharacter::Update();
+	
 }
 
+void CPuddle2::Update(){
+
+	CCharacter::Update();
+
+	if (CountRetention > UseCount){
+		mScale = CVector(x -= 2.0f, y, z -= 2.0f);
+		CountRetention = UseCount;
+	}
+
+}
 void CPuddle2::Collision(CCollider*m, CCollider*y){
 
 	//‹¤‚É‹…ƒRƒ‰ƒCƒ_‚ÌŽž

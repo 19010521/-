@@ -7,13 +7,15 @@ class CPuddle :public CCharacter{
 public:
 	CCollider mPuddle0;
 	static CPuddle*mPuddle;
-	CPuddle(CModel*model, CVector position, CVector rotation, CVector scale);
 
+	CPuddle(CModel*model, CVector position, CVector rotation, CVector scale);
+	int UseCount;//使用回数
+	int CountRetention;//カウント保持
 	void Set(const CVector &pos, float r);
 
 	void Collision(CCollider*m, CCollider*y);
-
-	//void Update();
+	float x, y, z;
+	void Update();
 	//void Render();
 
 };

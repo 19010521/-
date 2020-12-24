@@ -11,9 +11,12 @@ public:
 
 	void Set(const CVector &pos, float r);
 
-	void Collision(CCollider*m, CCollider*y);
+	int UseCount;//使用回数
+	int CountRetention;//カウント保持
 
-	//void Update();
+	void Collision(CCollider*m, CCollider*y);
+	float x, y, z;
+	void Update();
 
 };
 #endif

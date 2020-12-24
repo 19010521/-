@@ -8,12 +8,15 @@ public:
 	CCollider mPuddle1;
 	static CPuddle1*mPuddle01;
 	CPuddle1(CModel*model, CVector position, CVector rotation, CVector scale);
-
+	
 	void Set(const CVector &pos, float r);
 
-	void Collision(CCollider*m, CCollider*y);
+	int UseCount;//使用回数
+	int CountRetention;//カウント保持
 
-	//void Update();
+	void Collision(CCollider*m, CCollider*y);
+	float x, y, z;
+	void Update();
 
 };
 #endif
