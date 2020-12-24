@@ -28,7 +28,8 @@ public:
 	int mMouseX;
 	int mMouseY;
 
-	
+	//•Ç
+	CCollider mCollider[14];
 
 
 	CEye mEye;
@@ -36,6 +37,7 @@ public:
 
 	CModel mRock;
 	CModel mCube;
+	
 	CModel Puddle;
 	CModel MudPuddle;
 

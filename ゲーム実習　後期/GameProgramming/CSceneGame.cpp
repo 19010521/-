@@ -48,7 +48,7 @@ void CSceneGame::Init() {
 	//mPlane.Load("plane.obj", "plane.mtl");
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
-
+	mPlane.Load("plane.obj", "plane.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
@@ -78,14 +78,33 @@ void CSceneGame::Init() {
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//10ダミー
 	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
-
-	new CRock(&mRock, CVector(40.0f, 0.0f, -70.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
+	
+	new CRock(&mRock, CVector(60.0f, 0.0f, -60.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
 	new CObj(&mCube, CVector(70.0f, 0.0f, -20.0), CVector(), CVector(55.0f, 10.0f, 1.0f));
 	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
 	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
-
 	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 10.0f, 1.0f));
 	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
+
+	new CObj(&mCube, CVector(15.0f, 0.0f, 0.0), CVector(), CVector(1.0f, 10.0f, 20.0f));
+	new CObj(&mCube, CVector(-5.0f, 0.0f, -10.0), CVector(), CVector(1.0f, 10.0f, 10.0f));
+
+	new CObj(&mCube, CVector(-10.0f, 0.0f, 20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-65.0f, 0.0f, 3.0), CVector(0.0f, 3.0f, 0.0f), CVector(60.0f, 10.0f, 1.0f));
+
+	new CObj(&mCube, CVector(-30.0f, 0.0f, 50.0), CVector(0.0f,10.0f,0.0f), CVector(1.0f, 10.0f, 30.0f));
+	new CObj(&mCube, CVector(-45.0f, 0.0f, 50.0), CVector(0.0f, 10.0f, 0.0f), CVector(1.0f, 10.0f, 30.0f));
+	new CObj(&mCube, CVector(-75.0f, 0.0f, 22.0), CVector(0.0f, 5.0f, 0.0f), CVector(25.0f, 10.0f, 1.0f));
+
+	new CObj(&mCube, CVector(-105.0f, 0.0f, 43.0), CVector(0.0f, -10.0f, 0.0f), CVector(1.0f, 10.0f, 20.0f));
+	new CObj(&mCube, CVector(-120.0f, 0.0f, 50.0), CVector(0.0f, 3.0f, 0.0f), CVector(1.0f, 10.0f, 45.0f));
+
+	new CObj(&mCube, CVector(-75.0f, 0.0f, 70.0), CVector(0.0f, -12.0f, 0.0f), CVector(35.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(10.0f, 0.0f, 70.0), CVector(0.0f, 20.0f, 0.0f), CVector(35.0f, 10.0f, 1.0f));
+
+	new CObj(&mCube, CVector(112.0f, 0.0f, 45.0), CVector(0.0f, 12.0f, 0.0f), CVector(1.0f, 10.0f, 60.0f));
+	new CObj(&mCube, CVector(70.0f, 0.0f, 110.0), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 10.0f, 1.0f));
 
 	//new CRock2(&mRock, CVector(-140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
 	//new CRock2(&mRock, CVector(-140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
@@ -214,7 +233,7 @@ void CSceneGame::Update() {
 
 
 	mSky.Render();
-	mPlane.Render();
+	//mPlane.Render();
 	//mEye.Render();
 
 

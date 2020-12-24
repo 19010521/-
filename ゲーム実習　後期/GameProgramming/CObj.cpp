@@ -2,13 +2,13 @@
 //コンストラクタ
 //model:モデルポインタ posision:位置 rotation:回転 scale:拡縮
 CObj::CObj(CModel*model, const CVector &position, const CVector &rotation, const CVector &scale)
-:mpCollider(0), mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 9.0f)
+:mpCollider(0)//, mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 9.0f)
 {
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
 	mScale = scale;
-	mPuddle.mTag = CCollider::EPUDDLE0;
+	//mPuddle.mTag = CCollider::EPUDDLE0;
 
 	//モデルの三角形の数分,コライダの配列を作成します
 	mpCollider = new CCollider[model->mTriangles.size()];
