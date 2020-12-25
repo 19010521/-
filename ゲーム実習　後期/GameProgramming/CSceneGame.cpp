@@ -14,6 +14,7 @@
 #include"CObj.h"
 #include"CKey.h"
 #include"CRock.h"
+#include"CRock2.h"
 
 
 CMatrix Matrix;
@@ -80,7 +81,11 @@ void CSceneGame::Init() {
 
 	
 	new CRock(&mRock, CVector(60.0f, 0.0f, -60.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
-	new CObj(&mCube, CVector(70.0f, 0.0f, -20.0), CVector(), CVector(55.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(20.0f, 1.0f, 1.0f));
+	//new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(10.0f, 1.0f, 1.0f));
+	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0), CVector(), CVector(15.0f, 1.0f, 1.0f));
+	new CObj(&mCube, CVector(65.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 1.0f, 25.0f));
+	new CObj(&mCube, CVector(45.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 1.0f, 25.0f));
 	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
 	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
 	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 10.0f, 1.0f));

@@ -1,0 +1,69 @@
+﻿2020/12/25 9:07:35 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CRock2.cpp CSceneGame.cpp
+         CRock2.cpp
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(66): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(147): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(222): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(225): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(226): warning C4150: 'CMaterial' 型を削除するため delete 演算子が呼び出されましたが、定義がありません。
+                 c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CMyShader.h(7) : 'CMaterial' の宣言を確認してください。
+         CSceneGame.cpp
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(66): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(147): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(222): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(225): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+     1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(226): warning C4150: 'CMaterial' 型を削除するため delete 演算子が呼び出されましたが、定義がありません。
+                 c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CMyShader.h(7) : 'CMaterial' の宣言を確認してください。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.exe" /INCREMENTAL:NO /NOLOGO glew32.lib glfw3.lib glfw3dll.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.lib" /MACHINE:X86 /SAFESEH Release\CBillBoard.obj
+         Release\CBullet.obj
+         Release\CCamera.obj
+         Release\CCharacter.obj
+         Release\CCollider.obj
+         Release\CCollisionManager.obj
+         Release\CEffect.obj
+         Release\CEye.obj
+         Release\CInput.obj
+         Release\CKey.obj
+         Release\CMap.obj
+         Release\CMaterial.obj
+         Release\CMatrix.obj
+         Release\CModel.obj
+         Release\CModelX.obj
+         Release\CMyShader.obj
+         Release\CObj.obj
+         Release\CPoint.obj
+         Release\CPuddle.obj
+         Release\CPuddle1.obj
+         Release\CPuddle2.obj
+         Release\CRectangle.obj
+         Release\CRock.obj
+         Release\CRock2.obj
+         Release\CSceneTitle.obj
+         Release\CShader.obj
+         Release\CXEnemy.obj
+         Release\CXEnemy1.obj
+         Release\CXPlayer.obj
+         Release\CRes.obj
+         Release\CScene.obj
+         Release\CSceneGame.obj
+         Release\CSceneManager.obj
+         Release\CTaskManager.obj
+         Release\CText.obj
+         Release\CTexture.obj
+         Release\CTransform.obj
+         Release\CTriangle.obj
+         Release\CVector.obj
+         Release\CXCharacter.obj
+         Release\main.obj
+         Release\CWaterGun.obj
+         コード生成しています。
+         コード生成が終了しました。
+         GameProgramming.vcxproj -> C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.exe
+     1>プロジェクト "C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:02.17
