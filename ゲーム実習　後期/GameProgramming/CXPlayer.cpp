@@ -269,22 +269,22 @@ void CXPlayer::Update(){
 
 
 	}
-	//ジャンプ
-	if (jflag == false){
-		mPosition.mY += mVelovcityJump;
-		mVelovcityJump -= G;
-	}
-	if (jflag == true){
-		mPosition.mY += mVelovcityJump;
+	////ジャンプ
+	//if (jflag == false){
+	//	mPosition.mY += mVelovcityJump;
+	//	mVelovcityJump -= G;
+	//}
+	//if (jflag == true){
+	//	mPosition.mY += mVelovcityJump;
 
-	}
-	else if (CKey::Once(VK_SPACE)){
-		if (jflag == false && mstate == ENORMAL){
-			mVelovcityJump = JUMPV0;
-			mPosition.mY += mVelovcityJump;
-			jflag = true;
-		}
-	}
+	//}
+	//else if (CKey::Once(VK_SPACE)){
+	//	if (jflag == false && mstate == ENORMAL){
+	//		mVelovcityJump = JUMPV0;
+	//		mPosition.mY += mVelovcityJump;
+	//		jflag = true;
+	//	}
+	//}
 
 	if (mAnimationIndex == 11){
 		mstate = EDESU;

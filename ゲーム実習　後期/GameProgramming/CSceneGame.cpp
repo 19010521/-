@@ -81,35 +81,57 @@ void CSceneGame::Init() {
 
 	
 	new CRock(&mRock, CVector(60.0f, 0.0f, -60.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
-	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(20.0f, 1.0f, 1.0f));
-	//new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(10.0f, 1.0f, 1.0f));
-	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0), CVector(), CVector(15.0f, 1.0f, 1.0f));
-	new CObj(&mCube, CVector(65.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 1.0f, 25.0f));
-	new CObj(&mCube, CVector(45.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 1.0f, 25.0f));
-	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
-	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
-	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 10.0f, 1.0f));
-	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 10.0f, 60.0f));
+	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(20.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0), CVector(), CVector(13.0f, 5.0f, 1.5f));
+	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0), CVector(), CVector(15.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(32.0f, 0.0f, -20.0), CVector(), CVector(11.0f, 5.0f, 1.5f));
+	new CObj(&mCube, CVector(65.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 2.0f, 25.0f));
+	new CRock2(&mRock, CVector(65.0f, 0.0f, 5.0), CVector(), CVector(1.5f, 5.0f, 15.0f));
+	new CObj(&mCube, CVector(45.0f, 0.0f, 5.0), CVector(), CVector(1.0f, 2.0f, 25.0f));
+	new CRock2(&mRock, CVector(45.0f, 0.0f, 5.0), CVector(), CVector(1.5f, 5.0f, 15.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0), CVector(), CVector(25.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-14.0f, 0.0f, -20.0), CVector(), CVector(9.0f, 5.0f, 1.5f));
+	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 2.0f, 60.0f));
+	new CRock2(&mRock, CVector(100.0f, 0.0f, -78.0), CVector(), CVector(1.5f, 5.0f, 40.0f));
+	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(40.0f, 0.0f, -120.0), CVector(), CVector(80.0f, 5.0f, 1.5f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0), CVector(), CVector(1.0f, 2.0f, 60.0f));
+	new CRock2(&mRock, CVector(-30.0f, 0.0f, -70.0), CVector(), CVector(1.5f, 5.0f, 40.0f));
 
-	new CObj(&mCube, CVector(15.0f, 0.0f, 0.0), CVector(), CVector(1.0f, 10.0f, 20.0f));
-	new CObj(&mCube, CVector(-5.0f, 0.0f, -10.0), CVector(), CVector(1.0f, 10.0f, 10.0f));
+	new CObj(&mCube, CVector(15.0f, 0.0f, 0.0), CVector(), CVector(1.0f, 2.0f, 20.0f));
+	new CRock2(&mRock, CVector(15.0f, 0.0f, 0.0), CVector(), CVector(1.5f, 5.0f, 13.0f));
+	new CObj(&mCube, CVector(-5.0f, 0.0f, -10.0), CVector(), CVector(1.0f, 2.0f, 10.0f));
+	new CRock2(&mRock, CVector(-5.0f, 0.0f, -10.0), CVector(), CVector(1.5f, 5.0f, 7.0f));
 
-	new CObj(&mCube, CVector(-10.0f, 0.0f, 20.0), CVector(), CVector(25.0f, 10.0f, 1.0f));
-	new CObj(&mCube, CVector(-65.0f, 0.0f, 3.0), CVector(0.0f, 3.0f, 0.0f), CVector(60.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-10.0f, 0.0f, 20.0), CVector(), CVector(25.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-8.0f, 0.0f, 20.0), CVector(), CVector(18.0f,5.0f, 1.5f));
+	new CObj(&mCube, CVector(-65.0f, 0.0f, 3.0), CVector(0.0f, 3.0f, 0.0f), CVector(60.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-70.0f, 0.0f, 3.0), CVector(0.0f, 3.0f, 0.0f), CVector(50.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(-30.0f, 0.0f, 50.0), CVector(0.0f,10.0f,0.0f), CVector(1.0f, 10.0f, 30.0f));
-	new CObj(&mCube, CVector(-45.0f, 0.0f, 50.0), CVector(0.0f, 10.0f, 0.0f), CVector(1.0f, 10.0f, 30.0f));
-	new CObj(&mCube, CVector(-75.0f, 0.0f, 22.0), CVector(0.0f, 5.0f, 0.0f), CVector(25.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, 50.0), CVector(0.0f,10.0f,0.0f), CVector(1.0f, 2.0f, 30.0f));
+	new CRock2(&mRock, CVector(-30.0f, 0.0f, 51.0), CVector(0.0f, 10.0f, 0.0f), CVector(1.5f, 5.0f, 19.0f));
+	new CObj(&mCube, CVector(-45.0f, 0.0f, 50.0), CVector(0.0f, 10.0f, 0.0f), CVector(1.0f, 2.0f, 30.0f));
+	new CRock2(&mRock, CVector(-45.0f, 0.0f, 50.0), CVector(0.0f, 10.0f, 0.0f), CVector(1.5f, 5.0f, 19.0f));
+	new CObj(&mCube, CVector(-75.0f, 0.0f, 22.0), CVector(0.0f, 5.0f, 0.0f), CVector(25.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-75.0f, 0.0f, 22.0), CVector(0.0f, 5.0f, 0.0f), CVector(18.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(-105.0f, 0.0f, 43.0), CVector(0.0f, -10.0f, 0.0f), CVector(1.0f, 10.0f, 20.0f));
-	new CObj(&mCube, CVector(-120.0f, 0.0f, 50.0), CVector(0.0f, 3.0f, 0.0f), CVector(1.0f, 10.0f, 45.0f));
+	new CObj(&mCube, CVector(-105.0f, 0.0f, 43.0), CVector(0.0f, -10.0f, 0.0f), CVector(1.0f, 2.0f, 20.0f));
+	new CRock2(&mRock, CVector(-105.0f, 0.0f, 43.0), CVector(0.0f, -10.0f, 0.0f), CVector(1.5f, 5.0f, 14.0f));
+	new CObj(&mCube, CVector(-120.0f, 0.0f, 50.0), CVector(0.0f, 3.0f, 0.0f), CVector(1.0f, 2.0f, 45.0f));
+	new CRock2(&mRock, CVector(-120.0f, 0.0f, 50.0), CVector(0.0f, 3.0f, 0.0f), CVector(1.5f, 5.0f, 40.0f));
 
-	new CObj(&mCube, CVector(-75.0f, 0.0f, 70.0), CVector(0.0f, -12.0f, 0.0f), CVector(35.0f, 10.0f, 1.0f));
-	new CObj(&mCube, CVector(10.0f, 0.0f, 70.0), CVector(0.0f, 20.0f, 0.0f), CVector(35.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(-75.0f, 0.0f, 70.0), CVector(0.0f, -12.0f, 0.0f), CVector(35.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-75.0f, 0.0f, 70.0), CVector(0.0f, -12.0f, 0.0f), CVector(20.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(112.0f, 0.0f, 45.0), CVector(0.0f, 12.0f, 0.0f), CVector(1.0f, 10.0f, 60.0f));
-	new CObj(&mCube, CVector(70.0f, 0.0f, 110.0), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 10.0f, 1.0f));
-	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(10.0f, 0.0f, 70.0), CVector(0.0f, 20.0f, 0.0f), CVector(35.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(10.0f, 0.0f, 70.0), CVector(0.0f, 20.0f, 0.0f), CVector(25.0f, 5.0f, 1.5f));
+
+	new CObj(&mCube, CVector(112.0f, 0.0f, 45.0), CVector(0.0f, 12.0f, 0.0f), CVector(1.0f, 2.0f, 60.0f));
+	new CRock2(&mRock, CVector(112.0f, 0.0f, 45.0), CVector(0.0f, 12.0f, 0.0f), CVector(1.5f, 5.0f, 60.0f));
+	new CObj(&mCube, CVector(70.0f, 0.0f, 110.0), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(70.0f, 0.0f, 110.0), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 5.0f, 1.5f));
+	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 2.0f, 1.0f));
+	new CRock2(&mRock, CVector(-50.0f, 0.0f, 110.0), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.5f));
 
 	//new CRock2(&mRock, CVector(-140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
 	//new CRock2(&mRock, CVector(-140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
@@ -132,7 +154,7 @@ void CSceneGame::Init() {
 	mEnemy->mPosition = CVector(-10.0f, 0.0f, 55.0f);
 	mEnemy->ChangeAnimation(2, true, 200);
 
-	mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+
 	
 	
 
@@ -143,7 +165,6 @@ void CSceneGame::Init() {
 	//new CEye(&mCube, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(0.0f, 0.0f, 0.0f));
 
 	mMap = new CMap();
-
 
 }
 
@@ -161,6 +182,10 @@ void CSceneGame::Update() {
 
 	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle2->mpModel = &MudPuddle;
+	}
+
+	if (CXEnemy::Call == true){
+		mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
 	}
 
 	//歩くアニメーションに切り替える

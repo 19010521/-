@@ -8,7 +8,9 @@
 CPoint *CXEnemy::mPoint = 0;
 int CXEnemy::mPointSize = 0;
 bool CXEnemy::Attackflag = true;
-
+bool CXEnemy::Call = false;
+float CXEnemy::mHPMax = 100;
+float CXEnemy::mHPNow = mHPMax;
 #define G (9.8f/60.0f)//重力加速度
 #define JUMPV0 (2.0f)//ジャンプ初速
 
@@ -22,6 +24,7 @@ CXEnemy::CXEnemy()
 , mSearch(this, CVector(0.0f, 0.0f, -15.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
 , mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
 , mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
+
 {
 	jflag = false;
 	Attackflag = false;
@@ -29,6 +32,7 @@ CXEnemy::CXEnemy()
 	mflag = false;
 
 	nflag = false;
+	
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
 
 	mTag = EENEMY;
@@ -74,6 +78,14 @@ void CXEnemy::Update(){
 
 	if (mpPoint == 0){
 		return;
+	}
+
+
+	if (mHPNow <= 50){
+		Call = true;
+	}
+	if (mHPNow <= 0){
+		ChangeAnimation(11, false, 30);
 	}
 
 	//歩く
@@ -361,7 +373,8 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				case EWATERGUN:
 
 					if (y->mTag == CCollider::EWATER){
-						ChangeAnimation(11, false, 30);
+						mHPNow -= 20;
+					
 
 					}
 					break;

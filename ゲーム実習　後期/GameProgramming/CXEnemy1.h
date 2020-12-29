@@ -63,7 +63,7 @@ public:
 	bool lflag;//後転フラグ
 	bool wflag;//止まるフラグ
 	bool mflag;//動くフラグ
-
+	
 
 	static bool Attackflag;
 	void Init(CModelX*model);

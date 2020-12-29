@@ -4,6 +4,7 @@
 #include"CXPlayer.h"
 #include"CXEnemy.h"
 #include"CXEnemy1.h"
+#include"CXEnemy2.h"
 #include "CXPlayer.h"
 #include "CMap.h"
 #include"CPuddle.h"
@@ -24,6 +25,7 @@ public:
 	//敵のインスタンス
 	CXEnemy *mEnemy;
 	CXEnemy1*mEnemy1;
+	//CXEnemy2 mEnemy2;
 
 	int mMouseX;
 	int mMouseY;

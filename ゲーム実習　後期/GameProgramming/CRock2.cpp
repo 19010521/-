@@ -1,5 +1,5 @@
 #include"CRock2.h"
-#include "CXPlayer.h"
+
 CRock2 *CRock2::mpRock = 0;
 
 //コンストラクタ

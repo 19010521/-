@@ -63,9 +63,11 @@ public:
 	bool lflag;//後転フラグ
 	bool wflag;//止まるフラグ
 	bool mflag;//動くフラグ
-
+	static float mHPMax;//敵のHP
+	static float mHPNow;
 
 	static bool Attackflag;
+	static bool Call;//仲間を呼ぶ
 	void Init(CModelX*model);
 	//衝突処理
 	void Collision(CCollider*m, CCollider*y);

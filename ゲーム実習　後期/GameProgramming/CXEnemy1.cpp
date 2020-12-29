@@ -68,7 +68,7 @@ void CXEnemy1::Update(){
 	//s—ñ‚ğXV
 	CCharacter::Update();
 	
-
+	mPosition = CVector(0.0f, 0.0f, -0.5f)*mMatrix;
 }
 
 void CXEnemy1::Init(CModelX*model){
