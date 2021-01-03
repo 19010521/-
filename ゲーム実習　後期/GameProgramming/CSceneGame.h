@@ -29,7 +29,7 @@ public:
 
 	int mMouseX;
 	int mMouseY;
-
+	int mExplosinCount = 30;
 	//•Ç
 	CCollider mCollider[14];
 
