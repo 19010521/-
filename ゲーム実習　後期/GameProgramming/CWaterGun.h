@@ -14,7 +14,7 @@ public:
 	void Set(float w, float d);
 	//ê∂ë∂éûä‘
 	int mLife;
-
+	float x;
 	CWaterGun();
 	CWaterGun(CModel *model, CVector position, CVector rotation, CVector scale);
 	float mVelovcityGun;

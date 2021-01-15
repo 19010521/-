@@ -19,6 +19,7 @@ public:
 		EPLAYEREBODY,//プレイヤー
 		ESEARCH,//サーチ
 		ESEARCH2,//サーチ2
+		ESEARCH3,//サーチ3
 		EPUDDLE0,//水たまり
 		EPUDDLE1,//水たまり
 		EPUDDLE2,//水たまり
@@ -43,7 +44,7 @@ public:
 	CCharacter *mpParent;//親
 	//ボーンの合成行列のポインタ
 	CMatrix *mpCombinedMatrix;
-	float mRadius;	//半径
+	 float mRadius;	//半径
 	//?
 	//デフォルトコンストラクタ
 	CCollider();

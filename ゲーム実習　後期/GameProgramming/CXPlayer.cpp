@@ -96,41 +96,41 @@ void CXPlayer::Update(){
 
 			ChangeAnimation(1, true, 60);
 
-			mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+			mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 
 			if (CKey::Push('S')){
 
 				mRotation.mY += 180;
 
-				mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 			}
 
 			if (CKey::Push('A')){
 				mRotation.mY += 90;
-				mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 
 				if (CKey::Push('S')){
 					mRotation.mY += 225;
-					mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				}
 
 				if (CKey::Push('W')){
 					mRotation.mY += 315;
-					mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				}
 			}
 
 			if (CKey::Push('D')){
 				mRotation.mY += 270;
-				mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				if (CKey::Push('S')){
 					mRotation.mY += 135;
-					mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				}
 
 				if (CKey::Push('W')){
 					mRotation.mY += 45;
-					mPosition = CVector(0.0f, 0.0f, 0.07f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				}
 			}
 
@@ -161,37 +161,37 @@ void CXPlayer::Update(){
 
 			ChangeAnimation(1, true, 60);
 
-			mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+			mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 
 			if (CKey::Push('S')){
 				mRotation.mY += 180;
 
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 			}
 
 			if (CKey::Push('A')){
 				mRotation.mY += 90;
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				if (CKey::Push('S')){
 					mRotation.mY += 225;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				}
 				if (CKey::Push('W')){
 					mRotation.mY += 315;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				}
 			}
 
 			if (CKey::Push('D')){
 				mRotation.mY += 270;
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				if (CKey::Push('S')){
 					mRotation.mY += 135;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				}
 				if (CKey::Push('W')){
 					mRotation.mY += 45;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
 				}
 			}
 
@@ -232,7 +232,7 @@ void CXPlayer::Update(){
 
 				CWaterGun*bullet = new CWaterGun();
 				bullet->Set(0.1f, 1.5f);
-				bullet->mPosition = CVector(0.0f, 1.0f, 1.0f)*mMatrix;
+				bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
 				//bullet->mRotation = mRotation;
 				bullet->mForward = bullet->mForward*mMatrixRotate;
 				BulletCount = BulletCountMax;
@@ -248,7 +248,7 @@ void CXPlayer::Update(){
 
 				CWaterGun*bullet = new CWaterGun();
 				bullet->Set(0.1f, 1.5f);
-				bullet->mPosition = CVector(0.0f, 1.0f, 1.0f)*mMatrix;
+				bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
 				//bullet->mRotation = mRotation;
 				bullet->mForward = bullet->mForward*mMatrixRotate;
 				BulletCount = BulletCountMax;
@@ -285,9 +285,11 @@ void CXPlayer::Update(){
 	//		jflag = true;
 	//	}
 	//}
-
+	//Ž€‚ñ‚¾--
 	if (mAnimationIndex == 11){
-		mstate = EDESU;
+		if (mAnimationFrame >= mAnimationFrameSize){
+			mstate = EDESU;
+		}
 	}
 
 	if (mHPNow < 0){

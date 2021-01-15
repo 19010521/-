@@ -26,6 +26,7 @@ public:
 
 		EWAIT,//‘Ò‹@
 
+		EDESU,//€
 	};
 	Estate mstate;
 
@@ -49,6 +50,7 @@ public:
 	CCollider mColSphereSword2;  //Œ•2
 	CCollider mSearch;
 	CCollider mSearch2;
+	CCollider mSearch3;
 
 	//CCollider mSearch2;
 	float mVelovcityJump;
@@ -68,6 +70,7 @@ public:
 
 	static bool Attackflag;
 	static bool Call;//’‡ŠÔ‚ğŒÄ‚Ô
+	static bool Desuflag;//€‚ñ‚¾ƒtƒ‰ƒO
 	void Init(CModelX*model);
 	//Õ“Ëˆ—
 	void Collision(CCollider*m, CCollider*y);

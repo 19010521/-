@@ -2,14 +2,15 @@
 #define G (9.8f/60.0f)//重力加速度
 #define WATERV0 (1.0f)//水初速
 CWaterGun::CWaterGun()
-:mLife(50), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.0f)
-, mVelovcityGun(0), mForward(0.0f,1.0f,1.0f)
+:mLife(50), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
+, mVelovcityGun(0), mForward(0.0f, 1.0f, 1.0f), x(1.0f)
 {
 	mTag = EWATERGUN;
 	Wflag = false;
+	mVelovcityGun = WATERV0;
+	mForward.mY += mVelovcityGun;
 	mCollider.mTag = CCollider::EWATER;
 	
-
 }
 //幅と奥行きの設定
 //Set(幅,奥行)
@@ -20,40 +21,44 @@ void CWaterGun::Set(float w, float d){
 	mT.SetVertex(CVector(w, 0.0f, 0.0f), CVector(-w, 0.0f, 0.0f), CVector(0.0f, 0.0f, d));
 	//三角形の法線設定
 	mT.SetNormal(CVector(0.0f, 1.0f, 0.0f));
+
 }
 //更新
 void CWaterGun::Update(){
 
-	if (Wflag == true){
+	
 		mForward.mY -= G;
 		//mVelovcityGun -= G;
 		//位置更新
 		mPosition +=mForward;
-	}
+		
+	
 	////位置更新
 	//生存時間の判定
-
-	else if (mLife-- > 0){
-		if (Wflag == false){
-			mVelovcityGun = WATERV0;
-			mForward.mY += mVelovcityGun;
-			Wflag = true;
-		}
-	}
-
-		//無効にする
-	if (mLife <= 0){
-		mEnabled = false;
-	}
+	
+		
+		mScale = mScale*1.1f;
+		mCollider.mRadius *= 1.1f;
+	
+	
 	CCharacter::Update();
 
-}
 
+}
 //衝突処理
 //Collision(コライダ1,コライダ2)
 void CWaterGun::Collision(CCollider *m, CCollider *y){
 	//共に球コライダの時
 
+	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
+		//コライダのｍとｙが衝突しているか判定
+		if (CCollider::Collision(m, y)){
+			if (y->mTag == CCollider::EENEMYBODY){
+				//衝突しているときは無効にする
+				mEnabled = false;
+			}
+		}
+	}
 	//自身コライダの判定タイプ
 	switch (m->mType){
 	case CCollider::ESPHERE://球コライダ
@@ -61,7 +66,7 @@ void CWaterGun::Collision(CCollider *m, CCollider *y){
 		if (y->mType == CCollider::ETRIANGLE){
 			CVector adjust;//調整用ベクトル		
 			if (CCollider::CollisionTriangleSphere(y, m, &adjust)){
-				Wflag = false;
+		//		mEnabled = false;
 				//mVelovcityGun = 0;
 				//位置の更新
 				//mPosition = mPosition - adjust*-1;

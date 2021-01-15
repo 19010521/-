@@ -1,8 +1,8 @@
-﻿2021/01/03 23:03:16 にビルドを開始しました。
+﻿2021/01/15 10:50:49 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CSceneGame.cpp
-         CSceneGame.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CWaterGun.cpp
+         CWaterGun.cpp
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\cmodelx.h(66): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\cmodelx.h(147): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\cmodelx.h(222): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
@@ -58,4 +58,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.23
+経過時間 00:00:01.90

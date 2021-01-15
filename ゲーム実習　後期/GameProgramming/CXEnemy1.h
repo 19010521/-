@@ -8,26 +8,26 @@
 
 class CXEnemy1 :public CCharacter{
 public:
-	enum Estate
-	{
-		ENORMAL,//通常
+	//enum Estate
+	//{
+	//	ENORMAL,//通常
 
-		EWALK,//歩く
+	//	EWALK,//歩く
 
-		ENEAR,//近ずく
+	//	ENEAR,//近ずく
 
-		EATTACK1,//突進
+	//	EATTACK1,//突進
 
-		EJUNP,//ジャンプ
+	//	EJUNP,//ジャンプ
 
-		ELANDING,//着地
+	//	ELANDING,//着地
 
-		EBACKFLIP,//後転
+	//	EBACKFLIP,//後転
 
-		EWAIT,//待機
+	//	EWAIT,//待機
 
-	};
-	Estate mstate;
+	//};
+	//Estate mstate;
 
 
 	static int mPointSize;//ポイントの数
@@ -64,6 +64,9 @@ public:
 	bool wflag;//止まるフラグ
 	bool mflag;//動くフラグ
 	
+	static float mHPMax;//敵のHP
+	static float mHPNow;
+
 
 	static bool Attackflag;
 	void Init(CModelX*model);

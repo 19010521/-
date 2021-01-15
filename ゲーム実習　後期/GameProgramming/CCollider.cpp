@@ -2,6 +2,7 @@
 //コリジョンマネージャのインクルード
 #include "CCollisionManager.h"
 
+
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
 CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius)

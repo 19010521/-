@@ -25,7 +25,7 @@ public:
 	//敵のインスタンス
 	CXEnemy *mEnemy;
 	CXEnemy1*mEnemy1;
-	//CXEnemy2 mEnemy2;
+	CXEnemy2*mEnemy2;
 
 	int mMouseX;
 	int mMouseY;
@@ -53,6 +53,8 @@ public:
 	CPuddle1 *mpPuddle1;
 	CPuddle2 *mpPuddle2;
 	EScene GetNextScene();
+
+	int DesuCount=60;
 	static int frame;//フレーム数のカウント
 	static bool Countf;
 	CSceneGame(){};

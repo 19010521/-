@@ -57,7 +57,7 @@ void CSceneGame::Init() {
 	CXEnemy::mPoint[11].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
 	CXEnemy::mPoint[12].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
 	CXEnemy::mPoint[13].Set(CVector(55.0f, 5.0f, -30.0f), 5.0f);
-
+	
 	//CXEnemy::mPoint[1].Set(CVector(30.0f, 5.0f, -3.0f), 10.0f);//細道
 	//CXEnemy::mPoint[2].Set(CVector(-35.0f, 5.0f, 50.0f), 10.0f);
 	//CXEnemy::mPoint[3].Set(CVector(3.0f, 5.0f, 6.0f), 10.0f);
@@ -77,7 +77,7 @@ void CSceneGame::Init() {
 	mpPuddle1->mpModel = &Puddle;
 
 	mpPuddle2 = new CPuddle2(&MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//mpPuddle2->mpModel = &Puddle;
+	mpPuddle2->mpModel = &Puddle;
 
 
 	CRes::sModelX.Load(MODEL_FILE);
@@ -168,11 +168,7 @@ void CSceneGame::Init() {
 	mEnemy->mAnimationFrameSize = 1024;
 	mEnemy->mPosition = CVector(-10.0f, 0.0f, 55.0f);
 	mEnemy->ChangeAnimation(2, true, 200);
-
-
 	
-	
-
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -199,8 +195,11 @@ void CSceneGame::Update() {
 		mpPuddle2->mpModel = &MudPuddle;
 	}
 
-	if (CXEnemy::Call == true){
-		mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+	if (CXEnemy::mHPNow <= 50 && CXEnemy::Call == true){
+	mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+	mEnemy2 = new CXEnemy2(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+	CXEnemy::Call = false;
+
 	}
 
 	//歩くアニメーションに切り替える
@@ -287,18 +286,27 @@ void CSceneGame::Update() {
 
 
 	//2D描画開始
-	if (CXEnemy::mHPNow <= 0){
-		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
+	Start2D(-400, 400, -300, 300);
+
+	if (CXEnemy::Desuflag==true){
 		if (mExplosinCount > 0){
 			mExplosinCount--;
 		}
 		else{
+			CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
 			mEnd = true;
 		}
 	}
-	if (CXPlayer::mpxPlayer->mHPNow <= 0){
-		CText::DrawString("GAME OVER", -100, 0, 20, 20);
-		mEnd = true;
+	if (CXPlayer::mpxPlayer->mstate==CXPlayer::mpxPlayer->EDESU){
+		if (DesuCount > 0){
+			DesuCount--;
+		}
+		else
+		{
+			CText::DrawString("GAME OVER", -100, 0, 20, 20);
+			mEnd = true;
+		}
+		
 
 	}
 
@@ -310,5 +318,6 @@ void CSceneGame::Update() {
 	End2D();
 
 	return;
+
 }
 
