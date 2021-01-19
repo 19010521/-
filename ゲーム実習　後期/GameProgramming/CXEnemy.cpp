@@ -22,7 +22,7 @@ CXEnemy::CXEnemy()
 , mColSphereSword0(this, CVector(0.7f, 3.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword1(this, CVector(0.5f, 2.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword2(this, CVector(0.3f, 1.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
-, mSearch(this, CVector(0.0f, 0.0f, -15.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
+, mSearch(this, CVector(0.0f, 0.0f, -10.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
 , mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
 , mSearch3(this, CVector(0.0f, 0.0f, -2.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 5.0f)
 , mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
@@ -34,7 +34,7 @@ CXEnemy::CXEnemy()
 	mflag = false;
 
 	nflag = false;
-	wflag = false;
+	
 	
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
 
@@ -257,29 +257,30 @@ void CXEnemy::Update(){
 	//行列を更新
 	CXCharacter::Update();
 	if (mAnimationIndex != 11){
-		if (mAnimationIndex == 2 || wflag == true){
-	
-			mPosition = CVector(0.0f, 0.0f, 0.0f)*mMatrix;
+		if (mstate != ENEAR){
+			if (mAnimationIndex == 2 || mAnimationIndex == 11){
 
-		}
-		else{
-			if (mstate != ENEAR){
-
-				//位置を移動
-				mPosition = CVector(0.0f, 0.0f, -0.1f)*mMatrix;
-
-			}
-			else
-
-			{
-				mPosition = CVector(0.0f, 0.0f, -0.4f)*mMatrix;
-
+				mPosition = CVector(0.0f, 0.0f, 0.0f)*mMatrix;
 			}
 
-		}
+			else{
+				if (mstate != ENEAR){
 
+					//位置を移動
+					mPosition = CVector(0.0f, 0.0f, -0.1f)*mMatrix;
+
+				}
+				else
+
+				{
+					mPosition = CVector(0.0f, 0.0f, -0.4f)*mMatrix;
+
+				}
+
+			}
+
+		}
 	}
-
 }
 void CXEnemy::Collision(CCollider*m, CCollider*y){
 
@@ -350,10 +351,10 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 							mstate = ENEAR;
 							mCount = mCountMax;
 							break;
-						case 3:
+						/*case 3:
 							mstate = EBACKFLIP;
 							mCount = mCountMax;
-							break;
+							break;*/
 
 						default:
 
@@ -368,17 +369,14 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				switch (y->mpParent->mTag){
 				case EPLAYER://プレイヤーの時
 					if (y->mTag == CCollider::EPLAYEREBODY){
-						wflag = true;
+					
 
-					}
-					else{
-						wflag = false;
 					}
 					break;
 				}
 			}
 			else{
-				
+			
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPOINT://ポイントの時
@@ -401,25 +399,31 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 		if (CCollider::Collision(m, y)){
 			//判定
 			if (m->mTag == CCollider::EENEMYBODY){
+				
+			
+				
 				switch (y->mpParent->mTag){
 
 				case EWATERGUN:
 
 					if (y->mTag == CCollider::EWATER){
 						mHPNow -= 20;
-					
+						//mScale = mScale*1.5f;
+						mSearch.mRadius *= 1.5f;
 
 					}
 					break;
 
 				case EPLAYER:
-
+					
+				
 
 					ChangeAnimation(7, false, 60);
 
 
 				}
 			}
+			
 		}
 	}
 	//自身コライダの判定タイプ

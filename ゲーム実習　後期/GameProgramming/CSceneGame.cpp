@@ -196,8 +196,8 @@ void CSceneGame::Update() {
 	}
 
 	if (CXEnemy::mHPNow <= 50 && CXEnemy::Call == true){
-	mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
-	mEnemy2 = new CXEnemy2(&mCube, CVector(10.0f, 0.0f, 55.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+		mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
+		mEnemy2 = new CXEnemy2(&mCube, CVector(CXPlayer::mpxPlayer->mPosition.mX + 10.0f, 0.0f, CXPlayer::mpxPlayer->mPosition.mZ + 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
 	CXEnemy::Call = false;
 
 	}
@@ -287,6 +287,8 @@ void CSceneGame::Update() {
 
 	//2D•`‰æŠJŽn
 	Start2D(-400, 400, -300, 300);
+
+	
 
 	if (CXEnemy::Desuflag==true){
 		if (mExplosinCount > 0){

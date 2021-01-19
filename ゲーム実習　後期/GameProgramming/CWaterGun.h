@@ -20,7 +20,7 @@ public:
 	float mVelovcityGun;
 	//更新
 	void Update();
-	bool Wflag;
+	
 	//衝突処理
 	//Ccllision(コライダ1,コライダ2)
 	void Collision(CCollider*m, CCollider*y);

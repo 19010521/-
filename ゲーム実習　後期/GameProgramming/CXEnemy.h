@@ -63,7 +63,7 @@ public:
 	bool nflag;//気づいたフラグ
 	bool jflag;//ジャンプフラグ
 	bool lflag;//後転フラグ
-	bool wflag;//止まるフラグ
+	
 	bool mflag;//動くフラグ
 	static float mHPMax;//敵のHP
 	static float mHPNow;

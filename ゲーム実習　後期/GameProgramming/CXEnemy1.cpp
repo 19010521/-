@@ -29,7 +29,7 @@ CXEnemy1::CXEnemy1(CModel*model, CVector position, CVector rotation, CVector sca
 
 	jflag = false;
 	Attackflag = false;
-
+	
 	mflag = false;
 
 	nflag = false;
@@ -55,7 +55,6 @@ void CXEnemy1::Update(){
 
 	//srand((unsigned int)time(NULL));  //‚æ‚­‚í‚©‚ç‚ñ
 
-	
 
 	//ˆÊ’u‚ðˆÚ“®
 	CVector dir = CXPlayer::mpxPlayer->mPosition - mPosition;
@@ -129,7 +128,6 @@ void CXEnemy1::Collision(CCollider*m, CCollider*y){
 
 					if (y->mTag == CCollider::EWATER){
 						mHPNow -= 20;
-
 
 					}
 					break;

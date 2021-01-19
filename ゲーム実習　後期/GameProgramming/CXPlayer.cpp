@@ -1,4 +1,3 @@
-
 #include"CXPlayer.h"
 #include"CKey.h"
 #include"CInput.h"
@@ -13,7 +12,7 @@ float CXPlayer::mHPMax = 100;
 float CXPlayer::mHPNow = mHPMax;
 
 #define G (9.8f/60.0f)//重力加速度
-#define JUMPV0 (3.0f)//ジャンプ初速
+#define JUMPV0 (1.0f)//ジャンプ初速
 #define MOUSE_SENSE 4
 
 CXPlayer::CXPlayer()
@@ -31,6 +30,7 @@ CXPlayer::CXPlayer()
 	waterflag = false;
 
 	mpxPlayer = this;
+
 
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	//タグにプレイヤーを設定します
@@ -72,7 +72,9 @@ void CXPlayer::TaskCollision()
 	CollisionManager.Collision(&mColSphereBody);
 	CollisionManager.Collision(&mColSphereHead);
 	CollisionManager.Collision(&mColSphereLeg0);
+
 }
+
 
 void CXPlayer::Update(){
 
@@ -269,22 +271,30 @@ void CXPlayer::Update(){
 
 
 	}
-	////ジャンプ
-	//if (jflag == false){
-	//	mPosition.mY += mVelovcityJump;
-	//	mVelovcityJump -= G;
-	//}
-	//if (jflag == true){
-	//	mPosition.mY += mVelovcityJump;
 
-	//}
-	//else if (CKey::Once(VK_SPACE)){
-	//	if (jflag == false && mstate == ENORMAL){
-	//		mVelovcityJump = JUMPV0;
-	//		mPosition.mY += mVelovcityJump;
-	//		jflag = true;
-	//	}
-	//}
+	
+
+	//ジャンプ
+	if (jflag == false){
+		mPosition.mY += mVelovcityJump;
+		mVelovcityJump -= G;
+	}
+	if (jflag == true){
+
+		mPosition.mY += mVelovcityJump;	
+	//	mRotation.mX += 1.0f;
+		
+
+	}
+	else if (CKey::Once(VK_SPACE)){
+
+		if (jflag == false && mstate == ENORMAL){
+		    mVelovcityJump = JUMPV0;
+			mPosition.mY += mVelovcityJump;
+			//mPosition = CVector(0.0f, 0.0f, 0.5f)*mMatrix;
+			jflag = true;
+		}
+	}
 	//死んだ--
 	if (mAnimationIndex == 11){
 		if (mAnimationFrame >= mAnimationFrameSize){

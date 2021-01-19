@@ -61,6 +61,8 @@ public:
 	bool waterflag;//水汲みフラグ
 	bool Damege;//ダメージ
 
+	
+
 	void Collision(CCollider*mc, CCollider*yc);
 
 };

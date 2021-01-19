@@ -2,11 +2,10 @@
 #define G (9.8f/60.0f)//重力加速度
 #define WATERV0 (1.0f)//水初速
 CWaterGun::CWaterGun()
-:mLife(50), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
+:mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
 , mVelovcityGun(0), mForward(0.0f, 1.0f, 1.0f), x(1.0f)
 {
 	mTag = EWATERGUN;
-	Wflag = false;
 	mVelovcityGun = WATERV0;
 	mForward.mY += mVelovcityGun;
 	mCollider.mTag = CCollider::EWATER;
@@ -36,13 +35,20 @@ void CWaterGun::Update(){
 	////位置更新
 	//生存時間の判定
 	
-		
 		mScale = mScale*1.1f;
 		mCollider.mRadius *= 1.1f;
 	
-	
-	CCharacter::Update();
+		
+		//生存時間の判定
+		if (mLife-- > 0){
+			CCharacter::Update();
+		}
+		else{
+			//無効にする
 
+			mEnabled = false;
+
+		}
 
 }
 //衝突処理
@@ -66,7 +72,7 @@ void CWaterGun::Collision(CCollider *m, CCollider *y){
 		if (y->mType == CCollider::ETRIANGLE){
 			CVector adjust;//調整用ベクトル		
 			if (CCollider::CollisionTriangleSphere(y, m, &adjust)){
-		//		mEnabled = false;
+				//mEnabled = false;
 				//mVelovcityGun = 0;
 				//位置の更新
 				//mPosition = mPosition - adjust*-1;
