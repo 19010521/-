@@ -9,6 +9,8 @@
 
 class CXPlayer :public CXCharacter{
 public:
+	CVector mTunRotation; //軸
+	float mTurn; //回転
 
 
 	enum Estate
@@ -52,11 +54,14 @@ public:
 
 	float mVelovcityJump;
 	float mSpeed;
-	int BulletCount;
-	int BulletCountMax;
-	int WaterCount;
-	int WaterCountMax;
-	int InvincibleCount;
+	int mBulletCount;
+	int mBulletCountMax;
+	int mWaterCount;
+	int mWaterCountMax;
+	int mInvincibleCount;
+	int mInvincibleCountMax;
+	int mMudCount;
+	int mDrawCount;//描画カウント
 
 	bool jflag;//ジャンプフラグ
 	bool waterflag;//水汲みフラグ
@@ -66,6 +71,8 @@ public:
 	
 
 	void Collision(CCollider*mc, CCollider*yc);
+	void Render()override;
+
 
 };
 #endif

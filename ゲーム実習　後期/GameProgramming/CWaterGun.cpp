@@ -4,7 +4,7 @@
 #define WATERV0 (1.0f)//êÖèâë¨
 CWaterGun::CWaterGun()
 :mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
-, mVelovcityGun(0), mForward(0.0f, 1.0f, 1.0f), x(1.0f)
+, mVelovcityGun(0), mForward(0.0f, 1.0f, 2.0f), x(1.0f)
 {
 	mpModel = &CSceneGame::mGun;
 	mTag = EWATERGUN;

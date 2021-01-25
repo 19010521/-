@@ -4,7 +4,6 @@
 //
 #include"CXCharacter.h"
 #include "CCamera.h"
-
 //
 #include "CText.h"
 #include"CRes.h"
@@ -15,7 +14,6 @@
 #include"CKey.h"
 #include"CRock.h"
 #include"CRock2.h"
-
 
 CMatrix Matrix;
 CModel mSky;
@@ -275,7 +273,7 @@ void CSceneGame::Update() {
 	TaskManager.Render();
 
 	//ƒRƒ‰ƒCƒ_‚Ì•`‰æ
-	//CollisionManager.Render();
+	CollisionManager.Render();
 
 
 
@@ -315,7 +313,7 @@ void CSceneGame::Update() {
 
 	}
 
-	sprintf(buf, "%d", CXPlayer::mpxPlayer->WaterCount);
+	sprintf(buf, "%d", CXPlayer::mpxPlayer->mWaterCount);
 	CText::DrawString(buf, -320, -180, 20, 20);
 
 	Amount->x = -350 + Amount->w;

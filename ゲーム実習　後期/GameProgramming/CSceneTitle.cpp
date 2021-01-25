@@ -19,8 +19,8 @@ void CSceneTitle::Update() {
 	//2D•`‰æŠJŽn
 	Start2D(0, 800, 0, 600);
 	
-	CText::DrawString("TITLE",280,400,15,18);
-	//CText::DrawString("Push ENTER Key", -100, -10, 20, 20);
+	CText::DrawString("FIGHT WATER",200,400,15,18);
+	CText::DrawString("PUSH ENTER KEY", 280, 300, 15, 18);
 	for (int i = 0; i < VectorRect.size(); i++){
 		//•`‰æˆ—
 		VectorRect[i]->Render();

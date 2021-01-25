@@ -291,7 +291,6 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 			//コライダがサーチか判定
 			if (m->mTag == CCollider::ESEARCH){
-				
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPLAYER:
@@ -306,9 +305,9 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					else if (left.Dot(dir) < 0.0f){
 						mRotation.mY += 1.0f;
 					}
+				
 					break;
 					
-
 				}
 				//プレイヤーの時
 				if (y->mTag == CCollider::EPLAYEREBODY){

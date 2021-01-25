@@ -31,7 +31,7 @@ public:
 	void Update(CMatrix &m);
 	void Update();
 	//•`‰æˆ—
-	void Render();
+    virtual void Render();
 
 };
 #endif
