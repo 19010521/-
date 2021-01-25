@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CAmount.cpp" />
     <ClCompile Include="CBillBoard.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCamera.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="CWaterGun.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAmount.h" />
     <ClInclude Include="CBillBoard.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCamera.h" />

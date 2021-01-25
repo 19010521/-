@@ -66,6 +66,7 @@ void CXEnemy1::Update(){
 	else if (left.Dot(dir) < 0.0f){
 		mRotation.mY += 1.0f;
 	}
+
 	//Ž~‚Ü‚é
 	if (wflag == true){
 		if (mnearCount > 0){
@@ -85,7 +86,7 @@ void CXEnemy1::Update(){
 	}
 	else
 	{
-		mPosition = CVector(0.0f, 0.0f, -0.5f)*mMatrix;
+		mPosition = CVector(0.0f, 0.0f, -0.4f)*mMatrix;
 	}
 }
 

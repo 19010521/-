@@ -23,7 +23,7 @@ CModel mPlane;
 bool CSceneGame::Countf = false;
 int CSceneGame::frame = 0;
 bool CSceneGame::mEnd = false;
-
+CModel CSceneGame::mGun;
 //キャラクタのインスタンス
 //CXCharacter mPlayer;
 CSceneGame::~CSceneGame() {
@@ -69,6 +69,7 @@ void CSceneGame::Init() {
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
+	mGun.Load("sphere.obj", "sphere.mtl");
 
 	mpPuddle = new CPuddle(&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	mpPuddle->mpModel = &Puddle;
@@ -175,6 +176,8 @@ void CSceneGame::Init() {
 
 	//new CEye(&mCube, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(0.0f, 0.0f, 0.0f));
 
+	Amount = new CAmount();
+
 	mMap = new CMap();
 
 }
@@ -194,13 +197,13 @@ void CSceneGame::Update() {
 	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle2->mpModel = &MudPuddle;
 	}
-
-	if (CXEnemy::mHPNow <= 50 && CXEnemy::Call == true){
+	
+	/*if (CXEnemy::mHPNow <= 50 && CXEnemy::Call == true){
 		mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
 		mEnemy2 = new CXEnemy2(&mCube, CVector(CXPlayer::mpxPlayer->mPosition.mX + 10.0f, 0.0f, CXPlayer::mpxPlayer->mPosition.mZ + 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
 	CXEnemy::Call = false;
 
-	}
+	}*/
 
 	//歩くアニメーションに切り替える
 	//mCharacter.ChangeAnimation(1, true, 60);
@@ -272,7 +275,7 @@ void CSceneGame::Update() {
 	TaskManager.Render();
 
 	//コライダの描画
-	CollisionManager.Render();
+	//CollisionManager.Render();
 
 
 
@@ -312,7 +315,15 @@ void CSceneGame::Update() {
 
 	}
 
-	//CText::DrawString("3D PROGRAMMING", 20, 20, 10, 12);
+	sprintf(buf, "%d", CXPlayer::mpxPlayer->WaterCount);
+	CText::DrawString(buf, -320, -180, 20, 20);
+
+	Amount->x = -350 + Amount->w;
+	Amount->y = -260;
+	Amount->w = CXPlayer::mpxPlayer->mHPNow / CXPlayer::mpxPlayer->mHPMax * 100;
+	Amount->h = 16;
+	Amount->mEnabled = true;
+	Amount->Render();
 
 
 

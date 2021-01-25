@@ -16,12 +16,13 @@ float CXPlayer::mHPNow = mHPMax;
 #define MOUSE_SENSE 4
 
 CXPlayer::CXPlayer()
-:mColSphereBody(this, CVector(0.0f, 5.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
+:mColSphereBody(this, CVector(0.0f, 3.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
 , mColSphereLeg0(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mVelovcityJump(0), BulletCount(0), BulletCountMax(60), WaterCount(0), WaterCountMax(3), InvincibleCount(150)
+, mSpeed(0)
 {
 	Damege = false;
 
@@ -163,37 +164,37 @@ void CXPlayer::Update(){
 
 			ChangeAnimation(1, true, 60);
 
-			mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+			mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
 
 			if (CKey::Push('S')){
 				mRotation.mY += 180;
 
-				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 			}
 
 			if (CKey::Push('A')){
 				mRotation.mY += 90;
-				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				if (CKey::Push('S')){
 					mRotation.mY += 225;
-					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				}
 				if (CKey::Push('W')){
 					mRotation.mY += 315;
-					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				}
 			}
 
 			if (CKey::Push('D')){
 				mRotation.mY += 270;
-				mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				if (CKey::Push('S')){
 					mRotation.mY += 135;
-					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				}
 				if (CKey::Push('W')){
 					mRotation.mY += 45;
-					mPosition = CVector(0.0f, 0.0f, 0.2f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
 				}
 			}
 
@@ -242,36 +243,36 @@ void CXPlayer::Update(){
 				if (WaterCount <= 0){
 					waterflag = false;
 				}
+				mSpeed -= 0.03f;
 
 			}
 			//マウスの左入力で全弾発射
 			else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
+				if (WaterCount == 3){
+
+					CWaterGun*bullet = new CWaterGun();
+					bullet->Set(0.1f, 1.5f);
+					bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
+					//bullet->mRotation = mRotation;
+					bullet->mForward = bullet->mForward*mMatrixRotate;
+					BulletCount = BulletCountMax;
+					waterflag = false;
+					WaterCount = 0;
+					mSpeed -= 0.09;
+					//bullet->mTag = CCharacter::;
 
 
-				CWaterGun*bullet = new CWaterGun();
-				bullet->Set(0.1f, 1.5f);
-				bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
-				//bullet->mRotation = mRotation;
-				bullet->mForward = bullet->mForward*mMatrixRotate;
-				BulletCount = BulletCountMax;
+					/*if (mAIM == true){
+					mRotation.mX -= 20;
+					mRotation.mY -= 20;
+					}*/
 
-
-				waterflag = false;
-
-				//bullet->mTag = CCharacter::;
-
-
-				/*if (mAIM == true){
-				mRotation.mX -= 20;
-				mRotation.mY -= 20;
-				}*/
-
+				}
 			}
 		}
 
-
 	}
-
+	
 	
 
 	//ジャンプ
@@ -305,7 +306,7 @@ void CXPlayer::Update(){
 	if (mHPNow < 0){
 
 		mHPNow = 0;
-		ChangeAnimation(11, false, 30);
+		ChangeAnimation(11, false, 20);
 
 	}
 	if (mstate == EINVINCIBLE){
@@ -327,6 +328,14 @@ void CXPlayer::Update(){
 		
 		Damege = false;
 		
+		mstate = EINVINCIBLE;
+	}
+	if (Damege2 == true){
+
+		mHPNow -= 5;
+
+		Damege2 = false;
+
 		mstate = EINVINCIBLE;
 	}
 
@@ -358,7 +367,7 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(mc, yc)){
-
+			
 
 			
 				if (mstate != EMUD){
@@ -371,7 +380,7 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 									waterflag = true;
 									WaterCount = WaterCountMax;
 									CPuddle::mPuddle->UseCount--;
-									
+									mSpeed += 0.09;
 								}
 							}
 						}
@@ -383,6 +392,7 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 										waterflag = true;
 										WaterCount = WaterCountMax;
 										CPuddle1::mPuddle01->UseCount--;
+										mSpeed += 0.09;
 									}
 								}
 							}
@@ -394,10 +404,15 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 										waterflag = true;
 										WaterCount = WaterCountMax;
 										CPuddle2::mPuddle02->UseCount--;
+										mSpeed += 0.09;
 									}
 								}
 							}
 				}
+					if (yc->mTag == CCollider::EINPACT){
+						Damege2 = true;
+						mstate = EMUD;
+					}
 			}
 
 			//衝突したコライダの親の種類を判定

@@ -51,6 +51,7 @@ public:
 	static float mHPNow;
 
 	float mVelovcityJump;
+	float mSpeed;
 	int BulletCount;
 	int BulletCountMax;
 	int WaterCount;
@@ -60,6 +61,7 @@ public:
 	bool jflag;//ジャンプフラグ
 	bool waterflag;//水汲みフラグ
 	bool Damege;//ダメージ
+	bool Damege2;//ダメージ2
 
 	
 

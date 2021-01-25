@@ -54,6 +54,7 @@ public:
 
 	//CCollider mSearch2;
 	float mVelovcityJump;
+	float mSpeed;
 	int mnearCount;
 	int mnearCountMax;
 	int mCount;

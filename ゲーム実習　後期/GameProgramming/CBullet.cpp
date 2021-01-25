@@ -3,7 +3,7 @@
 CBullet::CBullet()
 :mLife(50),mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
-	mCollider.mTag = CCollider::EWATER;
+	mCollider.mTag = CCollider::EINPACT;
 }
 
 //幅と奥行きの設定
@@ -36,18 +36,16 @@ void CBullet::Update(){
 //衝突処理
 //Ccllision(コライダ1,コライダ2)
 void CBullet::Collision(CCollider*m, CCollider*y){
-	////共に球コライダの時
-	//if (m->mType == CCollider::ESPHERE&&y->mType == CCollider::ESPHERE){
-
-	//	//コライダのmとyが衝突しているか判定
-	//	if (CCollider::Collision(m, y)){
-	//		//機体の時
-	//		if (y->mTag == CCollider::EBODY){
-	//			//衝突している時は無効にする
-	//			mEnabled = false;
-	//		}
-	//	}
-	//}
+	//共に球コライダの時
+	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
+		//コライダのｍとｙが衝突しているか判定
+			if (y->mTag == CCollider::EPLAYEREBODY){
+				if (CCollider::Collision(m, y)){
+				//衝突しているときは無効にする
+				mEnabled = false;
+			}
+		}
+	}
 }
 void CBullet::Render(){
 

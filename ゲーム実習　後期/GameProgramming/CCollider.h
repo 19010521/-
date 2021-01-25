@@ -27,6 +27,7 @@ public:
 		EMUDPUDDLE,//Žg‚¦‚È‚­‚È‚Á‚½…‚½‚Ü‚è
 		EROCK,//Šâ
 		EWATER,//…
+		EINPACT,//ÕŒ‚
 		ESWORD,//Œ•
 	};
 	ETag mTag;

@@ -11,6 +11,7 @@
 #include"CPuddle1.h"
 #include"CPuddle2.h"
 #include"CEye.h"
+#include"CAmount.h"
 
 
 /*
@@ -26,7 +27,7 @@ public:
 	CXEnemy *mEnemy;
 	CXEnemy1*mEnemy1;
 	CXEnemy2*mEnemy2;
-
+	CAmount *Amount;
 	int mMouseX;
 	int mMouseY;
 	int mExplosinCount = 30;
@@ -39,6 +40,7 @@ public:
 
 	CModel mRock;
 	CModel mCube;
+	static CModel mGun;
 	
 	CModel Puddle;
 	CModel MudPuddle;
@@ -54,7 +56,7 @@ public:
 	CPuddle2 *mpPuddle2;
 	EScene GetNextScene();
 
-	int DesuCount=60;
+	int DesuCount=30;
 	static int frame;//フレーム数のカウント
 	static bool Countf;
 	CSceneGame(){};

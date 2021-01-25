@@ -26,7 +26,7 @@ CXEnemy::CXEnemy()
 , mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
 , mSearch3(this, CVector(0.0f, 0.0f, -2.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 5.0f)
 , mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
-
+, mSpeed(0)
 {
 	jflag = false;
 	Attackflag = false;
@@ -267,7 +267,7 @@ void CXEnemy::Update(){
 				if (mstate != ENEAR){
 
 					//位置を移動
-					mPosition = CVector(0.0f, 0.0f, -0.1f)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, -0.1f - mSpeed)*mMatrix;
 
 				}
 				else
@@ -278,10 +278,10 @@ void CXEnemy::Update(){
 				}
 
 			}
-
 		}
 	}
 }
+
 void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 
@@ -308,18 +308,19 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					}
 					break;
 					
+
 				}
 				//プレイヤーの時
 				if (y->mTag == CCollider::EPLAYEREBODY){
 					//衝突している時は無効にする
-					nflag = true;
+					//nflag = true;
 				}
 
-				else
+			/*	else
 				
 				{
 					nflag = false;
-				}
+				}*/
 
 
 			}
@@ -370,7 +371,6 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				case EPLAYER://プレイヤーの時
 					if (y->mTag == CCollider::EPLAYEREBODY){
 					
-
 					}
 					break;
 				}
@@ -397,6 +397,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 			}
 		}
 		if (CCollider::Collision(m, y)){
+
 			//判定
 			if (m->mTag == CCollider::EENEMYBODY){
 				
@@ -407,7 +408,8 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				case EWATERGUN:
 
 					if (y->mTag == CCollider::EWATER){
-						mHPNow -= 20;
+						mHPNow -= 10;
+						mSpeed += 0.05f;
 						//mScale = mScale*1.5f;
 						mSearch.mRadius *= 1.5f;
 

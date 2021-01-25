@@ -1,10 +1,12 @@
 #include "CWaterGun.h"
+#include"CSceneGame.h"
 #define G (9.8f/60.0f)//重力加速度
 #define WATERV0 (1.0f)//水初速
 CWaterGun::CWaterGun()
 :mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
 , mVelovcityGun(0), mForward(0.0f, 1.0f, 1.0f), x(1.0f)
 {
+	mpModel = &CSceneGame::mGun;
 	mTag = EWATERGUN;
 	mVelovcityGun = WATERV0;
 	mForward.mY += mVelovcityGun;
@@ -14,6 +16,7 @@ CWaterGun::CWaterGun()
 //幅と奥行きの設定
 //Set(幅,奥行)
 void CWaterGun::Set(float w, float d){
+
 	//スケール設定
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	//三角形の頂点設定
@@ -54,8 +57,8 @@ void CWaterGun::Update(){
 //衝突処理
 //Collision(コライダ1,コライダ2)
 void CWaterGun::Collision(CCollider *m, CCollider *y){
-	//共に球コライダの時
 
+	//共に球コライダの時
 	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(m, y)){
