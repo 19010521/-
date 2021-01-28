@@ -49,8 +49,8 @@ public:
 	CCollider mColSphereSword1;  //剣1
 	CCollider mColSphereSword2;  //剣2
 	CCollider mSearch;
-	CCollider mSearch2;
-	CCollider mSearch3;
+	//CCollider mSearch2;
+	//CCollider mSearch3;
 
 	//CCollider mSearch2;
 	float mVelovcityJump;
@@ -61,13 +61,15 @@ public:
 	int mCountMax;
 	int fCount;
 	int fCountMax;
+	int mAttaccount;
+	int mAttaccountMax;
 	bool nflag;//気づいたフラグ
 	bool jflag;//ジャンプフラグ
 	bool lflag;//後転フラグ
-	
+	bool aflag;//攻撃フラグ
 	bool mflag;//動くフラグ
-	static float mHPMax;//敵のHP
-	static float mHPNow;
+	 float mHPMax;//敵のHP
+	 float mHPNow;
 
 	static bool Attackflag;
 	static bool Call;//仲間を呼ぶ

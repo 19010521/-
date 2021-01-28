@@ -15,6 +15,7 @@ public:
 
 	void Collision(CCollider*m, CCollider*y);
 	float x, y, z;
+	float mx, mz;
 	void Update();
 	//void Render();
 

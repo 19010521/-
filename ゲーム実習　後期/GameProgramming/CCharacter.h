@@ -27,6 +27,7 @@ public:
 		EMISSILE,//ƒ~ƒTƒCƒ‹
 		EENEMY, //“G
 		ESEARCH2,
+	
 		
 		
 	};

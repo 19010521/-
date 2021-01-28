@@ -20,8 +20,10 @@ CModel mSky;
 CModel mPlane;
 bool CSceneGame::Countf = false;
 int CSceneGame::frame = 0;
+int CSceneGame::score = 0;
 bool CSceneGame::mEnd = false;
 CModel CSceneGame::mGun;
+
 //キャラクタのインスタンス
 //CXCharacter mPlayer;
 CSceneGame::~CSceneGame() {
@@ -39,9 +41,9 @@ void CSceneGame::Init() {
 
 	mEnd = false;
 
-	CXEnemy::mPointSize = 14;//ポイント数の設定
+	CXEnemy::mPointSize = 4;//ポイント数の設定
 	CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
-	CXEnemy::mPoint[0].Set(CVector(55.0f, 5.0f, 45.0f), 5.0f);
+	/*CXEnemy::mPoint[0].Set(CVector(55.0f, 5.0f, 45.0f), 5.0f);
 	CXEnemy::mPoint[1].Set(CVector(55.0f, 5.0f, 75.0f), 5.0f);
 	CXEnemy::mPoint[2].Set(CVector(10.0f, 5.0f, 85.0f), 5.0f);
 	CXEnemy::mPoint[3].Set(CVector(-30.0f, 5.0f, 90.0f), 5.0f);
@@ -50,11 +52,11 @@ void CSceneGame::Init() {
 	CXEnemy::mPoint[6].Set(CVector(5.0f, 5.0f, 10.0f), 5.0f);
 	CXEnemy::mPoint[7].Set(CVector(5.0f, 5.0f, -30.0f), 5.0f);
 	CXEnemy::mPoint[8].Set(CVector(-20.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[9].Set(CVector(-20.0f, 5.0f, -110.0f), 5.0f);
-	CXEnemy::mPoint[10].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
-	CXEnemy::mPoint[11].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
-	CXEnemy::mPoint[12].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[13].Set(CVector(55.0f, 5.0f, -30.0f), 5.0f);
+	CXEnemy::mPoint[9].Set(CVector(-20.0f, 5.0f, -110.0f), 5.0f);*/
+	CXEnemy::mPoint[0].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
+	CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
+	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
+	CXEnemy::mPoint[3].Set(CVector(55.0f, 5.0f, -30.0f), 5.0f);
 	
 	//CXEnemy::mPoint[1].Set(CVector(30.0f, 5.0f, -3.0f), 10.0f);//細道
 	//CXEnemy::mPoint[2].Set(CVector(-35.0f, 5.0f, 50.0f), 10.0f);
@@ -159,14 +161,7 @@ void CSceneGame::Init() {
 	//キャラクターにモデルを設定する
 	mPlayer.Init(&CRes::sModelX);
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -80);
-	mEnemy = new CXEnemy();
-	//敵の初期設定
-	mEnemy->Init(&CRes::sKnight);
-
-	//敵の配置
-	mEnemy->mAnimationFrameSize = 1024;
-	mEnemy->mPosition = CVector(-10.0f, 0.0f, 55.0f);
-	mEnemy->ChangeAnimation(2, true, 200);
+	
 	
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
@@ -196,19 +191,21 @@ void CSceneGame::Update() {
 		mpPuddle2->mpModel = &MudPuddle;
 	}
 	
-	/*if (CXEnemy::mHPNow <= 50 && CXEnemy::Call == true){
-		mEnemy1 = new CXEnemy1(&mCube, CVector(10.0f, 0.0f, 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
-		mEnemy2 = new CXEnemy2(&mCube, CVector(CXPlayer::mpxPlayer->mPosition.mX + 10.0f, 0.0f, CXPlayer::mpxPlayer->mPosition.mZ + 5.0f), CVector(), CVector(0.5f, 0.0f, 0.5f));
-	CXEnemy::Call = false;
+	//static変数の作成
+	static int frame = 0;//フレーム数のカウント
+	frame++;//フレーム数に1加算
+	if (frame < 1000 && frame % 150 == 0){
+		//敵機の生成
+		mEnemy = new CXEnemy();
+		//敵の初期設定
+		mEnemy->Init(&CRes::sKnight);
 
-	}*/
+		//敵の配置
+		mEnemy->mAnimationFrameSize = 1024;
+		mEnemy->mPosition = CVector(-10.0f, 0.0f, -55.0f);
+		mEnemy->ChangeAnimation(2, true, 200);
+	}
 
-	//歩くアニメーションに切り替える
-	//mCharacter.ChangeAnimation(1, true, 60);
-	//アニメーションを切り替える
-	//if (mPlayer.mAnimationFrame >= mPlayer.mAnimationFrameSize){
-	//	mPlayer.ChangeAnimation(mPlayer.mAnimationIndex + 1, true, 60);
-	//}
 
 
 
@@ -232,7 +229,7 @@ void CSceneGame::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	e = CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
 
-	c = mEye.mPosition;
+	c = mEye.mPosition + CVector(0.0f, 2.0f, 0.0f);
 
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f)*mEye.mMatrixRotate;
@@ -250,24 +247,7 @@ void CSceneGame::Update() {
 	}
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
-	//行列設定
-	//glMultMatrixf(Matrix.mF);
-
-	//最初のアニメーションの現在時間を45にする
-	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
-	/*CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
-	CRes::sModelX.mAnimationSet[0]->mTime =
-	(int)CRes::sModelX.mAnimationSet[0]->mTime %
-	(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);*/
-	//最初のアニメーションの重みを1.0(100%)にする
-	//CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
-	//フレームの変換行列をアニメーションで更新する
-	//CRes::sModelX.AnimateFrame();
-	//フレームの合成行列
-	//CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
-	/*CRes::sModelX.AnimateVertex();*/
-	//モデル
-	//CRes::sModelX.Render();
+	
 
 	TaskManager.Delete();
 	TaskManager.Render();
@@ -288,24 +268,25 @@ void CSceneGame::Update() {
 
 	//2D描画開始
 	Start2D(-400, 400, -300, 300);
+	//CText::DrawString("SCORE", -350 , 250, 16, 16);
+	sprintf(buf, "%d", score);//スコア
+	CText::DrawString(buf, -350 , 250, 16, 16);
 
-	
 
-	if (CXEnemy::Desuflag==true){
-		if (mExplosinCount > 0){
-			mExplosinCount--;
-		}
-		else{
-			CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
-			mEnd = true;
-		}
-	}
+	//if (CXEnemy::Desuflag==true){
+	//	if (mExplosinCount > 0){
+	//		mExplosinCount--;
+	//	}
+	//	else{
+	//		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
+	//		mEnd = true;
+	//	}
+	//}
 	if (CXPlayer::mpxPlayer->mstate==CXPlayer::mpxPlayer->EDESU){
 		if (DesuCount > 0){
 			DesuCount--;
 		}
-		else
-		{
+		else{
 			CText::DrawString("GAME OVER", -100, 0, 20, 20);
 			mEnd = true;
 		}

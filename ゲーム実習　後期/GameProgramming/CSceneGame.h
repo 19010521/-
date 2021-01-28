@@ -58,6 +58,7 @@ public:
 
 	int DesuCount=30;
 	static int frame;//フレーム数のカウント
+	static int score;//スコア
 	static bool Countf;
 	CSceneGame(){};
 	~CSceneGame();

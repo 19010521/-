@@ -93,164 +93,147 @@ void CXPlayer::Update(){
 	//		//mFireCount = 60;
 	//	}
 	//}
+	
+		if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
+			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
-	if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
-		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
+				mRotation.mY = CEye::mpthis->mRotation.mY;
 
-			mRotation.mY = CEye::mpthis->mRotation.mY;
+				ChangeAnimation(1, true, 60);
 
-			ChangeAnimation(1, true, 60);
-
-			mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-
-			if (CKey::Push('S')){
-
-				mRotation.mY += 180;
-
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-			}
-
-			if (CKey::Push('A')){
-				mRotation.mY += 90;
 				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 
 				if (CKey::Push('S')){
-					mRotation.mY += 225;
+
+					mRotation.mY += 180;
+
 					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
 				}
 
-				if (CKey::Push('W')){
-					mRotation.mY += 315;
+				if (CKey::Push('A')){
+					mRotation.mY += 90;
 					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+
+					if (CKey::Push('S')){
+						mRotation.mY += 225;
+						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					}
+
+					if (CKey::Push('W')){
+						mRotation.mY += 315;
+						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					}
 				}
+
+				if (CKey::Push('D')){
+					mRotation.mY += 270;
+					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					if (CKey::Push('S')){
+						mRotation.mY += 135;
+						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					}
+
+					if (CKey::Push('W')){
+						mRotation.mY += 45;
+						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
+					}
+				}
+
 			}
-
-			if (CKey::Push('D')){
-				mRotation.mY += 270;
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-				if (CKey::Push('S')){
-					mRotation.mY += 135;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-				}
-
-				if (CKey::Push('W')){
-					mRotation.mY += 45;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-				}
-			}
-
-		}
-		else if (mAnimationIndex == 1){
-			ChangeAnimation(0, true, 60);
-		}
-
-
-
-		if (mAnimationIndex == 3){
-			if (mAnimationFrame >= mAnimationFrameSize){
-				ChangeAnimation(4, false, 30);
-			}
-		}
-
-		if (mAnimationIndex == 4){
-			if (mAnimationFrame >= mAnimationFrameSize){
+			else if (mAnimationIndex == 1){
 				ChangeAnimation(0, true, 60);
 			}
-		}
-	}
 
-	if (mAnimationIndex != 11 && mstate == ENORMAL){
-		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
-			mRotation.mY = CEye::mpthis->mRotation.mY;
 
-			ChangeAnimation(1, true, 60);
-
-			mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
-
-			if (CKey::Push('S')){
-				mRotation.mY += 180;
-
-				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
+			if (mAnimationIndex == 3){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					ChangeAnimation(4, false, 30);
+				}
 			}
 
-			if (CKey::Push('A')){
-				mRotation.mY += 90;
-				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
+			if (mAnimationIndex == 4){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					ChangeAnimation(0, true, 60);
+				}
+			}
+		}
+
+		if (mAnimationIndex != 11 && mstate == ENORMAL){
+			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
+
+				mRotation.mY = CEye::mpthis->mRotation.mY;
+
+				ChangeAnimation(1, true, 60);
+
+				mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+
 				if (CKey::Push('S')){
-					mRotation.mY += 225;
-					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
-				}
-				if (CKey::Push('W')){
-					mRotation.mY += 315;
-					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
-				}
-			}
+					mRotation.mY += 180;
 
-			if (CKey::Push('D')){
-				mRotation.mY += 270;
-				mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
-				if (CKey::Push('S')){
-					mRotation.mY += 135;
-					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
 				}
-				if (CKey::Push('W')){
-					mRotation.mY += 45;
-					mPosition = CVector(0.0f, 0.0f, 0.2f-mSpeed)*mMatrix;
+
+				if (CKey::Push('A')){
+					mRotation.mY += 90;
+					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					if (CKey::Push('S')){
+						mRotation.mY += 225;
+						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					}
+					if (CKey::Push('W')){
+						mRotation.mY += 315;
+						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					}
 				}
-			}
 
-		}
-		else if (mAnimationIndex == 1){
-			ChangeAnimation(0, true, 60);
-		}
+				if (CKey::Push('D')){
+					mRotation.mY += 270;
+					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					if (CKey::Push('S')){
+						mRotation.mY += 135;
+						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					}
+					if (CKey::Push('W')){
+						mRotation.mY += 45;
+						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					}
+				}
 
-		if (mAnimationIndex == 3){
-			if (mAnimationFrame >= mAnimationFrameSize){
-				ChangeAnimation(4, false, 30);
 			}
-		}
-		if (mAnimationIndex == 4){
-			if (mAnimationFrame >= mAnimationFrameSize){
+			else if (mAnimationIndex == 1){
 				ChangeAnimation(0, true, 60);
 			}
-		}
 
-		/*if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
-
-		if (mAnimationIndex == 0 || mAnimationIndex == 1){
-		ChangeAnimation(3, false, 30);
-		}
-		}*/
-
-
-
-		if (waterflag == true && mWaterCount > 0){
-
-			if (mBulletCount > 0 && jflag == false){
-
-				mBulletCount--;
-			}
-
-			//マウスの右入力で弾発射
-			else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)){
-
-				CWaterGun*bullet = new CWaterGun();
-				bullet->Set(0.1f, 1.5f);
-				bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
-				//bullet->mRotation = mRotation;
-				bullet->mForward = bullet->mForward*mMatrixRotate;
-				mBulletCount = mBulletCountMax;
-				mWaterCount -= 1;
-				if (mWaterCount <= 0){
-					waterflag = false;
+			if (mAnimationIndex == 3){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					ChangeAnimation(4, false, 30);
 				}
-				mSpeed -= 0.03f;
-
 			}
-			//マウスの左入力で全弾発射
-			else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
-				if (mWaterCount == 3){
+			if (mAnimationIndex == 4){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					ChangeAnimation(0, true, 60);
+				}
+			}
+
+			/*if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
+
+			if (mAnimationIndex == 0 || mAnimationIndex == 1){
+			ChangeAnimation(3, false, 30);
+			}
+			}*/
+
+
+
+			if (waterflag == true && mWaterCount > 0){
+
+				if (mBulletCount > 0 && jflag == false){
+
+					mBulletCount--;
+				}
+
+				//マウスの右入力で弾発射
+				else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)){
 
 					CWaterGun*bullet = new CWaterGun();
 					bullet->Set(0.1f, 1.5f);
@@ -258,113 +241,132 @@ void CXPlayer::Update(){
 					//bullet->mRotation = mRotation;
 					bullet->mForward = bullet->mForward*mMatrixRotate;
 					mBulletCount = mBulletCountMax;
-					waterflag = false;
-					mWaterCount = 0;
-					mSpeed -= 0.09;
-					//bullet->mTag = CCharacter::;
-
-
-					/*if (mAIM == true){
-					mRotation.mX -= 20;
-					mRotation.mY -= 20;
-					}*/
+					mWaterCount -= 1;
+					if (mWaterCount <= 0){
+						waterflag = false;
+					}
+					mSpeed -= 0.03f;
 
 				}
+				//マウスの左入力で全弾発射
+				else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
+					if (mWaterCount == 3){
+
+						CWaterGun*bullet = new CWaterGun();
+						bullet->Set(0.1f, 1.5f);
+						bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
+						//bullet->mRotation = mRotation;
+						bullet->mForward = bullet->mForward*mMatrixRotate;
+						mBulletCount = mBulletCountMax;
+						waterflag = false;
+						mWaterCount = 0;
+						mSpeed -= 0.09;
+						//bullet->mTag = CCharacter::;
+
+
+						/*if (mAIM == true){
+						mRotation.mX -= 20;
+						mRotation.mY -= 20;
+						}*/
+
+					}
+				}
+			}
+
+		}
+
+
+
+		//ジャンプ
+		if (jflag == false){
+			mPosition.mY += mVelovcityJump;
+			mVelovcityJump -= G;
+		}
+		if (jflag == true){
+
+			mPosition.mY += mVelovcityJump;
+			mTurn -= TURN;
+
+
+		}
+		else if (CKey::Once(VK_SPACE)){
+
+			if (jflag == false && mstate == ENORMAL){
+				mVelovcityJump = JUMPV0;
+				mPosition.mY += mVelovcityJump;
+				//mPosition = CVector(0.0f, 0.0f, 0.5f)*mMatrix;
+				jflag = true;
+				mTurn = TURN;
+			}
+		}
+	
+
+		//無敵状態
+		if (mstate == EINVINCIBLE){
+			if (mInvincibleCount>0){
+				mInvincibleCount--;
+
+			}
+			else if (mMudCount < 3)
+			{
+				mstate = ENORMAL;
+				mInvincibleCount = mInvincibleCountMax;
+
+			}
+			else
+			{
+				mstate = EMUD;
+				mInvincibleCount = mInvincibleCountMax;
+			}
+
+		}
+		//泥状態になる
+		if (mMudCount > 3){
+			mstate = EMUD;
+		}
+		//ダメージ1
+		if (Damege == true){
+
+			mHPNow -= 20;
+			mMudCount += 1;
+			Damege = false;
+
+			mstate = EINVINCIBLE;
+		}
+		//ダメージ2
+		if (Damege2 == true){
+
+			mHPNow -= 5;
+			Damege2 = false;
+
+			mstate = EINVINCIBLE;
+		}
+		//死んだ--
+		if (mAnimationIndex == 11){
+			if (mAnimationFrame >= mAnimationFrameSize){
+				mstate = EDESU;
 			}
 		}
 
-	}
-	
-	
 
-	//ジャンプ
-	if (jflag == false){
-		mPosition.mY += mVelovcityJump;
-		mVelovcityJump -= G;
-	}
-	if (jflag == true){
-
-		mPosition.mY += mVelovcityJump;
-		mTurn -= TURN;
-		
-
-	}
-	else if (CKey::Once(VK_SPACE)){
-
-		if (jflag == false && mstate == ENORMAL){
-		    mVelovcityJump = JUMPV0;
-			mPosition.mY += mVelovcityJump;
-			//mPosition = CVector(0.0f, 0.0f, 0.5f)*mMatrix;
-			jflag = true;
-			mTurn = TURN;
-		}
-	}
-	//死んだ--
-	if (mAnimationIndex == 11){
-		if (mAnimationFrame >= mAnimationFrameSize){
-			mstate = EDESU;
-		}
-	}
-	if (mHPNow < 0){
-		mHPNow = 0;
-		ChangeAnimation(11, false, 20);
-
-	}
-
-	//無敵状態
-	if (mstate == EINVINCIBLE){
-		if (mInvincibleCount>0){
-			mInvincibleCount--;
-		
-		}
-		else if (mMudCount<3)
-		{
-			mstate = ENORMAL;
-			mInvincibleCount = mInvincibleCountMax;
+		if (mHPNow < 0){
+			ChangeAnimation(11, false, 30);
+			mHPNow = 0;
 
 		}
-		else
-		{
-			mstate = EMUD;
-			mInvincibleCount = mInvincibleCountMax;
+		CCharacter::Update();
+
+		if (jflag == true){
+			CMatrix a, b, c;
+			a.Translate(-mTunRotation.mX, -mTunRotation.mY, -mTunRotation.mZ);
+			b.RotateX(mTurn);
+			c.Translate(mTunRotation.mX, mTunRotation.mY, mTunRotation.mZ);
+			mMatrix = a*b*c*mMatrix;
 		}
 
+		CXCharacter::Update(mMatrix);
+
 	}
-	//泥状態になる
-	if (mMudCount > 3){
-		mstate = EMUD;
-	}
-	//ダメージ1
-	if (Damege == true){
-
-		mHPNow -= 20;
-		mMudCount += 1;
-		Damege = false;
-		
-		mstate = EINVINCIBLE;
-	}
-	//ダメージ2
-	if (Damege2 == true){
-
-		mHPNow -= 5;
-		Damege2 = false;
-
-		mstate = EINVINCIBLE;
-	}
-
-	CCharacter::Update();
-
-	if (jflag == true){
-		CMatrix a, b, c;
-		a.Translate(-mTunRotation.mX, -mTunRotation.mY, -mTunRotation.mZ);
-		b.RotateX(mTurn);
-		c.Translate(mTunRotation.mX, mTunRotation.mY, mTunRotation.mZ);
-		mMatrix = a*b*c*mMatrix;
-	}
-
-	CXCharacter::Update(mMatrix);
-
-}
 
 
 void CXPlayer::Collision(CCollider*mc, CCollider*yc){
@@ -433,8 +435,9 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 					}
 				}
 				if (yc->mTag == CCollider::EINPACT){
-					Damege2 = true;
-
+					if (mAnimationIndex != 11){
+						Damege2 = true;
+					}
 				}
 			}
 
@@ -442,10 +445,12 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 			switch (yc->mpParent->mTag){
 			case EENEMY:
 				if (yc->mTag == CCollider::EENEMYBODY){
-					if (mstate != EINVINCIBLE){
-						if (CXEnemy::Attackflag == false){
-							Damege = true;
+					if (mAnimationIndex != 11){
+						if (mstate != EINVINCIBLE){
+							if (CXEnemy::Attackflag == false){
+								Damege = true;
 
+							}
 						}
 					}
 					break;

@@ -4,7 +4,7 @@
 CPuddle2 *CPuddle2::mPuddle02 = 0;
 CPuddle2::CPuddle2(CModel*model, CVector position, CVector rotation, CVector scale)
 :mPuddle2(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
-, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f)
+, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f)
 
 {
 
@@ -17,8 +17,7 @@ CPuddle2::CPuddle2(CModel*model, CVector position, CVector rotation, CVector sca
 	mPosition = position;//ˆÊ’u‚ÌÝ’è
 	mRotation = rotation;//‰ñ“]‚ÌÝ’è
 	mScale = scale;   //Šgk‚ÌÝ’è
-
-	mScale = CVector(5.0f, 0.5f, 5.0f);
+	mScale = CVector(x, y, z);
 }
 
 void CPuddle2::Set(const CVector &pos, float r){
@@ -35,8 +34,22 @@ void CPuddle2::Update(){
 	CCharacter::Update();
 
 	if (CountRetention > UseCount){
-		mScale = CVector(x -= 2.0f, y, z -= 2.0f);
-		CountRetention = UseCount;
+
+		if (mx <= 1.0f && mz <= 1.0f){
+			mx += 0.5f;
+			mz += 0.5f;
+			mScale = CVector(x -= mx, y, z -= mz);
+				
+		}
+		else{
+			CountRetention = UseCount;
+			mx = 0;
+			mz = 0;
+			
+		}
+	}
+	if (x <= 0 || z <= 0){
+		mEnabled = false;
 	}
 
 }

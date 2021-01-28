@@ -3,8 +3,8 @@
 #define G (9.8f/60.0f)//重力加速度
 #define WATERV0 (1.0f)//水初速
 CWaterGun::CWaterGun()
-:mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.0f)
-, mVelovcityGun(0), mForward(0.0f, 1.0f, 2.0f), x(1.0f)
+:mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.1f)
+, mVelovcityGun(0), mForward(0.0f, 1.0f, 2.0f)
 {
 	mpModel = &CSceneGame::mGun;
 	mTag = EWATERGUN;
@@ -13,6 +13,7 @@ CWaterGun::CWaterGun()
 	mCollider.mTag = CCollider::EWATER;
 	
 }
+
 //幅と奥行きの設定
 //Set(幅,奥行)
 void CWaterGun::Set(float w, float d){
@@ -81,13 +82,10 @@ void CWaterGun::Collision(CCollider *m, CCollider *y){
 				//mPosition = mPosition - adjust*-1;
 				//行列の更新
 				CCharacter::Update();
-
 			}
-
 		}
 		break;
 	}
-
 }
 
 //描画

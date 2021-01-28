@@ -2,6 +2,7 @@
 #include"CRes.h"
 #include"CXPlayer.h"
 #include"CBullet.h"
+#include"CSceneGame.h"
 #include<stdio.h>
 #include<time.h>
 //誘導ポイント
@@ -10,11 +11,8 @@ int CXEnemy::mPointSize = 0;
 bool CXEnemy::Attackflag = true;
 bool CXEnemy::Call = true;
 bool CXEnemy::Desuflag = false;
-float CXEnemy::mHPMax = 100;
-float CXEnemy::mHPNow = mHPMax;
 #define G (9.8f/60.0f)//重力加速度
 #define JUMPV0 (2.0f)//ジャンプ初速
-
 
 CXEnemy::CXEnemy()
 :mColSphereBody(this, CVector(0.5f, -1.0f, 0.0f), CVector(), CVector(1.0f, 2.0f, 1.0f), 1.5f)
@@ -23,10 +21,9 @@ CXEnemy::CXEnemy()
 , mColSphereSword1(this, CVector(0.5f, 2.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword2(this, CVector(0.3f, 1.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mSearch(this, CVector(0.0f, 0.0f, -10.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
-, mSearch2(this, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f)
-, mSearch3(this, CVector(0.0f, 0.0f, -2.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 5.0f)
 , mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
-, mSpeed(0)
+, mSpeed(0), mAttaccount(180), mAttaccountMax(180)
+, mHPNow(0),mHPMax(1)
 {
 	jflag = false;
 	Attackflag = false;
@@ -35,13 +32,14 @@ CXEnemy::CXEnemy()
 
 	nflag = false;
 	
+	aflag = false;
 	
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
-
+	mHPNow = mHPMax;
 	mTag = EENEMY;
 	mSearch.mTag = CCollider::ESEARCH;
-	mSearch2.mTag = CCollider::ESEARCH2;
-	mSearch3.mTag = CCollider::ESEARCH3;
+	//mSearch2.mTag = CCollider::ESEARCH2;
+	//mSearch3.mTag = CCollider::ESEARCH3;
 
 	mColSphereBody.mTag = CCollider::EENEMYBODY;
 	mColSphereSword0.mTag = CCollider::ESWORD;
@@ -92,14 +90,16 @@ void CXEnemy::Update(){
 	}
 
 	//歩く
-	if (mAnimationIndex != 11 && mAnimationIndex != 7){
+	if (mAnimationIndex != 11 && mAnimationIndex != 7 && mAnimationFrame != 2){
 		if (mstate == ENORMAL){
 			if (nflag == false){
 				ChangeAnimation(1, true, 60);
+
 				//ポイントへのベクトルを求める
 				CVector dir = mpPoint->mPosition - mPosition;
 				//左方向のベクトルを求める
 				CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
+				mPosition = CVector(0.0f, 0.0f, -0.05f)*mMatrix;
 				//CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 				//上方向のベクトルを求める
 				//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
@@ -125,7 +125,6 @@ void CXEnemy::Update(){
 		else {
 			mstate = EWAIT;
 		}
-
 		if (mstate == EWAIT){
 			ChangeAnimation(2, false, 300);
 			if (mAnimationFrame >= mAnimationFrameSize){
@@ -146,7 +145,6 @@ void CXEnemy::Update(){
 		//mstate = ENORMAL;
 	}
 
-
 	else if (mstate == EJUNP){
 
 		if (jflag == false){
@@ -155,32 +153,14 @@ void CXEnemy::Update(){
 			jflag = true;
 		}
 	}
-
-
-
-	//後転
-	if (lflag == false){
-
-		mPosition.mY += mVelovcityJump;
-		mVelovcityJump -= G;
-	}
-
-	if (lflag == true){
-		mPosition.mY += mVelovcityJump;
-		mPosition.mZ += 0.6f;
-		mRotation.mX += 15.0f;
-		if (mRotation.mX > 359){
-			mstate = ENORMAL;
-		}
-		//mstate = ENORMAL;
-	}
-	if (mstate == EDESU){
-		Desuflag = true;
-	}
+	
+		
 	//死んだ--
 	if (mAnimationIndex == 11){
 		if (mAnimationFrame >= mAnimationFrameSize){
-			mstate = EDESU;
+			CSceneGame::score += 50;
+			mEnabled = false;
+			
 		}
 	}
 
@@ -190,60 +170,28 @@ void CXEnemy::Update(){
 		ChangeAnimation(11, false, 30);
 
 	}
-	else if (mstate == EBACKFLIP){
+	
+	//攻撃
+	if (aflag == true){
+		ChangeAnimation(7, false, 60);
+		if (mAttaccount > 0){
+			mAttaccount--;
+		}
+		else if (mAnimationIndex == 7){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					aflag = false;
+					Attackflag = true;
+					ChangeAnimation(1, true, 60);
+					mAttaccount = mAttaccountMax;
+				}
+				else
+				{
+					Attackflag = false;
 
-		ChangeAnimation(2, false, 90);
-
-		if (mAnimationFrame >= mAnimationFrameSize){
-
-			if (lflag == false){
-
-				mVelovcityJump = JUMPV0;
-				mPosition.mY += mVelovcityJump;
-				lflag = true;
+				}
 			}
 		}
-	}
-
-	//近ずくよ
-	if (mstate == ENEAR){
-
-		CVector dir = CXPlayer::mpxPlayer->mPosition - mPosition;
-
-		CVector left = CVector(1.0f, 0.0f, 0.0f)  * CMatrix().RotateY(mRotation.mY);
-
-		if (left.Dot(dir) > 0.0f){
-			mRotation.mY -= 1.0f;
-		}
-		else if (left.Dot(dir) < 0.0f){
-			mRotation.mY += 1.0f;
-		}
-	}
-
-	if (mstate == ENEAR){
-
-		if (mnearCount>0){
-			mnearCount--;
-		}
-		else
-		{
-			mstate = ENORMAL;
-			mnearCount = mnearCountMax;
-		}
-	}
-
-	if (mAnimationIndex == 7){
-		if (mAnimationFrame >= mAnimationFrameSize){
-			Attackflag = false;
-			ChangeAnimation(1, true, 60);
-		}
-
-		else
-		{
-			Attackflag = true;
-
-		}
-	}
+	
 	if (mstate == ELANDING){
 		for (int s = 0; s < 359; s++){
 			CBullet*bullet = new CBullet();
@@ -263,21 +211,6 @@ void CXEnemy::Update(){
 				mPosition = CVector(0.0f, 0.0f, 0.0f)*mMatrix;
 			}
 
-			else{
-				if (mstate != ENEAR){
-
-					//位置を移動
-					mPosition = CVector(0.0f, 0.0f, -0.1f - mSpeed)*mMatrix;
-
-				}
-				else
-
-				{
-					mPosition = CVector(0.0f, 0.0f, -0.4f)*mMatrix;
-
-				}
-
-			}
 		}
 	}
 }
@@ -315,12 +248,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					//nflag = true;
 				}
 
-			/*	else
-				
-				{
-					nflag = false;
-				}*/
-
+		
 
 			}
 			//コライダがサーチか判定
@@ -344,13 +272,13 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 						switch (Randam)
 						{
 						case 1:
-							mstate = EJUNP;
+						/*	mstate = EJUNP;
 							mCount = mCountMax;
-							break;
+							break;*/
 						case 2:
-							mstate = ENEAR;
+						/*	mstate = ENEAR;
 							mCount = mCountMax;
-							break;
+							break;*/
 						/*case 3:
 							mstate = EBACKFLIP;
 							mCount = mCountMax;
@@ -408,18 +336,15 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 					if (y->mTag == CCollider::EWATER){
 						mHPNow -= 10;
-						mSpeed += 0.05f;
-						//mScale = mScale*1.5f;
-						mSearch.mRadius *= 1.5f;
-
 					}
 					break;
 
 				case EPLAYER:
-					
-				
 
-					ChangeAnimation(7, false, 60);
+					if (aflag == false){
+						aflag = true;
+				}
+					
 
 
 				}
@@ -436,14 +361,13 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				CVector adjust;//調整用ベクトル		
 
 				if (CCollider::CollisionTriangleSphere(y, m, &adjust)){
-					if (mstate == EJUNP){
+					if (mstate == EJUNP&&jflag == true){
 						mstate = ELANDING;
-						//mstate = ENORMAL;
+						
 					}
+
 					jflag = false;
-					lflag = false;
-
-
+					
 					mVelovcityJump = 0;
 					//位置の更新
 					mPosition = mPosition - adjust*-1;
