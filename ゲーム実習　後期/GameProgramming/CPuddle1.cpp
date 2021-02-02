@@ -30,6 +30,8 @@ void CPuddle1::Set(const CVector &pos, float r){
 
 void CPuddle1::Update(){
 
+
+
 	CCharacter::Update();
 	if (CountRetention > UseCount){
 

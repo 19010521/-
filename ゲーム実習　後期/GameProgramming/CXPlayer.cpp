@@ -39,7 +39,7 @@ CXPlayer::CXPlayer()
 	//タグにプレイヤーを設定します
 	mTag = EPLAYER;
 
-	mstate = ENORMAL;
+	mstate = EMUD;
 	//mColSphereSword.mTag = CCollider::ESWORD;
 	mColSphereBody.mTag = CCollider::EPLAYEREBODY;
 

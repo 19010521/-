@@ -2,11 +2,12 @@
 #define CPUDDLE_H
 #include"CCharacter.h"
 #include"CCollider.h"
-
+#include"CXEnemy.h"
 class CPuddle :public CCharacter{
 public:
 	CCollider mPuddle0;
 	static CPuddle*mPuddle;
+	CXEnemy *mEnemy;
 
 	CPuddle(CModel*model, CVector position, CVector rotation, CVector scale);
 	int UseCount;//égópâÒêî

@@ -25,6 +25,8 @@ CXEnemy::CXEnemy()
 , mSpeed(0), mAttaccount(180), mAttaccountMax(180)
 , mHPNow(0),mHPMax(1)
 {
+	
+
 	jflag = false;
 	Attackflag = false;
 	
@@ -52,6 +54,8 @@ CXEnemy::CXEnemy()
 }
 
 void CXEnemy::Init(CModelX*model){
+
+
 	CXCharacter::Init(model);
 	//合成行列
 	//M
@@ -69,6 +73,7 @@ void CXEnemy::Init(CModelX*model){
 	//合成行列
 	mColSphereSword2.mpCombinedMatrix =
 		&mpCombinedMatrix[26];
+
 
 }
 
@@ -99,7 +104,7 @@ void CXEnemy::Update(){
 				CVector dir = mpPoint->mPosition - mPosition;
 				//左方向のベクトルを求める
 				CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
-				mPosition = CVector(0.0f, 0.0f, -0.05f)*mMatrix;
+				
 				//CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 				//上方向のベクトルを求める
 				//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
@@ -209,6 +214,10 @@ void CXEnemy::Update(){
 			if (mAnimationIndex == 2 || mAnimationIndex == 11){
 
 				mPosition = CVector(0.0f, 0.0f, 0.0f)*mMatrix;
+			}
+			else
+			{
+				mPosition = CVector(0.0f, 0.0f, -0.05f)*mMatrix;
 			}
 
 		}

@@ -92,6 +92,7 @@
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEye.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="CPuddle.cpp" />
     <ClCompile Include="CPuddle1.cpp" />
     <ClCompile Include="CPuddle2.cpp" />
+    <ClCompile Include="CPuddle3.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CRock2.cpp" />
@@ -138,6 +140,7 @@
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEye.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMaterial.h" />
@@ -150,6 +153,7 @@
     <ClInclude Include="CPuddle.h" />
     <ClInclude Include="CPuddle1.h" />
     <ClInclude Include="CPuddle2.h" />
+    <ClInclude Include="CPuddle3.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CRock2.h" />

@@ -1,0 +1,78 @@
+#include"CPuddle3.h"
+#include"CXPlayer.h"
+#include"CKey.h"
+CPuddle3 *CPuddle3::mPuddle03 = 0;
+CPuddle3::CPuddle3(CModel*model, CVector position, CVector rotation, CVector scale)
+:mPuddle3(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
+, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f)
+
+{
+
+	CountRetention = UseCount;
+
+	mPuddle03 = this;
+	mPuddle3.mTag = CCollider::EMUDPUDDLE;
+
+	mpModel = model;  //モデルの設定
+	mPosition = position;//位置の設定
+	mRotation = rotation;//回転の設定
+	mScale = scale;   //拡縮の設定
+	mScale = CVector(x, y, z);
+}
+
+void CPuddle3::Set(const CVector &pos, float r){
+	mPosition = pos;
+
+	mPuddle3.mRadius = r;
+
+
+
+}
+
+void CPuddle3::Update(){
+
+	CCharacter::Update();
+
+	if (CountRetention > UseCount){
+
+		if (mx <= 1.0f && mz <= 1.0f){
+			mx += 0.5f;
+			mz += 0.5f;
+			mScale = CVector(x -= mx, y, z -= mz);
+
+		}
+		else{
+			CountRetention = UseCount;
+			mx = 0;
+			mz = 0;
+
+		}
+	}
+	if (x <= 0 || z <= 0){
+		mEnabled = false;
+	}
+
+
+}
+void CPuddle3::Collision(CCollider*m, CCollider*y){
+
+	//共に球コライダの時
+	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
+		//コライダのｍとｙが衝突しているか判定
+		if (CCollider::Collision(m, y)){
+			if (m->mTag == CCollider::EPUDDLE2){
+
+				if (y->mTag == CCollider::EPLAYEREBODY){
+					if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EMUD){
+
+						if (CKey::Once('Q')){
+							CXPlayer::mpxPlayer->mstate = CXPlayer::mpxPlayer->ENORMAL;
+							mPuddle3.mTag = CCollider::EMUDPUDDLE;
+						}
+
+					}
+				}
+			}
+		}
+	}
+}

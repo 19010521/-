@@ -21,6 +21,7 @@ CModel mPlane;
 bool CSceneGame::Countf = false;
 int CSceneGame::frame = 0;
 int CSceneGame::score = 0;
+int CSceneGame::Time = 60 * 60;
 bool CSceneGame::mEnd = false;
 CModel CSceneGame::mGun;
 
@@ -72,7 +73,7 @@ void CSceneGame::Init() {
 	mGun.Load("sphere.obj", "sphere.mtl");
 
 	mpPuddle = new CPuddle(&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle->mpModel = &Puddle;
+	//mpPuddle->mpModel = &Puddle;
 
 	mpPuddle1 = new CPuddle1(&MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	mpPuddle1->mpModel = &Puddle;
@@ -80,6 +81,8 @@ void CSceneGame::Init() {
 	mpPuddle2 = new CPuddle2(&MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	mpPuddle2->mpModel = &Puddle;
 
+	mpPuddle3 = new CPuddle3(&MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle3->mpModel = &Puddle;
 
 	CRes::sModelX.Load(MODEL_FILE);
 	CRes::sKnight.Load(MODEL_FILE2);
@@ -178,35 +181,84 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 
+
+	if (Time > 0){
+		Time--;
+	}
 	
 	if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle->mpModel = &MudPuddle;
+		//static変数の作成
+		static int frame = 0;//フレーム数のカウント
+		frame++;//フレーム数に1加算
+		if (frame < 1000 && frame % 150 == 0){
+			//敵機の生成
+			mEnemy = new CXEnemy();
+			//敵の初期設定
+			mEnemy->Init(&CRes::sKnight);
+
+			//敵の配置
+			mEnemy->mAnimationFrameSize = 1024;
+			mEnemy->mPosition = CVector(30.0f, 0.0f, -5.0f);
+			mEnemy->ChangeAnimation(2, true, 200);
+		}
 	}
 
 	if (CPuddle1::mPuddle01->mPuddle1.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle1->mpModel = &MudPuddle;
+		//static変数の作成
+		static int frame = 0;//フレーム数のカウント
+		frame++;//フレーム数に1加算
+		if (frame < 1000 && frame % 150 == 0){
+			//敵機の生成
+			mEnemy = new CXEnemy();
+			//敵の初期設定
+			mEnemy->Init(&CRes::sKnight);
+
+			//敵の配置
+			mEnemy->mAnimationFrameSize = 1024;
+			mEnemy->mPosition = CVector(-80.0f, 0.0f, 90.0f);
+			mEnemy->ChangeAnimation(2, true, 200);
+		}
 	}
 
 	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
 		mpPuddle2->mpModel = &MudPuddle;
+		//static変数の作成
+		static int frame = 0;//フレーム数のカウント
+		frame++;//フレーム数に1加算
+		if (frame < 1000 && frame % 150 == 0){
+			//敵機の生成
+			mEnemy = new CXEnemy();
+			//敵の初期設定
+			mEnemy->Init(&CRes::sKnight);
+
+			//敵の配置
+			mEnemy->mAnimationFrameSize = 1024;
+			mEnemy->mPosition = CVector(-0.5f, 0.0f, -90.0f);
+			mEnemy->ChangeAnimation(2, true, 200);
+		}
 	}
+	if (CPuddle3::mPuddle03->mPuddle3.mTag == CCollider::EMUDPUDDLE){
+		mpPuddle3->mpModel = &MudPuddle;
+		//static変数の作成
+		static int frame = 0;//フレーム数のカウント
+		frame++;//フレーム数に1加算
+		if (frame < 1000 && frame % 150 == 0){
+			//敵機の生成
+			mEnemy = new CXEnemy();
+			//敵の初期設定
+			mEnemy->Init(&CRes::sKnight);
+
+			//敵の配置
+			mEnemy->mAnimationFrameSize = 1024;
+			mEnemy->mPosition = CVector(-0.5f, 0.0f, -30);
+			mEnemy->ChangeAnimation(2, true, 200);
+		}
+	}
+
+
 	
-	//static変数の作成
-	static int frame = 0;//フレーム数のカウント
-	frame++;//フレーム数に1加算
-	if (frame < 1000 && frame % 150 == 0){
-		//敵機の生成
-		mEnemy = new CXEnemy();
-		//敵の初期設定
-		mEnemy->Init(&CRes::sKnight);
-
-		//敵の配置
-		mEnemy->mAnimationFrameSize = 1024;
-		mEnemy->mPosition = CVector(-10.0f, 0.0f, -55.0f);
-		mEnemy->ChangeAnimation(2, true, 200);
-	}
-
-
 
 
 	if (mEnd == false){
@@ -272,6 +324,9 @@ void CSceneGame::Update() {
 	sprintf(buf, "%d", score);//スコア
 	CText::DrawString(buf, -350 , 250, 16, 16);
 
+	sprintf(buf, "%d", Time / 60);
+	CText::DrawString(buf, 300, 250, 16, 16);
+	
 
 	//if (CXEnemy::Desuflag==true){
 	//	if (mExplosinCount > 0){
