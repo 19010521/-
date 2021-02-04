@@ -29,6 +29,8 @@ public:
 		EWATER,//水
 		EINPACT,//衝撃
 		ESWORD,//剣
+		EBOMB,//ボム
+
 	};
 	ETag mTag;
 	//コライダタイプ

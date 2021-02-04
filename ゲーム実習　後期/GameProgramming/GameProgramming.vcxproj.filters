@@ -153,7 +153,7 @@
     <ClCompile Include="CPuddle3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CItem.cpp">
+    <ClCompile Include="CBomb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -302,7 +302,7 @@
     <ClInclude Include="CPuddle3.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CItem.h">
+    <ClInclude Include="CBomb.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

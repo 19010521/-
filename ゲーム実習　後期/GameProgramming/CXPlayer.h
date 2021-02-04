@@ -67,6 +67,7 @@ public:
 	bool waterflag;//水汲みフラグ
 	bool Damege;//ダメージ
 	bool Damege2;//ダメージ2
+	bool BombCarry;//ボムを持っているか
 
 	
 

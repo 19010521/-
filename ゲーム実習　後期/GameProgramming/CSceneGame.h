@@ -13,6 +13,7 @@
 #include"CPuddle3.h"
 #include"CEye.h"
 #include"CAmount.h"
+#include"CBomb.h"
 
 
 /*
@@ -41,6 +42,7 @@ public:
 
 	CModel mRock;
 	CModel mCube;
+	CModel mBomb;
 	static CModel mGun;
 	
 	CModel Puddle;
@@ -51,6 +53,9 @@ public:
 
 	CModel Puddle2;
 	CModel MudPuddle2;
+
+	CModel Puddle3;
+	CModel MudPuddle3;
 
 	CPuddle *mpPuddle;
 	CPuddle1 *mpPuddle1;

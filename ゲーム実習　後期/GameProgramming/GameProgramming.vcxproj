@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="CAmount.cpp" />
     <ClCompile Include="CBillBoard.cpp" />
+    <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
@@ -92,7 +93,6 @@
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEye.cpp" />
     <ClCompile Include="CInput.cpp" />
-    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="CAmount.h" />
     <ClInclude Include="CBillBoard.h" />
+    <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
@@ -140,7 +141,6 @@
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEye.h" />
     <ClInclude Include="CInput.h" />
-    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMaterial.h" />

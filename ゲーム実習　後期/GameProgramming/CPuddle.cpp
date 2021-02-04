@@ -49,6 +49,7 @@ void CPuddle::Update(){
 
 		}
 	}
+
 	if (x <= 0 || z <= 0){
 		mEnabled = false;
 	}

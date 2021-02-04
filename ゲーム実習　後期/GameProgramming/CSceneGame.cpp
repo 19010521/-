@@ -25,6 +25,8 @@ int CSceneGame::Time = 60 * 60;
 bool CSceneGame::mEnd = false;
 CModel CSceneGame::mGun;
 
+std::shared_ptr<CTexture>TextureExp1(new CTexture());
+
 //キャラクタのインスタンス
 //CXCharacter mPlayer;
 CSceneGame::~CSceneGame() {
@@ -44,25 +46,12 @@ void CSceneGame::Init() {
 
 	CXEnemy::mPointSize = 4;//ポイント数の設定
 	CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
-	/*CXEnemy::mPoint[0].Set(CVector(55.0f, 5.0f, 45.0f), 5.0f);
-	CXEnemy::mPoint[1].Set(CVector(55.0f, 5.0f, 75.0f), 5.0f);
-	CXEnemy::mPoint[2].Set(CVector(10.0f, 5.0f, 85.0f), 5.0f);
-	CXEnemy::mPoint[3].Set(CVector(-30.0f, 5.0f, 90.0f), 5.0f);
-	CXEnemy::mPoint[4].Set(CVector(-115.0f, 5.0f, 75.0f), 5.0f);
-	CXEnemy::mPoint[5].Set(CVector(-115.0f, 5.0f, 15.0f), 5.0f);
-	CXEnemy::mPoint[6].Set(CVector(5.0f, 5.0f, 10.0f), 5.0f);
-	CXEnemy::mPoint[7].Set(CVector(5.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[8].Set(CVector(-20.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[9].Set(CVector(-20.0f, 5.0f, -110.0f), 5.0f);*/
+	
 	CXEnemy::mPoint[0].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
 	CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
 	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
 	CXEnemy::mPoint[3].Set(CVector(55.0f, 5.0f, -30.0f), 5.0f);
-	
-	//CXEnemy::mPoint[1].Set(CVector(30.0f, 5.0f, -3.0f), 10.0f);//細道
-	//CXEnemy::mPoint[2].Set(CVector(-35.0f, 5.0f, 50.0f), 10.0f);
-	//CXEnemy::mPoint[3].Set(CVector(3.0f, 5.0f, 6.0f), 10.0f);
-	//mPlane.Load("plane.obj", "plane.mtl");
+
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
 	mPlane.Load("plane.obj", "plane.mtl");
@@ -71,6 +60,9 @@ void CSceneGame::Init() {
 	Puddle.Load("sphere.obj", "sphere.mtl");
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
 	mGun.Load("sphere.obj", "sphere.mtl");
+	mBomb.Load("sphere.obj", "sphere.mtl");
+
+	TextureExp1->Load("exp.tga");
 
 	mpPuddle = new CPuddle(&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	//mpPuddle->mpModel = &Puddle;
@@ -98,8 +90,11 @@ void CSceneGame::Init() {
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//10ダミー
 	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
-	
-	new CRock(&mRock, CVector(60.0f, 0.0f, -60.0f), CVector(), CVector(7.0f, 7.0f, 7.0f));
+	//壊せる壁
+	new CRock(&mRock, CVector(56.0f, 0.0f, -18.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
+	new CObj(&mCube, CVector(55.0f, 0.0f, -20.0f), CVector(), CVector(7.0f, 2.0f, 7.0f));
+
+	//壁
 	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(20.0f, 2.0f, 1.0f));
 	new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(13.0f, 5.0f, 1.5f));
 	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0f), CVector(), CVector(15.0f, 2.0f, 1.0f));
@@ -152,14 +147,8 @@ void CSceneGame::Init() {
 	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 2.0f, 1.0f));
 	new CRock2(&mRock, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.5f));
 
-	//new CRock2(&mRock, CVector(-140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
-	//new CRock2(&mRock, CVector(-140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
-	//new CRock2(&mRock, CVector(140.0f, 1.0f, 140.0f), CVector(), CVector(10.0f, 38.0f, 10.0f));
-	//new CRock2(&mRock, CVector(140.0f, 1.0f, -140.0f), CVector(), CVector(10.0f, 28.0f, 10.0f));
+	new CBomb(&mBomb, CVector(80.0f, 0.0f, -70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
-	//new CPuddle(&Puddle, CVector(-0.5f, 0.0f, -20.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//new CPuddle1(&Puddle, CVector(0.0f,0.0f,20.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
-	//new CPuddle2(&Puddle, CVector(-0.5f,0.0f,50.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//キャラクターにモデルを設定する
 	mPlayer.Init(&CRes::sModelX);
@@ -175,6 +164,8 @@ void CSceneGame::Init() {
 	Amount = new CAmount();
 
 	mMap = new CMap();
+
+	
 
 }
 
@@ -257,8 +248,6 @@ void CSceneGame::Update() {
 		}
 	}
 
-
-	
 
 
 	if (mEnd == false){

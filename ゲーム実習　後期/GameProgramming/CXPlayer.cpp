@@ -13,6 +13,7 @@ float CXPlayer::mHPNow = mHPMax;
 
 #define G (9.8f/60.0f)//重力加速度
 #define JUMPV0 (1.5f)//ジャンプ初速
+#define SPEED_DOWN (0.03f)
 #define MOUSE_SENSE 4
 #define TURN (-360.0f/60*3)//回転
 CXPlayer::CXPlayer()
@@ -34,12 +35,13 @@ CXPlayer::CXPlayer()
 
 	mpxPlayer = this;
 
+	BombCarry = false;
 
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	//タグにプレイヤーを設定します
 	mTag = EPLAYER;
 
-	mstate = EMUD;
+	mstate = ENORMAL;
 	//mColSphereSword.mTag = CCollider::ESWORD;
 	mColSphereBody.mTag = CCollider::EPLAYEREBODY;
 
@@ -216,16 +218,11 @@ void CXPlayer::Update(){
 				}
 			}
 
-			/*if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
-
-			if (mAnimationIndex == 0 || mAnimationIndex == 1){
-			ChangeAnimation(3, false, 30);
-			}
-			}*/
+			
 
 
 
-			if (waterflag == true && mWaterCount > 0){
+			if (mWaterCount > 0){
 
 				if (mBulletCount > 0 && jflag == false){
 
@@ -241,36 +238,12 @@ void CXPlayer::Update(){
 					//bullet->mRotation = mRotation;
 					bullet->mForward = bullet->mForward*mMatrixRotate;
 					mBulletCount = mBulletCountMax;
-					mWaterCount -= 1;
-					if (mWaterCount <= 0){
-						waterflag = false;
-					}
-					mSpeed -= 0.03f;
+					mWaterCount--;
+					
+					mSpeed -= SPEED_DOWN;
 
 				}
-				//マウスの左入力で全弾発射
-				else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)){
-					if (mWaterCount == 3){
-
-						CWaterGun*bullet = new CWaterGun();
-						bullet->Set(0.1f, 1.5f);
-						bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
-						//bullet->mRotation = mRotation;
-						bullet->mForward = bullet->mForward*mMatrixRotate;
-						mBulletCount = mBulletCountMax;
-						waterflag = false;
-						mWaterCount = 0;
-						mSpeed -= 0.09;
-						//bullet->mTag = CCharacter::;
-
-
-						/*if (mAIM == true){
-						mRotation.mX -= 20;
-						mRotation.mY -= 20;
-						}*/
-
-					}
-				}
+			
 			}
 
 		}
@@ -396,16 +369,16 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 
 
 			if (mstate != EMUD){
-				if (waterflag == false){
+			
 					if (yc->mTag == CCollider::EPUDDLE0){
 						//水をくむ
 						if (CKey::Once('Q')){
 							if (CPuddle::mPuddle->UseCount > 0){
 
-								waterflag = true;
+								
 								mWaterCount = mWaterCountMax;
 								CPuddle::mPuddle->UseCount--;
-								mSpeed += 0.09;
+								mSpeed += SPEED_DOWN * 3;
 							}
 						}
 					}
@@ -414,10 +387,10 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 						//水をくむ
 						if (CKey::Once('Q')){
 							if (CPuddle1::mPuddle01->UseCount > 0){
-								waterflag = true;
+								
 								mWaterCount = mWaterCountMax;
 								CPuddle1::mPuddle01->UseCount--;
-								mSpeed += 0.09;
+								mSpeed += SPEED_DOWN * 3;
 							}
 						}
 					}
@@ -426,19 +399,36 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 						//水をくむ
 						if (CKey::Once('Q')){
 							if (CPuddle2::mPuddle02->UseCount > 0){
-								waterflag = true;
 								mWaterCount = mWaterCountMax;
 								CPuddle2::mPuddle02->UseCount--;
-								mSpeed += 0.09;
+								mSpeed += SPEED_DOWN * 3;
+							}
+					}
+				}
+					else if (yc->mTag == CCollider::EPUDDLE3){
+
+						//水をくむ
+						if (CKey::Once('Q')){
+							if (CPuddle3::mPuddle03->UseCount > 0){
+								mWaterCount = mWaterCountMax;
+								CPuddle3::mPuddle03->UseCount--;
+								mSpeed += SPEED_DOWN * 3;
 							}
 						}
 					}
-				}
 				if (yc->mTag == CCollider::EINPACT){
 					if (mAnimationIndex != 11){
 						Damege2 = true;
 					}
 				}
+			}
+			if (yc->mTag == CCollider::EBOMB){
+				if (CKey::Once('Q')){
+
+					BombCarry = true;
+
+				}
+
 			}
 
 			//衝突したコライダの親の種類を判定
