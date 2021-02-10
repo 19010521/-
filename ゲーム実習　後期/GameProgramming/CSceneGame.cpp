@@ -41,6 +41,8 @@ CScene::EScene CSceneGame::GetNextScene() {
 void CSceneGame::Init() {
 
 	mScene = EGAME;
+	
+
 
 	mEnd = false;
 
@@ -59,23 +61,26 @@ void CSceneGame::Init() {
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
-	mGun.Load("sphere.obj", "sphere.mtl");
+	
 	mBomb.Load("sphere.obj", "sphere.mtl");
 
 	TextureExp1->Load("exp.tga");
 
-	mpPuddle = new CPuddle(&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//mpPuddle->mpModel = &Puddle;
 
-	mpPuddle1 = new CPuddle1(&MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle1->mpModel = &Puddle;
 
-	mpPuddle2 = new CPuddle2(&MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle2->mpModel = &Puddle;
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 
-	mpPuddle3 = new CPuddle3(&MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle3->mpModel = &Puddle;
+	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle->mTag = mpPuddle->EMUD;
 
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle->mTag = mpPuddle->EMUD;
+	
+	
+	
+	
 	CRes::sModelX.Load(MODEL_FILE);
 	CRes::sKnight.Load(MODEL_FILE2);
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
@@ -92,10 +97,10 @@ void CSceneGame::Init() {
 
 	//壊せる壁
 	new CRock(&mRock, CVector(56.0f, 0.0f, -18.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
-	new CObj(&mCube, CVector(55.0f, 0.0f, -20.0f), CVector(), CVector(7.0f, 2.0f, 7.0f));
-
+	
 	//壁
 	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(20.0f, 2.0f, 1.0f));
+	
 	new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(13.0f, 5.0f, 1.5f));
 	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0f), CVector(), CVector(15.0f, 2.0f, 1.0f));
 	new CRock2(&mRock, CVector(32.0f, 0.0f, -20.0f), CVector(), CVector(11.0f, 5.0f, 1.5f));
@@ -151,6 +156,7 @@ void CSceneGame::Init() {
 
 
 	//キャラクターにモデルを設定する
+
 	mPlayer.Init(&CRes::sModelX);
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -80);
 	
@@ -177,81 +183,67 @@ void CSceneGame::Update() {
 		Time--;
 	}
 	
-	if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EMUDPUDDLE){
-		mpPuddle->mpModel = &MudPuddle;
-		//static変数の作成
-		static int frame = 0;//フレーム数のカウント
-		frame++;//フレーム数に1加算
-		if (frame < 1000 && frame % 150 == 0){
-			//敵機の生成
-			mEnemy = new CXEnemy();
-			//敵の初期設定
-			mEnemy->Init(&CRes::sKnight);
+	
+	
 
-			//敵の配置
-			mEnemy->mAnimationFrameSize = 1024;
-			mEnemy->mPosition = CVector(30.0f, 0.0f, -5.0f);
-			mEnemy->ChangeAnimation(2, true, 200);
-		}
-	}
+	//if (CPuddle1::mPuddle01->mPuddle1.mTag == CCollider::EMUDPUDDLE){
+	//	mpPuddle1->mpModel = &MudPuddle;
+	//	//static変数の作成
+	//	static int frame = 0;//フレーム数のカウント
+	//	frame++;//フレーム数に1加算
+	//	if (frame < 1000 && frame % 150 == 0){
+	//		//敵機の生成
+	//		mEnemy = new CXEnemy();
+	//		//敵の初期設定
+	//		mEnemy->Init(&CRes::sKnight);
 
-	if (CPuddle1::mPuddle01->mPuddle1.mTag == CCollider::EMUDPUDDLE){
-		mpPuddle1->mpModel = &MudPuddle;
-		//static変数の作成
-		static int frame = 0;//フレーム数のカウント
-		frame++;//フレーム数に1加算
-		if (frame < 1000 && frame % 150 == 0){
-			//敵機の生成
-			mEnemy = new CXEnemy();
-			//敵の初期設定
-			mEnemy->Init(&CRes::sKnight);
+	//		//敵の配置
+	//		mEnemy->mAnimationFrameSize = 1024;
+	//		mEnemy->mPosition = CVector(-80.0f, 0.0f, 90.0f);
+	//		mEnemy->ChangeAnimation(2, true, 200);
+	//	}
+	//}
 
-			//敵の配置
-			mEnemy->mAnimationFrameSize = 1024;
-			mEnemy->mPosition = CVector(-80.0f, 0.0f, 90.0f);
-			mEnemy->ChangeAnimation(2, true, 200);
-		}
-	}
+	//if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
+	//	mpPuddle2->mpModel = &MudPuddle;
+	//	//static変数の作成
+	//	static int frame = 0;//フレーム数のカウント
+	//	frame++;//フレーム数に1加算
+	//	if (frame < 1000 && frame % 150 == 0){
+	//		//敵機の生成
+	//		mEnemy = new CXEnemy();
+	//		//敵の初期設定
+	//		mEnemy->Init(&CRes::sKnight);
 
-	if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
-		mpPuddle2->mpModel = &MudPuddle;
-		//static変数の作成
-		static int frame = 0;//フレーム数のカウント
-		frame++;//フレーム数に1加算
-		if (frame < 1000 && frame % 150 == 0){
-			//敵機の生成
-			mEnemy = new CXEnemy();
-			//敵の初期設定
-			mEnemy->Init(&CRes::sKnight);
+	//		//敵の配置
+	//		mEnemy->mAnimationFrameSize = 1024;
+	//		mEnemy->mPosition = CVector(-0.5f, 0.0f, -90.0f);
+	//		mEnemy->ChangeAnimation(2, true, 200);
+	//	}
+	//}
+	//if (CPuddle3::mPuddle03->mPuddle3.mTag == CCollider::EMUDPUDDLE){
+	//	mpPuddle3->mpModel = &MudPuddle;
+	//	//static変数の作成
+	//	static int frame = 0;//フレーム数のカウント
+	//	frame++;//フレーム数に1加算
+	//	if (frame < 1000 && frame % 150 == 0){
+	//		//敵機の生成
+	//		mEnemy = new CXEnemy();
+	//		//敵の初期設定
+	//		mEnemy->Init(&CRes::sKnight);
 
-			//敵の配置
-			mEnemy->mAnimationFrameSize = 1024;
-			mEnemy->mPosition = CVector(-0.5f, 0.0f, -90.0f);
-			mEnemy->ChangeAnimation(2, true, 200);
-		}
-	}
-	if (CPuddle3::mPuddle03->mPuddle3.mTag == CCollider::EMUDPUDDLE){
-		mpPuddle3->mpModel = &MudPuddle;
-		//static変数の作成
-		static int frame = 0;//フレーム数のカウント
-		frame++;//フレーム数に1加算
-		if (frame < 1000 && frame % 150 == 0){
-			//敵機の生成
-			mEnemy = new CXEnemy();
-			//敵の初期設定
-			mEnemy->Init(&CRes::sKnight);
-
-			//敵の配置
-			mEnemy->mAnimationFrameSize = 1024;
-			mEnemy->mPosition = CVector(-0.5f, 0.0f, -30);
-			mEnemy->ChangeAnimation(2, true, 200);
-		}
-	}
+	//		//敵の配置
+	//		mEnemy->mAnimationFrameSize = 1024;
+	//		mEnemy->mPosition = CVector(-0.5f, 0.0f, -30);
+	//		mEnemy->ChangeAnimation(2, true, 200);
+	//	}
+	//}
 
 
 
 	if (mEnd == false){
 		TaskManager.Update();
+
 		//衝突処理
 	}
 
@@ -261,14 +253,16 @@ void CSceneGame::Update() {
 		}
 	}
 	//キャラクタークラスの更新
+	
 
-	mEye.Update();
-	//TaskManager.TaskCollision();
+	
 	CollisionManager.Collision();
+
 	mEye.mPosition = mPlayer.mPosition;
+	
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
-	e = CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
+	e =  CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
 
 	c = mEye.mPosition + CVector(0.0f, 2.0f, 0.0f);
 
@@ -286,8 +280,9 @@ void CSceneGame::Update() {
 		u = CVector(0.0f, 1.0f, 0.0f);
 		//カメラの設定
 	}
+	Camera.mEye = e;
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
-
+	
 	
 
 	TaskManager.Delete();
@@ -317,15 +312,12 @@ void CSceneGame::Update() {
 	CText::DrawString(buf, 300, 250, 16, 16);
 	
 
-	//if (CXEnemy::Desuflag==true){
-	//	if (mExplosinCount > 0){
-	//		mExplosinCount--;
-	//	}
-	//	else{
-	//		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
-	//		mEnd = true;
-	//	}
-	//}
+	/*if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EPUDDLE0){
+
+		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
+		mEnd = true;
+	}
+	*/
 	if (CXPlayer::mpxPlayer->mstate==CXPlayer::mpxPlayer->EDESU){
 		if (DesuCount > 0){
 			DesuCount--;

@@ -3,7 +3,7 @@
 #define G (9.8f/60.0f)//重力加速度
 #define WATERV0 (1.0f)//水初速
 CWaterGun::CWaterGun()
-:mLife(30), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.1f)
+:mLife(40), mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f , 1.0f , 1.0f ),1.1f)
 , mVelovcityGun(0), mForward(0.0f, 1.0f, 2.0f)
 {
 	mpModel = &CSceneGame::mGun;
@@ -39,12 +39,17 @@ void CWaterGun::Update(){
 	////位置更新
 	//生存時間の判定
 	
-		mScale = mScale*1.1f;
+		mScale.mX = mScale.mX*1.1f;
+
+		mScale.mZ = mScale.mZ*1.1f;
+
+
 		mCollider.mRadius *= 1.1f;
 	
 		
 		//生存時間の判定
 		if (mLife-- > 0){
+		
 			CCharacter::Update();
 		}
 		else{

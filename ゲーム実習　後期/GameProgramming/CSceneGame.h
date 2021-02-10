@@ -16,6 +16,7 @@
 #include"CBomb.h"
 
 
+
 /*
 ÉQÅ[ÉÄÇÃÉVÅ[Éì
 */
@@ -58,9 +59,9 @@ public:
 	CModel MudPuddle3;
 
 	CPuddle *mpPuddle;
-	CPuddle1 *mpPuddle1;
-	CPuddle2 *mpPuddle2;
-	CPuddle3 *mpPuddle3;
+	//CPuddle1 *mpPuddle1;
+	//CPuddle2 *mpPuddle2;
+	//CPuddle3 *mpPuddle3;
 	EScene GetNextScene();
 
 	int DesuCount=30;

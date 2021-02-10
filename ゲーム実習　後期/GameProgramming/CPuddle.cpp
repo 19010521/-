@@ -1,36 +1,41 @@
 #include"CPuddle.h"
 #include"CXPlayer.h"
 #include"CKey.h"
+#include"CRes.h"
 
-CPuddle *CPuddle::mPuddle = 0;
-CPuddle::CPuddle(CModel*model, CVector position, CVector rotation, CVector scale)
-:mPuddle0(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
-, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f)
+CPuddle *CPuddle::mpPuddle = 0;
+CPuddle::CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation, CVector scale)
+:mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
+, UseCount(3), CountRetention(0), x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f), frame(0)
 {
 
 	CountRetention = UseCount;
-	mPuddle0.mTag = CCollider::EPUDDLE0;
+	mTag = ENORMAL;
+	mPuddle.mTag = CCollider::EPUDDLE0;
 	mpModel = model;  //ÉÇÉfÉãÇÃê›íË
 	mPosition = position;//à íuÇÃê›íË
 	mRotation = rotation;//âÒì]ÇÃê›íË
 	mScale = scale;   //ägèkÇÃê›íË
 
+	Puddle = model;
+	MudPuddle = model2;
+
 	mScale = CVector(x, y, z);
-	mPuddle = this;
+	mpPuddle = this;
+
+
 }
 
 
 void CPuddle::Set(const CVector &pos, float r){
 
 	mPosition = pos;
-	mPuddle0.mRadius = r;
+	mPuddle.mRadius = r;
 
 	
 }
  
 void CPuddle::Update(){
-
-
 
 
 	CCharacter::Update();
@@ -54,6 +59,23 @@ void CPuddle::Update(){
 		mEnabled = false;
 	}
 
+	if (mTag==EMUD){
+
+		mpModel = MudPuddle;
+
+		frame++;//ÉtÉåÅ[ÉÄêîÇ…1â¡éZ
+		if (frame < 1000 && frame % 150 == 0){
+			//ìGã@ÇÃê∂ê¨
+			mEnemy = new CXEnemy();
+			//ìGÇÃèâä˙ê›íË
+			mEnemy->Init(&CRes::sKnight);
+
+			//ìGÇÃîzíu
+			mEnemy->mAnimationFrameSize = 1024;
+			mEnemy->mPosition = mPosition;
+			mEnemy->ChangeAnimation(2, true, 200);
+		}
+	}
 }
 
 void CPuddle::Collision(CCollider*m, CCollider*y){
@@ -67,8 +89,8 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 						if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EMUD){
 							if (CKey::Once('Q')){
 								CXPlayer::mpxPlayer->mstate = CXPlayer::mpxPlayer->ENORMAL;
-								mPuddle0.mTag = CCollider::EMUDPUDDLE;
-								//mEnabled = false;
+								mPuddle.mTag = CCollider::EMUDPUDDLE;
+								
 							}
 						}
 					}

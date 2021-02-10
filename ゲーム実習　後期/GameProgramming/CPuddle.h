@@ -5,11 +5,19 @@
 #include"CXEnemy.h"
 class CPuddle :public CCharacter{
 public:
-	CCollider mPuddle0;
-	static CPuddle*mPuddle;
+
+
+	CCollider mPuddle;
+	static CPuddle*mpPuddle;
+
+	CModel *Puddle;
+	CModel *MudPuddle;
+
 	CXEnemy *mEnemy;
 
-	CPuddle(CModel*model, CVector position, CVector rotation, CVector scale);
+	CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation, CVector scale);
+	//static変数の作成
+	int frame ;//フレーム数のカウント
 	int UseCount;//使用回数
 	int CountRetention;//カウント保持
 	void Set(const CVector &pos, float r);

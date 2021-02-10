@@ -23,11 +23,10 @@ public:
 		EPOINT,	//ポイント
 		EPLAYER,//プレイヤー
 		EWATERGUN,
-		EAIRBASE,//空軍基地
-		EMISSILE,//ミサイル
-		EENEMY, //敵
-		ESEARCH2,
-		EBOMB,//爆弾
+		EENEMY,//敵
+		ENORMAL,//ノーマルな水
+		EMUD,  //泥
+	
 	
 		
 		

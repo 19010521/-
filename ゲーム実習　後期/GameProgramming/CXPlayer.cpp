@@ -86,17 +86,8 @@ void CXPlayer::Update(){
 
 	mVelovcityJump -= G;
 
-	//if (CKey::Once('Z')){
-	//	for (int s = 0; s < 359; s++){
-	//		CBullet*bullet = new CBullet();
-	//		bullet->Set(0.1f, 1.5f);
-	//		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f)*CMatrix().RotateY(s)*mMatrix;
-	//		bullet->mRotation = CVector(0.0f, s, 0.0f);
-	//		//mFireCount = 60;
-	//	}
-	//}
 	
-		if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
+		/*if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
 			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
 				mRotation.mY = CEye::mpthis->mRotation.mY;
@@ -160,9 +151,11 @@ void CXPlayer::Update(){
 				}
 			}
 		}
-
+*/
 		if (mAnimationIndex != 11 && mstate == ENORMAL){
+		
 			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
+
 
 				mRotation.mY = CEye::mpthis->mRotation.mY;
 
@@ -366,6 +359,23 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(mc, yc)){
 
+			//共に球コライダの時
+			if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
+				//コライダのｍとｙが衝突しているか判定
+				if (CCollider::Collision(mc, yc)){
+					if (yc->mTag == CCollider::EROCK){
+						if (mc->mTag == CCollider::EPLAYEREBODY){
+							CVector adjust;
+							if (CCollider::CollisionSphere(mc, yc, &adjust)){
+								mPosition = mPosition - adjust * -1.0;
+								CCharacter::Update();
+							}
+						}
+					}
+				}
+
+
+			}
 
 
 			if (mstate != EMUD){
@@ -373,11 +383,11 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 					if (yc->mTag == CCollider::EPUDDLE0){
 						//水をくむ
 						if (CKey::Once('Q')){
-							if (CPuddle::mPuddle->UseCount > 0){
+							if (CPuddle::mpPuddle->UseCount > 0){
 
 								
 								mWaterCount = mWaterCountMax;
-								CPuddle::mPuddle->UseCount--;
+								CPuddle::mpPuddle->UseCount--;
 								mSpeed += SPEED_DOWN * 3;
 							}
 						}

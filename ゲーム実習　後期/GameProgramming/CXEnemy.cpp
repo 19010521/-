@@ -26,7 +26,7 @@ CXEnemy::CXEnemy()
 , mHPNow(0),mHPMax(1)
 {
 	
-
+	
 	jflag = false;
 	Attackflag = false;
 	

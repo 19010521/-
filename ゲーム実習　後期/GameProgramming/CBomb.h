@@ -9,5 +9,7 @@ public:
 	CBomb(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider mBomb;
 
+	void Update();
+	
 };
 #endif

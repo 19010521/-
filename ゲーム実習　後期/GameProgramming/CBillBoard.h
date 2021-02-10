@@ -1,12 +1,14 @@
 #ifndef CBILLBOARD_H
 #define CBILLBOARD_H
 #include "CCharacter.h"
+#include"CEye.h"
 /*
 ビルボードクラス
 常にカメラの方を向く四角形
 */
 class CBillBoard : public CCharacter {
 public:
+	CEye mEye;
 	//三角形2つ
 	CTriangle mT[2];
 	//マテリアル

@@ -26,6 +26,7 @@ public:
 		EPUDDLE3,//水たまり
 		EMUDPUDDLE,//使えなくなった水たまり
 		EROCK,//岩
+
 		EWATER,//水
 		EINPACT,//衝撃
 		ESWORD,//剣
@@ -83,6 +84,7 @@ public:
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
 	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
+	static bool CollisionSphere(CCollider *mc, CCollider *yc, CVector *adjust);
 };
 
 #endif

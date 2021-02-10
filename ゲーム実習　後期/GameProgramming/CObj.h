@@ -12,7 +12,6 @@ public:
 	CObj(CModel*model, const CVector &position,
 		const CVector &rotation, const CVector &scale);
 	~CObj();
-	//Collision(コライダ1,コライダ2)
-	void Collision(CCollider *m, CCollider *y);
+	
 };
 #endif
