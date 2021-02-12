@@ -280,9 +280,9 @@ void CSceneGame::Update() {
 		u = CVector(0.0f, 1.0f, 0.0f);
 		//ƒJƒƒ‰‚Ìİ’è
 	}
-	Camera.mEye = e;
-	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 	
+	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+	Camera.mEye = e;
 	
 
 	TaskManager.Delete();

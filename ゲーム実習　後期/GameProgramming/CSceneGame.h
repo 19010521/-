@@ -8,9 +8,6 @@
 #include "CXPlayer.h"
 #include "CMap.h"
 #include"CPuddle.h"
-#include"CPuddle1.h"
-#include"CPuddle2.h"
-#include"CPuddle3.h"
 #include"CEye.h"
 #include"CAmount.h"
 #include"CBomb.h"
@@ -49,14 +46,7 @@ public:
 	CModel Puddle;
 	CModel MudPuddle;
 
-	CModel Puddle1;
-	CModel MudPuddle1;
-
-	CModel Puddle2;
-	CModel MudPuddle2;
-
-	CModel Puddle3;
-	CModel MudPuddle3;
+	
 
 	CPuddle *mpPuddle;
 	//CPuddle1 *mpPuddle1;

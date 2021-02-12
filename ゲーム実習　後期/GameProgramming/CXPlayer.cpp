@@ -392,40 +392,9 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 							}
 						}
 					}
-					else if (yc->mTag == CCollider::EPUDDLE1){
+					
 
-						//…‚ð‚­‚Þ
-						if (CKey::Once('Q')){
-							if (CPuddle1::mPuddle01->UseCount > 0){
-								
-								mWaterCount = mWaterCountMax;
-								CPuddle1::mPuddle01->UseCount--;
-								mSpeed += SPEED_DOWN * 3;
-							}
-						}
-					}
-					else if (yc->mTag == CCollider::EPUDDLE2){
-
-						//…‚ð‚­‚Þ
-						if (CKey::Once('Q')){
-							if (CPuddle2::mPuddle02->UseCount > 0){
-								mWaterCount = mWaterCountMax;
-								CPuddle2::mPuddle02->UseCount--;
-								mSpeed += SPEED_DOWN * 3;
-							}
-					}
-				}
-					else if (yc->mTag == CCollider::EPUDDLE3){
-
-						//…‚ð‚­‚Þ
-						if (CKey::Once('Q')){
-							if (CPuddle3::mPuddle03->UseCount > 0){
-								mWaterCount = mWaterCountMax;
-								CPuddle3::mPuddle03->UseCount--;
-								mSpeed += SPEED_DOWN * 3;
-							}
-						}
-					}
+						
 				if (yc->mTag == CCollider::EINPACT){
 					if (mAnimationIndex != 11){
 						Damege2 = true;

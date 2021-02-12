@@ -26,7 +26,6 @@ CPuddle::CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation,
 
 }
 
-
 void CPuddle::Set(const CVector &pos, float r){
 
 	mPosition = pos;
@@ -42,8 +41,8 @@ void CPuddle::Update(){
 	if (CountRetention > UseCount){
 
 		if (mx <= 1.0f && mz <= 1.0f){
-			mx += 0.5f;
-			mz += 0.5f;
+			mx += 0.1f;
+			mz += 0.1f;
 			mScale = CVector(x -= mx, y, z -= mz);
 
 		}
@@ -58,6 +57,7 @@ void CPuddle::Update(){
 	if (x <= 0 || z <= 0){
 		mEnabled = false;
 	}
+
 
 	if (mTag==EMUD){
 
@@ -76,6 +76,7 @@ void CPuddle::Update(){
 			mEnemy->ChangeAnimation(2, true, 200);
 		}
 	}
+	//if ()
 }
 
 void CPuddle::Collision(CCollider*m, CCollider*y){
