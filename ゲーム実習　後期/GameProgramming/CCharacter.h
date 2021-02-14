@@ -24,8 +24,8 @@ public:
 		EPLAYER,//プレイヤー
 		EWATERGUN,
 		EENEMY,//敵
-		ENORMAL,//ノーマルな水
-		EMUD,  //泥
+		ENORMALPUDDLE,//ノーマルな水
+		EMUDPUDDLE,  //泥
 	
 	
 		

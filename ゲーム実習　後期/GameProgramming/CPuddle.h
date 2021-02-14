@@ -15,16 +15,23 @@ public:
 
 	CXEnemy *mEnemy;
 
+
+
 	CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation, CVector scale);
 	//static変数の作成
 	int frame ;//フレーム数のカウント
-	int UseCount;//使用回数
-	int CountRetention;//カウント保持
+	int mCount;//水の回復
+	int mCountMax;//水の回復
+	
+	
+	bool usefrag;
+
 	void Set(const CVector &pos, float r);
 
 	void Collision(CCollider*m, CCollider*y);
 	float x, y, z;
-	float mx, mz;
+	float mx, mz;//減らすｘとｚ
+	float mxMax, mzMax;//最大値のｘとｚ
 	void Update();
 	//void Render();
 

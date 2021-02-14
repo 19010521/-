@@ -3,8 +3,7 @@
 #include "CScene.h"
 #include"CXPlayer.h"
 #include"CXEnemy.h"
-#include"CXEnemy1.h"
-#include"CXEnemy2.h"
+
 #include "CXPlayer.h"
 #include "CMap.h"
 #include"CPuddle.h"
@@ -25,8 +24,7 @@ public:
 	CXPlayer mPlayer;
 	//敵のインスタンス
 	CXEnemy *mEnemy;
-	CXEnemy1*mEnemy1;
-	CXEnemy2*mEnemy2;
+	
 	CAmount *Amount;
 	int mMouseX;
 	int mMouseY;
@@ -46,12 +44,8 @@ public:
 	CModel Puddle;
 	CModel MudPuddle;
 
-	
-
 	CPuddle *mpPuddle;
-	//CPuddle1 *mpPuddle1;
-	//CPuddle2 *mpPuddle2;
-	//CPuddle3 *mpPuddle3;
+	
 	EScene GetNextScene();
 
 	int DesuCount=30;

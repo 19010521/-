@@ -14,8 +14,8 @@ void CSceneTitle::Init() {
 
 //更新処理のオーバーライド
 void CSceneTitle::Update() {
-	TaskManager.Update();
-	TaskManager.Render();
+	CTaskManager::Get()->Update();
+	CTaskManager::Get()->Render();
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
 	
@@ -33,7 +33,7 @@ void CSceneTitle::Update() {
 	
 	//2D描画終了
 	End2D();
-	TaskManager.Delete();
+	CTaskManager::Get()->Delete();
 	return;
 }
 //次のシーンの取得

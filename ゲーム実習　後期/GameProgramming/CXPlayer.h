@@ -48,23 +48,25 @@ public:
 	void Update();
 
 	void TaskCollision();
+	static float mWaterCount;
+	static float mWaterCountMax;
+	
+	int mHPNow;//プレイヤーのHP
 
-	static float mHPMax;//プレイヤーのHP
-	static float mHPNow;
+	float mWaterCountStop;
 
 	float mVelovcityJump;
 	float mSpeed;
 	int mBulletCount;
 	int mBulletCountMax;
-	int mWaterCount;
-	int mWaterCountMax;
+	
 	int mInvincibleCount;
 	int mInvincibleCountMax;
 	int mMudCount;
 	int mDrawCount;//描画カウント
 
 	bool jflag;//ジャンプフラグ
-	bool waterflag;//水汲みフラグ
+	bool waterflag;//水打つフラグ
 	bool Damege;//ダメージ
 	bool Damege2;//ダメージ2
 	bool BombCarry;//ボムを持っているか

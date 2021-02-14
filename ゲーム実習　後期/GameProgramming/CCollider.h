@@ -20,13 +20,9 @@ public:
 		ESEARCH,//サーチ
 		ESEARCH2,//サーチ2
 		ESEARCH3,//サーチ3
-		EPUDDLE0,//水たまり
-		EPUDDLE1,//水たまり
-		EPUDDLE2,//水たまり
-		EPUDDLE3,//水たまり
+		EPUDDLE,//水たまり
 		EMUDPUDDLE,//使えなくなった水たまり
 		EROCK,//岩
-
 		EWATER,//水
 		EINPACT,//衝撃
 		ESWORD,//剣

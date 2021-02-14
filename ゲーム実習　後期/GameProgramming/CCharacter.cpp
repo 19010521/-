@@ -39,12 +39,12 @@ CCharacter::CCharacter()
 , mScale(1.0f, 1.0f, 1.0f)
 {
 	//タスクリストに追加
-	TaskManager.Add(this);
+	CTaskManager::Get()->Add(this);
 }
 //22
 CCharacter::~CCharacter() {
 	//タスクリストから削除
-	TaskManager.Remove(this);
+	CTaskManager::Get()->Remove(this);
 }
 //
 //void CCharacter::ChangePriority(int priority) {

@@ -9,8 +9,11 @@
 */
 class CCollisionManager : public CTaskManager {
 public:
+	static CCollisionManager*instance;
+	static CCollisionManager*Get();
 	//衝突処理
 	void Collision();
+	void Destory();
 	//Collision(コライダ）
 	//コライダとの衝突処理を実行する
 
@@ -19,6 +22,6 @@ public:
 
 };
 //他で使えるように外部参照
-extern CCollisionManager CollisionManager;
+//extern CCollisionManager CollisionManager;
 
 #endif

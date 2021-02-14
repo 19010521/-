@@ -19,12 +19,12 @@ CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVe
 	//半径設定
 	mRadius = radius;
 	//コリジョンリストに追加
-	CollisionManager.Add(this);
+	CCollisionManager::Get()->Add(this);
 }
 
 CCollider::~CCollider() {
 	//コリジョンリストから削除
-	CollisionManager.Remove(this);
+	CCollisionManager::Get()->Remove(this);
 }
 
 void CCollider::ChangePriority(){
@@ -59,8 +59,8 @@ void CCollider::ChangePriority(){
 		break;
 	}
 	mPriority = position.Length(); //原点からの距離を優先度にする
-	CollisionManager.Remove(this); //リストから削除する
-	CollisionManager.Add(this); //リストに追加する
+	CCollisionManager::Get()->Remove(this); //リストから削除する
+	CCollisionManager::Get()->Add(this); //リストに追加する
 }
 
 
@@ -206,7 +206,7 @@ void CCollider::SetTriangle(CCharacter *parent, const CVector &v0, const CVector
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	CTransform::Update();//行列更新
 	//コリジョンリストに追加
-	CollisionManager.Add(this);
+	CCollisionManager::Get()->Add(this);
 	ChangePriority();
 }
 
@@ -228,7 +228,7 @@ void CCollider::SetLine(CCharacter *parent, const CVector &v0, const CVector &v1
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	CTransform::Update();//行列更新
 	//コリジョンリストに追加
-	CollisionManager.Add(this);
+	CCollisionManager::Get()->Add(this);
 }
 
 //CollisionTriangleLine(三角コライダ, 線分コライダ, 調整値)

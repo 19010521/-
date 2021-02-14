@@ -2,6 +2,7 @@
 #include"CRes.h"
 #include"CXPlayer.h"
 #include"CBullet.h"
+#include"CPuddle.h"
 #include"CSceneGame.h"
 #include<stdio.h>
 #include<time.h>
@@ -15,8 +16,10 @@ bool CXEnemy::Desuflag = false;
 #define JUMPV0 (2.0f)//ジャンプ初速
 
 CXEnemy::CXEnemy()
-:mColSphereBody(this, CVector(0.5f, -1.0f, 0.0f), CVector(), CVector(1.0f, 2.0f, 1.0f), 1.5f)
+:mColSphereBody(this, CVector(0.5f, -2.0f, 0.0f), CVector(), CVector(1.5f, 3.0f, 1.5f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
+, mColSphereLeg0(this, CVector(0.0f, -1.5f, 0.5f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
+, mColSphereLeg1(this, CVector(0.0f, -1.5f, -0.5f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mColSphereSword0(this, CVector(0.7f, 3.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword1(this, CVector(0.5f, 2.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword2(this, CVector(0.3f, 1.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
@@ -40,9 +43,7 @@ CXEnemy::CXEnemy()
 	mHPNow = mHPMax;
 	mTag = EENEMY;
 	mSearch.mTag = CCollider::ESEARCH;
-	//mSearch2.mTag = CCollider::ESEARCH2;
-	//mSearch3.mTag = CCollider::ESEARCH3;
-
+	
 	mColSphereBody.mTag = CCollider::EENEMYBODY;
 	mColSphereSword0.mTag = CCollider::ESWORD;
 	mstate = ENORMAL;
@@ -73,6 +74,12 @@ void CXEnemy::Init(CModelX*model){
 	//合成行列
 	mColSphereSword2.mpCombinedMatrix =
 		&mpCombinedMatrix[26];
+	//合成行列
+	mColSphereLeg0.mpCombinedMatrix =
+		&mpCombinedMatrix[1];
+	//合成行列
+	mColSphereLeg1.mpCombinedMatrix =
+		&mpCombinedMatrix[1];
 
 
 }
@@ -105,7 +112,7 @@ void CXEnemy::Update(){
 				//左方向のベクトルを求める
 				CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
 				
-				//CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
+				CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 				//上方向のベクトルを求める
 				//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
 				//左右の回転処理(Y軸)
@@ -211,7 +218,7 @@ void CXEnemy::Update(){
 	CXCharacter::Update();
 	if (mAnimationIndex != 11){
 		if (mstate != ENEAR){
-			if (mAnimationIndex == 2 || mAnimationIndex == 11){
+			if (mAnimationIndex == 2 || mAnimationIndex == 11 || mAnimationIndex == 7){
 
 				mPosition = CVector(0.0f, 0.0f, 0.0f)*mMatrix;
 			}
@@ -235,8 +242,11 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 			if (m->mTag == CCollider::ESEARCH){
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
+
+				
+
 				case EPLAYER:
-					
+
 					//位置を移動
 					CVector dir = CXPlayer::mpxPlayer->mPosition - mPosition;
 
@@ -247,72 +257,15 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					else if (left.Dot(dir) < 0.0f){
 						mRotation.mY += 1.0f;
 					}
+
+					break;
+
 				
-					break;
-					
-				}
-				//プレイヤーの時
-				if (y->mTag == CCollider::EPLAYEREBODY){
-					//衝突している時は無効にする
-					//nflag = true;
-				}
-
-		
-
-			}
-			//コライダがサーチか判定
-			else	if (m->mTag == CCollider::ESEARCH2){
-				//衝突したコライダの親の種類を判定
-
-				switch (y->mpParent->mTag){
-				case EPLAYER://プレイヤーの時
-
-					if (mCount > 0){
-						mCount--;
-					}
-					else if (mAnimationIndex != 11){
-
-						if (mstate != ENORMAL){
-							mstate = ENORMAL;
-						}
-
-
-						Randam = rand() % 3 + 1;
-						switch (Randam)
-						{
-						case 1:
-						/*	mstate = EJUNP;
-							mCount = mCountMax;
-							break;*/
-						case 2:
-						/*	mstate = ENEAR;
-							mCount = mCountMax;
-							break;*/
-						/*case 3:
-							mstate = EBACKFLIP;
-							mCount = mCountMax;
-							break;*/
-
-						default:
-
-							break;
-
-						}
-					}
-				}
-
-			}
-			else	if (m->mTag == CCollider::ESEARCH3){
-				switch (y->mpParent->mTag){
-				case EPLAYER://プレイヤーの時
-					if (y->mTag == CCollider::EPLAYEREBODY){
-					
-					}
-					break;
 				}
 			}
-			else{
 			
+			
+			else{
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPOINT://ポイントの時
@@ -353,7 +306,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 					if (aflag == false){
 						aflag = true;
 				}
-					
+					break;
 
 
 				}
@@ -365,7 +318,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 	switch (m->mType){
 	case CCollider::ESPHERE://球コライダ
 		//相手のコライダが三角コライダの時
-		if (m->mTag != CCollider::ESEARCH&&m->mTag != CCollider::ESEARCH2&&m->mTag!=CCollider::ESEARCH3){
+		if (m->mTag != CCollider::ESEARCH&&m->mTag!=CCollider::EENEMYBODY){
 			if (y->mType == CCollider::ETRIANGLE){
 				CVector adjust;//調整用ベクトル		
 

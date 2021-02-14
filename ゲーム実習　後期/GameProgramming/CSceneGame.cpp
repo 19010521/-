@@ -56,12 +56,12 @@ void CSceneGame::Init() {
 
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
-	mPlane.Load("plane.obj", "plane.mtl");
+	
 	mSky.Load("sky.obj", "sky.mtl");
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
-	
+	mGun.Load("sphere.obj", "sphere.mtl");
 	mBomb.Load("sphere.obj", "sphere.mtl");
 
 	TextureExp1->Load("exp.tga");
@@ -73,11 +73,14 @@ void CSceneGame::Init() {
 	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle->mTag = mpPuddle->EMUD;
+	//mpPuddle->mTag = mpPuddle->EMUDPUDDLE;
+	
+	mpPuddle->mpModel = &MudPuddle;
+
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle->mTag = mpPuddle->EMUD;
-	
+	//mpPuddle->mTag = mpPuddle->EMUDPUDDLE;
+	//mpPuddle->mpModel = &MudPuddle;
 	
 	
 	
@@ -184,65 +187,8 @@ void CSceneGame::Update() {
 	}
 	
 	
-	
-
-	//if (CPuddle1::mPuddle01->mPuddle1.mTag == CCollider::EMUDPUDDLE){
-	//	mpPuddle1->mpModel = &MudPuddle;
-	//	//static変数の作成
-	//	static int frame = 0;//フレーム数のカウント
-	//	frame++;//フレーム数に1加算
-	//	if (frame < 1000 && frame % 150 == 0){
-	//		//敵機の生成
-	//		mEnemy = new CXEnemy();
-	//		//敵の初期設定
-	//		mEnemy->Init(&CRes::sKnight);
-
-	//		//敵の配置
-	//		mEnemy->mAnimationFrameSize = 1024;
-	//		mEnemy->mPosition = CVector(-80.0f, 0.0f, 90.0f);
-	//		mEnemy->ChangeAnimation(2, true, 200);
-	//	}
-	//}
-
-	//if (CPuddle2::mPuddle02->mPuddle2.mTag == CCollider::EMUDPUDDLE){
-	//	mpPuddle2->mpModel = &MudPuddle;
-	//	//static変数の作成
-	//	static int frame = 0;//フレーム数のカウント
-	//	frame++;//フレーム数に1加算
-	//	if (frame < 1000 && frame % 150 == 0){
-	//		//敵機の生成
-	//		mEnemy = new CXEnemy();
-	//		//敵の初期設定
-	//		mEnemy->Init(&CRes::sKnight);
-
-	//		//敵の配置
-	//		mEnemy->mAnimationFrameSize = 1024;
-	//		mEnemy->mPosition = CVector(-0.5f, 0.0f, -90.0f);
-	//		mEnemy->ChangeAnimation(2, true, 200);
-	//	}
-	//}
-	//if (CPuddle3::mPuddle03->mPuddle3.mTag == CCollider::EMUDPUDDLE){
-	//	mpPuddle3->mpModel = &MudPuddle;
-	//	//static変数の作成
-	//	static int frame = 0;//フレーム数のカウント
-	//	frame++;//フレーム数に1加算
-	//	if (frame < 1000 && frame % 150 == 0){
-	//		//敵機の生成
-	//		mEnemy = new CXEnemy();
-	//		//敵の初期設定
-	//		mEnemy->Init(&CRes::sKnight);
-
-	//		//敵の配置
-	//		mEnemy->mAnimationFrameSize = 1024;
-	//		mEnemy->mPosition = CVector(-0.5f, 0.0f, -30);
-	//		mEnemy->ChangeAnimation(2, true, 200);
-	//	}
-	//}
-
-
-
 	if (mEnd == false){
-		TaskManager.Update();
+		CTaskManager::Get()->Update();
 
 		//衝突処理
 	}
@@ -256,7 +202,7 @@ void CSceneGame::Update() {
 	
 
 	
-	CollisionManager.Collision();
+	CCollisionManager::Get()->Collision();
 
 	mEye.mPosition = mPlayer.mPosition;
 	
@@ -285,16 +231,16 @@ void CSceneGame::Update() {
 	Camera.mEye = e;
 	
 
-	TaskManager.Delete();
-	TaskManager.Render();
+	CTaskManager::Get()->Delete();
+	CTaskManager::Get()->Render();
 
 	//コライダの描画
-	CollisionManager.Render();
+	CCollisionManager::Get()->Render();
 
 
 
 	mSky.Render();
-	//mPlane.Render();
+	
 	//mEye.Render();
 
 
@@ -330,17 +276,15 @@ void CSceneGame::Update() {
 
 	}
 
-	sprintf(buf, "%d", CXPlayer::mpxPlayer->mWaterCount);
-	CText::DrawString(buf, -320, -180, 20, 20);
+	sprintf(buf, "%d", CXPlayer::mpxPlayer->mHPNow);
+	CText::DrawString(buf, -280, -180, 20, 20);
 
-	Amount->x = -350 + Amount->w;
-	Amount->y = -260;
-	Amount->w = CXPlayer::mpxPlayer->mHPNow / CXPlayer::mpxPlayer->mHPMax * 100;
-	Amount->h = 16;
+	Amount->x = -350;
+	Amount->y = -260 + Amount->h;
+	Amount->h = CXPlayer::mpxPlayer->mWaterCount/ CXPlayer::mpxPlayer->mWaterCountMax * 100;
+	Amount->w = 16;
 	Amount->mEnabled = true;
 	Amount->Render();
-
-
 
 	//2D描画終了
 	End2D();

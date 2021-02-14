@@ -48,11 +48,10 @@ public:
 	CCollider mColSphereSword0;  //Œ•
 	CCollider mColSphereSword1;  //Œ•1
 	CCollider mColSphereSword2;  //Œ•2
+	CCollider mColSphereLeg0;   //‘«
+	CCollider mColSphereLeg1;   //‘«
 	CCollider mSearch;
-	//CCollider mSearch2;
-	//CCollider mSearch3;
-
-	//CCollider mSearch2;
+	
 	float mVelovcityJump;
 	float mSpeed;
 	int mnearCount;

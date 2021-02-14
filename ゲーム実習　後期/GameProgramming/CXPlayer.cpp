@@ -8,23 +8,28 @@
 #include"CCollisionManager.h"
 #include"CEye.h"
 CXPlayer *CXPlayer::mpxPlayer = 0;
-float CXPlayer::mHPMax = 100;
-float CXPlayer::mHPNow = mHPMax;
+
+
+
+float CXPlayer::mWaterCountMax = 60;
+float CXPlayer::mWaterCount = 0;
+
 
 #define G (9.8f/60.0f)//重力加速度
 #define JUMPV0 (1.5f)//ジャンプ初速
 #define SPEED_DOWN (0.03f)
 #define MOUSE_SENSE 4
 #define TURN (-360.0f/60*3)//回転
+#define WATERUSE (20.0f) //水の消費量
 CXPlayer::CXPlayer()
 :mColSphereBody(this, CVector(0.0f, 3.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
 , mColSphereLeg0(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
-, mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCount(0), mWaterCountMax(3)
+, mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCountStop(0)
 , mInvincibleCountMax(150), mInvincibleCount(150), mTunRotation(0.0f,2.5f,0.0f)
-, mMudCount(0), mDrawCount(0)
+, mMudCount(0), mDrawCount(0), mHPNow(100)
 , mSpeed(0)
 {
 	Damege = false;
@@ -74,9 +79,9 @@ void CXPlayer::TaskCollision()
 	mColSphereBody.ChangePriority();
 	mColSphereHead.ChangePriority();
 	mColSphereLeg0.ChangePriority();
-	CollisionManager.Collision(&mColSphereBody);
-	CollisionManager.Collision(&mColSphereHead);
-	CollisionManager.Collision(&mColSphereLeg0);
+	CCollisionManager::Get()->Collision(&mColSphereBody);
+	CCollisionManager::Get()->Collision(&mColSphereHead);
+	CCollisionManager::Get()->Collision(&mColSphereLeg0);
 
 }
 
@@ -87,7 +92,7 @@ void CXPlayer::Update(){
 	mVelovcityJump -= G;
 
 	
-		/*if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
+		if (mAnimationIndex != 11 && mstate == EMUD || mstate == EINVINCIBLE){
 			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
 				mRotation.mY = CEye::mpthis->mRotation.mY;
@@ -151,7 +156,7 @@ void CXPlayer::Update(){
 				}
 			}
 		}
-*/
+
 		if (mAnimationIndex != 11 && mstate == ENORMAL){
 		
 			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
@@ -215,7 +220,7 @@ void CXPlayer::Update(){
 
 
 
-			if (mWaterCount > 0){
+			if (mWaterCount > WATERUSE){
 
 				if (mBulletCount > 0 && jflag == false){
 
@@ -224,23 +229,32 @@ void CXPlayer::Update(){
 
 				//マウスの右入力で弾発射
 				else if (CInput::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)){
-
+					mWaterCountStop = mWaterCount;
+					waterflag = true;
 					CWaterGun*bullet = new CWaterGun();
 					bullet->Set(0.1f, 1.5f);
 					bullet->mPosition = CVector(0.0f, 5.0f, 1.0f)*mMatrix;
-					//bullet->mRotation = mRotation;
+					
 					bullet->mForward = bullet->mForward*mMatrixRotate;
 					mBulletCount = mBulletCountMax;
-					mWaterCount--;
-					
+
 					mSpeed -= SPEED_DOWN;
 
 				}
 			
 			}
-
+			
 		}
 
+		if (waterflag == true){
+			if (mWaterCount > mWaterCountStop - WATERUSE){
+				mWaterCount--;
+			}
+			else
+			{
+				waterflag = false;
+			}
+		}
 
 
 		//ジャンプ
@@ -334,7 +348,6 @@ void CXPlayer::Update(){
 
 	}
 
-
 void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 
 	//自身コライダの判定タイプ
@@ -373,28 +386,10 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 						}
 					}
 				}
-
-
 			}
 
-
 			if (mstate != EMUD){
-			
-					if (yc->mTag == CCollider::EPUDDLE0){
-						//水をくむ
-						if (CKey::Once('Q')){
-							if (CPuddle::mpPuddle->UseCount > 0){
-
-								
-								mWaterCount = mWaterCountMax;
-								CPuddle::mpPuddle->UseCount--;
-								mSpeed += SPEED_DOWN * 3;
-							}
-						}
-					}
-					
-
-						
+							
 				if (yc->mTag == CCollider::EINPACT){
 					if (mAnimationIndex != 11){
 						Damege2 = true;

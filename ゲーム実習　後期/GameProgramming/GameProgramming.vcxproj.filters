@@ -129,16 +129,10 @@
     <ClCompile Include="CBullet.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
-    <ClCompile Include="CXEnemy1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CRock.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CRock2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CXEnemy2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CAmount.cpp">
@@ -269,16 +263,10 @@
     <ClInclude Include="CBullet.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
-    <ClInclude Include="CXEnemy1.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CRock.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CRock2.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CXEnemy2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CAmount.h">

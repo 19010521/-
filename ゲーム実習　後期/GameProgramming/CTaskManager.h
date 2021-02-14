@@ -11,6 +11,9 @@ class CTaskManager {
 public:
 	CTask *mpHead;	//先頭ポインタ
 //	CTask *mpTail;	//最後ポインタ
+	//static
+	static CTaskManager*instance;
+	static CTaskManager*Get();
 	//デフォルトコンストラクタ
 	CTaskManager();
 	//デストラクタ
@@ -20,6 +23,8 @@ public:
 	void Add(CTask *task);
 	//更新
 	void Update();
+
+	void Destory();
 
 	void TaskCollision();
 	//描画
@@ -34,6 +39,6 @@ public:
 };
 
 //タスクマネージャyの外部参照
-extern CTaskManager TaskManager;
+// CTaskManager TaskManager;
 
 #endif

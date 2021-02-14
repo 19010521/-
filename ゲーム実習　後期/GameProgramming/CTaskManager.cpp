@@ -1,7 +1,18 @@
 #include "CTaskManager.h"
 
 //タスクマネージャの外部変数
-CTaskManager TaskManager;
+//CTaskManager TaskManager;
+
+CTaskManager*CTaskManager::instance = 0;
+
+CTaskManager*CTaskManager::Get(){
+	if (!instance){
+		delete instance;
+
+		instance = new CTaskManager();
+	}
+	return instance;
+}
 
 CTaskManager::CTaskManager()
 //: mpHead(0)//, mpTail(0)
@@ -124,6 +135,13 @@ void CTaskManager::TaskCollision()
 	}
 }
 
+void CTaskManager::Destory(){
+	if (!instance){
+		delete instance;
+
+		instance = 0;
+	}
+}
 
 //描画
 void CTaskManager::Render() {

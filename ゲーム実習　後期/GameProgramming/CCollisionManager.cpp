@@ -2,7 +2,18 @@
 //コライダクラスのインクルード
 #include "CCollider.h"
 //他で使用できるように外部変数で作成
-CCollisionManager CollisionManager;
+//CCollisionManager CollisionManager;
+
+CCollisionManager *CCollisionManager::instance = 0;
+
+CCollisionManager *CCollisionManager::Get(){
+	if (!instance){
+		delete instance;
+
+		instance = new CCollisionManager();
+	}
+	return instance;
+}
 
 //衝突処理
 void CCollisionManager::Collision() {
@@ -50,6 +61,13 @@ void CCollisionManager::Collision(CCollider *collider)
 			//次を求める
 			next = (CCollider*)next->mpNext;
 		}
+	}
+}
+void CCollisionManager::Destory(){
+	if (!instance){
+		delete instance;
+
+		instance = 0;
 	}
 }
 
