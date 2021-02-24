@@ -23,10 +23,14 @@ public:
 		EPUDDLE,//水たまり
 		EMUDPUDDLE,//使えなくなった水たまり
 		EROCK,//岩
+		EROCK2,//岩
 		EWATER,//水
 		EINPACT,//衝撃
 		ESWORD,//剣
 		EBOMB,//ボム
+		EITEM,//アイテム
+		EWORKBENCH,//作業台
+		EWORKBENCH2,//作業台
 
 	};
 	ETag mTag;

@@ -4,6 +4,7 @@
 #include "CXCharacter.h"
 #include"CCollider.h"
 #include"CPoint.h"
+#include"CItem.h"
 
 
 class CXEnemy :public CXCharacter{
@@ -31,6 +32,7 @@ public:
 	Estate mstate;
 
 
+
 	static int mPointSize;//ポイントの数
 	CPoint*mpPoint;//目指すポイント
 	int mPointCnt;//ポイントのカウンタ
@@ -38,6 +40,8 @@ public:
 	//誘導ポイント
 	static CPoint *mPoint;
 	int Randam;
+
+	CItem *mItem;
 	//CEnemy(モデル,位置,回転,拡縮)
 
 	CXEnemy();

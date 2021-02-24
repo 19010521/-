@@ -7,10 +7,11 @@ CRock *CRock::mpRock = 0;
 
 extern std::shared_ptr<CTexture>TextureExp1;
 CRock::CRock(CModel*model, CVector position, CVector rotation, CVector scale)
-:mColBody(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 0.7f, 1.5f), 12.0f)
-
+:mColBody(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 0.7f, 1.0f), 10.0f)
+,mColBody2(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 0.7f, 1.0f), 12.0f)
 {
 	mColBody.mTag = CCollider::EROCK;
+	mColBody2.mTag = CCollider::EROCK2;
 	
 	//モデル,位置,拡縮を設定する
 	mpModel = model;  //モデルの設定
@@ -27,14 +28,18 @@ void CRock::Collision(CCollider *m, CCollider *y){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(m, y)){
 			if (y->mTag == CCollider::EPLAYEREBODY){
-			if (CKey::Once('Q')){
-					if (CXPlayer::mpxPlayer->BombCarry == true){
-						new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp1, 4, 4, 1);
-						mEnabled = false;
+				if (m->mTag == CCollider::EROCK2){
+					if (CKey::Once('Q')){
+						if (CXPlayer::mpxPlayer->mBomb > 0){
+							new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp1, 4, 4, 1);
+							if (mEnabled == true){
+								CXPlayer::mpxPlayer->mBomb--;
+							}
+							mEnabled = false;
+						}
 					}
 				}
 			}
 		}
 	}
-
 }

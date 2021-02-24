@@ -3,6 +3,7 @@
 #include"CXPlayer.h"
 #include"CBullet.h"
 #include"CPuddle.h"
+
 #include"CSceneGame.h"
 #include<stdio.h>
 #include<time.h>
@@ -171,6 +172,11 @@ void CXEnemy::Update(){
 	if (mAnimationIndex == 11){
 		if (mAnimationFrame >= mAnimationFrameSize){
 			CSceneGame::score += 50;
+			//アイテムの生成
+			mItem = new CItem();
+			//アイテムの配置
+			mItem->mPosition = mPosition;
+			
 			mEnabled = false;
 			
 		}

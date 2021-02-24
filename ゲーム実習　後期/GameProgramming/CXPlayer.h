@@ -5,7 +5,7 @@
 #include "CXCharacter.h"
 #include "CCollider.h"
 #include"CCamera.h"
-#include"CEye.h"
+
 
 class CXPlayer :public CXCharacter{
 public:
@@ -38,7 +38,7 @@ public:
 	CCollider mColSphereLeg1;   //足
 	CCollider mSearch;
 	CCollider mColBody;
-	CEye mEye;
+	
 
 	static CXPlayer *mpxPlayer;
 
@@ -48,6 +48,7 @@ public:
 	void Update();
 
 	void TaskCollision();
+	static int mItem;
 	static float mWaterCount;
 	static float mWaterCountMax;
 	
@@ -59,6 +60,8 @@ public:
 	float mSpeed;
 	int mBulletCount;
 	int mBulletCountMax;
+	int mClean_up;//水浄化アイテム
+	int mBomb;//爆弾アイテム
 	
 	int mInvincibleCount;
 	int mInvincibleCountMax;
@@ -69,7 +72,8 @@ public:
 	bool waterflag;//水打つフラグ
 	bool Damege;//ダメージ
 	bool Damege2;//ダメージ2
-	bool BombCarry;//ボムを持っているか
+
+	bool touchflag;//触れる
 
 	
 

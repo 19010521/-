@@ -5,9 +5,11 @@
 
 #define WATERUSE (0.001f) //水の異動量
 CPuddle *CPuddle::mpPuddle = 0;
+int CPuddle::clearcount = 0;
 CPuddle::CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation, CVector scale)
 :mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
 , x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f), mxMax(6.0f), mzMax(6.0f), frame(0), mCount(120), mCountMax(120)
+
 {
 
 	
@@ -21,6 +23,7 @@ CPuddle::CPuddle(CModel*model,CModel*model2, CVector position, CVector rotation,
 	Puddle = model;
 	MudPuddle = model2;
 	usefrag = false;
+	
 	mScale = CVector(x, y, z);
 	mpPuddle = this;
 
@@ -36,17 +39,24 @@ void CPuddle::Set(const CVector &pos, float r){
  
 void CPuddle::Update(){
 
-
 	
+	if (rock == false){
+		if (mpModel == Puddle){
 
-	if (mpModel == Puddle){
-		mTag = ENORMALPUDDLE;
-		mPuddle.mTag = CCollider::EPUDDLE;
+			mTag = ENORMALPUDDLE;
+			mPuddle.mTag = CCollider::EPUDDLE;
+		
+			clearcount ++ ;
+			rock = true;
+		}
+
 	}
-
-	if (mpModel == MudPuddle){
-		mTag = EMUDPUDDLE;
-		mPuddle.mTag = CCollider::EMUDPUDDLE;
+	if (mudrock == false){
+		if (mpModel == MudPuddle){
+			mTag = EMUDPUDDLE;
+			mPuddle.mTag = CCollider::EMUDPUDDLE;
+			mudrock = true;
+		}
 	}
 
 	if (usefrag == true){
@@ -68,9 +78,7 @@ void CPuddle::Update(){
 		}
 	}
 
-	/*if (x <= 0 || z <= 0){
-		mEnabled = false;
-	}*/
+	
 
 
 
@@ -101,10 +109,23 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 	if (m->mType == CCollider::ESPHERE && y->mType == CCollider::ESPHERE){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(m, y)){
-			
+			if (m->mTag == CCollider::EMUDPUDDLE){
+				//アイテム
+				if (CXPlayer::mpxPlayer->mClean_up > 0){
+					if (CKey::Push('Q')){
+						rock = false;
+						if (mpModel == MudPuddle){
+							CXPlayer::mpxPlayer->mClean_up--;
+						}
+						mpModel = Puddle;
+					}
+				}
+
+			}
 				if (m->mTag == CCollider::EPUDDLE){
 					
 					if (y->mTag == CCollider::EPLAYEREBODY){
+						
 						if (CKey::Push('Q') && CXPlayer::mpxPlayer->mWaterCount < CXPlayer::mpxPlayer->mWaterCountMax){
 
 							if (mx <= 1.0f && mz <= 1.0f){
@@ -137,7 +158,8 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 
 						}
 					if (y->mTag == CCollider::EENEMYBODY){
-
+						mudrock = false;
+						clearcount--;
 						mpModel = MudPuddle;
 
 					}

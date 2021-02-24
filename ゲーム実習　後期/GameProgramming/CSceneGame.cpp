@@ -15,6 +15,9 @@
 #include"CRock.h"
 #include"CRock2.h"
 
+#define  PUDDLE (4)
+#define  CREATE (10)
+ 
 CMatrix Matrix;
 CModel mSky;
 CModel mPlane;
@@ -24,6 +27,7 @@ int CSceneGame::score = 0;
 int CSceneGame::Time = 60 * 60;
 bool CSceneGame::mEnd = false;
 CModel CSceneGame::mGun;
+CModel CSceneGame::mItem;
 
 std::shared_ptr<CTexture>TextureExp1(new CTexture());
 
@@ -52,7 +56,7 @@ void CSceneGame::Init() {
 	CXEnemy::mPoint[0].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
 	CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
 	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[3].Set(CVector(55.0f, 5.0f, -30.0f), 5.0f);
+	CXEnemy::mPoint[3].Set(CVector(30.0f, 5.0f, -30.0f), 5.0f);
 
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
@@ -63,24 +67,48 @@ void CSceneGame::Init() {
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
 	mGun.Load("sphere.obj", "sphere.mtl");
 	mBomb.Load("sphere.obj", "sphere.mtl");
+	mWorkbench.Load("sphere.obj", "sphere.mtl");
+	mItem.Load("Rock1.obj", "Rock1.mtl");
 
 	TextureExp1->Load("exp.tga");
 
 
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	
+	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::mpPuddle->rock = false;
+	}
+	if (mpPuddle->mpModel == &MudPuddle){
+		CPuddle::mpPuddle->mudrock = false;
+	}
 
 	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	
+	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::mpPuddle->rock = false;
+	}
+	if (mpPuddle->mpModel == &MudPuddle){
+		CPuddle::mpPuddle->mudrock = false;
+	}
+
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//mpPuddle->mTag = mpPuddle->EMUDPUDDLE;
-	
 	mpPuddle->mpModel = &MudPuddle;
+	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::mpPuddle->rock = false;
+	}
+	if (mpPuddle->mpModel == &MudPuddle){
+		CPuddle::mpPuddle->mudrock = false;
+	}
 
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//mpPuddle->mTag = mpPuddle->EMUDPUDDLE;
 	//mpPuddle->mpModel = &MudPuddle;
+	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::mpPuddle->rock = false;
+	}
+	if (mpPuddle->mpModel == &MudPuddle){
+		CPuddle::mpPuddle->mudrock = false;
+	}
 	
 	
 	
@@ -157,6 +185,7 @@ void CSceneGame::Init() {
 
 	new CBomb(&mBomb, CVector(80.0f, 0.0f, -70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
+	new CWorkbench(&mWorkbench, CVector(0.0f, 0.0f, -50.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
 	//キャラクターにモデルを設定する
 
@@ -168,7 +197,7 @@ void CSceneGame::Init() {
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
-	//new CEye(&mCube, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(0.0f, 0.0f, 0.0f));
+	
 
 	Amount = new CAmount();
 
@@ -258,26 +287,40 @@ void CSceneGame::Update() {
 	CText::DrawString(buf, 300, 250, 16, 16);
 	
 
-	/*if (CPuddle::mPuddle->mPuddle0.mTag == CCollider::EPUDDLE0){
+	if (CXPlayer::mpxPlayer->touchflag == true){
+		//製作に必要な数は
+		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
+		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
+		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
+		CText::DrawString(buf, 150, -40, 15, 15);
+		CText::DrawString("I", 190, -40, 15, 15);
+		sprintf(buf, "%d", CREATE);
+		CText::DrawString(buf, 230, -40, 15, 15);
+		CXPlayer::mpxPlayer->touchflag = false;
+	}
+
+	if (CPuddle::mpPuddle->clearcount == PUDDLE){
 
 		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
 		mEnd = true;
 	}
-	*/
-	if (CXPlayer::mpxPlayer->mstate==CXPlayer::mpxPlayer->EDESU){
-		if (DesuCount > 0){
-			DesuCount--;
-		}
-		else{
-			CText::DrawString("GAME OVER", -100, 0, 20, 20);
-			mEnd = true;
-		}
-		
+	
+	if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EDESU){
+		if (CPuddle::mpPuddle->clearcount == 0){
+			if (DesuCount > 0){
+				DesuCount--;
+			}
+			else{
+				CText::DrawString("GAME OVER", -100, 0, 20, 20);
+				mEnd = true;
+			}
 
+
+		}
 	}
 
-	sprintf(buf, "%d", CXPlayer::mpxPlayer->mHPNow);
-	CText::DrawString(buf, -280, -180, 20, 20);
+	/*sprintf(buf, "%d", CXPlayer::mpxPlayer->mBomb);
+	CText::DrawString(buf, -280, -180, 20, 20);*/
 
 	Amount->x = -350;
 	Amount->y = -260 + Amount->h;

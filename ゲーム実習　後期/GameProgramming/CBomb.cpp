@@ -15,9 +15,9 @@ CBomb::CBomb(CModel*model, CVector position, CVector rotation, CVector scale)
 
 void CBomb::Update(){
 
-	if (CXPlayer::mpxPlayer->BombCarry == true){
-		mEnabled = false;
-	}
+	//if (CXPlayer::mpxPlayer->BombCarry == true){
+	//	mEnabled = false;
+	//}
 	CCharacter::Update();
 }
 

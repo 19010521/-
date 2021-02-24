@@ -22,10 +22,12 @@ public:
 	int frame ;//フレーム数のカウント
 	int mCount;//水の回復
 	int mCountMax;//水の回復
+	static int clearcount;
 	
 	
 	bool usefrag;
-
+	bool rock;
+	bool mudrock;
 	void Set(const CVector &pos, float r);
 
 	void Collision(CCollider*m, CCollider*y);

@@ -68,10 +68,11 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,6 +94,7 @@
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEye.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -108,6 +110,7 @@
     <ClCompile Include="CRock2.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CWorkbench.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="CRes.cpp" />
@@ -136,6 +139,7 @@
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEye.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMaterial.h" />
@@ -152,6 +156,7 @@
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CVertex.h" />
+    <ClInclude Include="CWorkbench.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />
     <ClInclude Include="CRes.h" />
