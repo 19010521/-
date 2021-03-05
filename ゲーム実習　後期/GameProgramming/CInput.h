@@ -6,6 +6,7 @@
 CInput
 */
 class CInput {
+private:
 	//ウィンドウポインタ
 	static GLFWwindow* mpWindow;
 public:

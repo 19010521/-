@@ -3,7 +3,7 @@
 #include"CXPlayer.h"
 #include"CEffect.h"
 #include"CKey.h"
-CRock *CRock::mpRock = 0;
+
 
 extern std::shared_ptr<CTexture>TextureExp1;
 CRock::CRock(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -32,10 +32,10 @@ void CRock::Collision(CCollider *m, CCollider *y){
 					if (CKey::Once('Q')){
 						if (CXPlayer::mpxPlayer->mBomb > 0){
 							new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp1, 4, 4, 1);
-							if (mEnabled == true){
+							if (GetEnabled() !=  false){
 								CXPlayer::mpxPlayer->mBomb--;
 							}
-							mEnabled = false;
+							SetEnabled(false);
 						}
 					}
 				}

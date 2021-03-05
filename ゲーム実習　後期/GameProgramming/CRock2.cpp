@@ -1,6 +1,6 @@
 #include"CRock2.h"
 
-CRock2 *CRock2::mpRock = 0;
+
 
 //コンストラクタ
 CRock2::CRock2(CModel *model, CVector position, CVector rotation, CVector scale)

@@ -11,7 +11,7 @@ void CEffect::Update() {
 	//ÉRÉ}êîÇÃåvéZ
 	int frame = mFrame++ / mFps;
 	if (frame >= mRows * mCols)
-		mEnabled = false;
+		SetEnabled(false);
 	frame %= (mRows * mCols);
 	//UVç∂
 	float left = 1.0f / mCols * (frame % mCols);

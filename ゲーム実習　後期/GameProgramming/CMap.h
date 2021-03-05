@@ -5,9 +5,12 @@
 #include"CCollider.h"
 
 class CMap : public CCharacter{
-public:
+private:
 	//確認用
 	CCollider mCollider[14];
+	
+
+public:
 	//デフォルトコンストラクタ
 	CMap();
 };

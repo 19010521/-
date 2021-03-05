@@ -3,7 +3,7 @@
 #include"CSceneGame.h"
 
 #define MOUSE_SENSE 3
-CEye *CEye::mpthis = 0;
+CEye *CEye::mpthis = nullptr;
 
 CEye::CEye(CModel*model, CVector position, CVector rotation, CVector scale)
 {

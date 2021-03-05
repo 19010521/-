@@ -16,6 +16,7 @@ CItem::CItem()
 	Recoveryflag = false;
 }
 
+
 void CItem::Update(){
 
 
@@ -48,7 +49,6 @@ void CItem::Update(){
 	}
 
 }
-
 void CItem::Collision(CCollider*m, CCollider*y){
 
 	//‹¤‚É‹…ƒRƒ‰ƒCƒ_‚Ì
@@ -65,10 +65,10 @@ void CItem::Collision(CCollider*m, CCollider*y){
 			}
 			if (m->mTag == CCollider::EITEM){
 				if (y->mTag == CCollider::EPLAYEREBODY){
-					if (mEnabled == true){
+					if (GetEnabled() != false){
 						CXPlayer::mpxPlayer->mItem++;
 					}
-					mEnabled = false;
+					SetEnabled(false); 
 
 				}
 

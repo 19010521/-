@@ -13,7 +13,6 @@ CWaterGun::CWaterGun()
 	mCollider.mTag = CCollider::EWATER;
 	
 }
-
 //幅と奥行きの設定
 //Set(幅,奥行)
 void CWaterGun::Set(float w, float d){
@@ -29,9 +28,8 @@ void CWaterGun::Set(float w, float d){
 //更新
 void CWaterGun::Update(){
 
-	
 		mForward.mY -= G;
-		//mVelovcityGun -= G;
+
 		//位置更新
 		mPosition +=mForward;
 		
@@ -55,7 +53,7 @@ void CWaterGun::Update(){
 		else{
 			//無効にする
 
-			mEnabled = false;
+			SetEnabled(false);
 
 		}
 
@@ -70,7 +68,7 @@ void CWaterGun::Collision(CCollider *m, CCollider *y){
 		if (CCollider::Collision(m, y)){
 			if (y->mTag == CCollider::EENEMYBODY){
 				//衝突しているときは無効にする
-				mEnabled = false;
+				SetEnabled(false);
 			}
 		}
 	}
@@ -92,7 +90,6 @@ void CWaterGun::Collision(CCollider *m, CCollider *y){
 		break;
 	}
 }
-
 //描画
 void CWaterGun::Render(){
 

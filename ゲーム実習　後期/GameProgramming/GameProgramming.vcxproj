@@ -105,11 +105,13 @@
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CPuddle.cpp" />
+    <ClCompile Include="CPuddlePoint.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CRock2.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CStage2.cpp" />
     <ClCompile Include="CWorkbench.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
@@ -150,11 +152,13 @@
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CPuddle.h" />
+    <ClInclude Include="CPuddlePoint.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CRock2.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CStage2.h" />
     <ClInclude Include="CVertex.h" />
     <ClInclude Include="CWorkbench.h" />
     <ClInclude Include="CXEnemy.h" />

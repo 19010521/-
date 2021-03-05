@@ -5,9 +5,10 @@
 #include"CXEnemy.h"
 #include"CSceneGame.h"
 #include"CBullet.h"
+
 #include"CCollisionManager.h"
 
-CXPlayer *CXPlayer::mpxPlayer = 0;
+CXPlayer *CXPlayer::mpxPlayer = nullptr;
 
 
 
@@ -91,6 +92,8 @@ void CXPlayer::TaskCollision()
 
 
 void CXPlayer::Update(){
+
+
 
 
 	mVelovcityJump -= G;
@@ -274,7 +277,6 @@ void CXPlayer::Update(){
 
 		}
 		else if (CKey::Once(VK_SPACE)){
-
 			if (jflag == false && mstate == ENORMAL){
 				mVelovcityJump = JUMPV0;
 				mPosition.mY += mVelovcityJump;
@@ -321,16 +323,11 @@ void CXPlayer::Update(){
 		}
 	
 		//死んだ--
-		if (mAnimationIndex == 11){
-			if (mAnimationFrame >= mAnimationFrameSize){
-				mstate = EDESU;
-			}
-		}
-
-
+	
 		if (mHPNow < 0){
 			ChangeAnimation(11, false, 30);
 			mHPNow = 0;
+			mstate = EDESU;
 
 		}
 		CCharacter::Update();
@@ -345,7 +342,7 @@ void CXPlayer::Update(){
 
 		CXCharacter::Update(turnMatrix*mMatrix);
 
-	}
+}
 
 void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 
@@ -402,7 +399,23 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		}
 		
 	}
+	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
+		//コライダのｍとｙが衝突しているか判定
+		if (CCollider::Collision(mc, yc)){
+			//敵の出現判定
+			if (yc->mTag == CCollider::ESEARCHENEMY ){
+				if (mc->mTag == CCollider::EPLAYEREBODY){
+					CPuddle::Enemy = true;
+				}
+			}
+			if ( yc->mTag == CCollider::ESEARCHENEMY2){
+				if (mc->mTag == CCollider::EPLAYEREBODY){
+					CPuddle::Enemy1 = true;
+				}
 
+			}
+		}
+	}
 	//共に球コライダの時
 	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
 		//コライダのｍとｙが衝突しているか判定
@@ -440,7 +453,6 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 
 	}
 }
-
 void CXPlayer::Render(){
 	//頂点をアニメーションを適応する
 	//mpModel->AnimateVertex(mpCombinedMatrix);

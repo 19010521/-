@@ -26,7 +26,7 @@ public:
 		EENEMY,//敵
 		ENORMALPUDDLE,//ノーマルな水
 		EMUDPUDDLE,  //泥
-	
+		EPOINTPUDDLE,	//水たまりポイント
 	
 		
 		
@@ -41,6 +41,7 @@ public:
 	CMatrix mMatrixTranslate; //平行移動行列
 	CMatrix mMatrixRotate; //回転行列
 	CMatrix mMatrixScale; //拡大縮小行列
+	
 	//22
 	CCharacter();
 	~CCharacter();

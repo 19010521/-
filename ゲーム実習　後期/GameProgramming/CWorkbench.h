@@ -4,11 +4,14 @@
 #include"CCollider.h"
 
 class CWorkbench :public CCharacter{
+private:
+	
+	CCollider mCollider;
+
 public:
 	static CWorkbench *mpCWorkbench;
-	CWorkbench(CModel*model, CVector position, CVector rotation, CVector scale);
-	CCollider mCollider;
 	
+	CWorkbench(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	//void Collision(CCollider*m, CCollider*y);
 

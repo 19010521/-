@@ -1,6 +1,6 @@
 #include "CPoint.h"
 
-CPoint*CPoint::mpPoint=0;
+CPoint*CPoint::mpPoint=nullptr;
 CPoint::CPoint()
 :mCollider(this, CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.0f)
 {

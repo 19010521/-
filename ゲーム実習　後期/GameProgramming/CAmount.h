@@ -6,9 +6,11 @@
 #include "glut.h"
 
 class CAmount : public CRectangle{
-public:
+private:
 	//XVˆ—
 	void Update();
+
+public:
 	//•`‰æˆ—
 	void Render();
 };

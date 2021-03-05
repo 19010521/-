@@ -11,21 +11,25 @@
 #include"CAmount.h"
 #include"CBomb.h"
 #include"CWorkbench.h"
+#include"CPuddlePoint.h"
+
 
 
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
-public:
-
+private:
 	char buf[10];
 
 	CXPlayer mPlayer;
 	//敵のインスタンス
 	CXEnemy *mEnemy;
-	
+
 	CAmount *Amount;
+
+	CPuddlePoint *mPuddlePoint;
+
 	int mMouseX;
 	int mMouseY;
 	int mExplosinCount = 30;
@@ -39,31 +43,45 @@ public:
 	CModel mRock;
 	CModel mCube;
 	CModel mBomb;
-	static CModel mGun;
-	
+
 	CModel Puddle;
 	CModel MudPuddle;
 	CModel mWorkbench;
-	static CModel mItem;
 
 	CPuddle *mpPuddle;
-	
+
 	EScene GetNextScene();
 
-	int DesuCount=30;
-	static int frame;//フレーム数のカウント
-	static int score;//スコア
-	static int Time;
+	int DesuCount = 30;
 
-	static bool Countf;
-	CSceneGame(){};
-	~CSceneGame();
-	static bool mEnd;
+	int frame;//フレーム数のカウント
+
+	int Time;
+	bool mEnd;
+
+
 	//初期化処理のオーバーライド
 	void Init();
 	//更新処理のオーバーライド
 	void Update();
 
+public:
+
+	CSceneGame(){};
+	~CSceneGame();
+
+	static CModel mGun;
+	
+	
+	static CModel mItem;
+
+	static int score;//スコア
+    
+
+	static bool Countf;
+	
+	
+	
 };
 
 #endif

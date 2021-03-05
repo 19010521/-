@@ -4,13 +4,18 @@
 #include"CCollider.h"
 
 class CRock :public CCharacter{
-public:
-	static CRock *mpRock;
-	CRock(CModel*model, CVector position, CVector rotation, CVector scale);
+private:
+
 	CCollider mColBody;
 	CCollider mColBody2;
-	
+
 	void Collision(CCollider*m, CCollider*y);
+
+
+public:
+	
+	CRock(CModel*model, CVector position, CVector rotation, CVector scale);
+
 	
 
 };

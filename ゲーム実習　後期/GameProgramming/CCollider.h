@@ -31,6 +31,8 @@ public:
 		EITEM,//アイテム
 		EWORKBENCH,//作業台
 		EWORKBENCH2,//作業台
+		ESEARCHENEMY,//敵の出現
+		ESEARCHENEMY2,//敵の出現
 
 	};
 	ETag mTag;

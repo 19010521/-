@@ -4,12 +4,15 @@
 #include"CCollider.h"
 
 class CBomb :public CCharacter{
-public:
-
-	CBomb(CModel*model, CVector position, CVector rotation, CVector scale);
+private:
 	CCollider mBomb;
 
 	void Update();
+
+public:
+
+	CBomb(CModel*model, CVector position, CVector rotation, CVector scale);
+	
 	
 };
 #endif

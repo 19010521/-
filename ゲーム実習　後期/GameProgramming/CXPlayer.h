@@ -8,10 +8,64 @@
 
 
 class CXPlayer :public CXCharacter{
-public:
+private:
+
+	//更新処理
+	void Update();
+
+	void TaskCollision();
+
+
+	int mHPNow;//プレイヤーのHP
+
+	float mWaterCountStop;
+
+	float mVelovcityJump;
+	float mSpeed;
+	int mBulletCount;
+	int mBulletCountMax;
+
+
+
+	int mInvincibleCount;
+	int mInvincibleCountMax;
+	int mMudCount;
+	int mDrawCount;//描画カウント
+
+	bool jflag;//ジャンプフラグ
+	bool waterflag;//水打つフラグ
+	bool Damege;//ダメージ
+	bool Damege2;//ダメージ2
+
 	CVector mTunRotation; //軸
 	float mTurn; //回転
 
+
+
+	//デフォルトコンストラクタ
+
+	CMatrix Matrix;
+
+	//コライダの宣言
+	CCamera mCamera;
+	CCollider mColSphereBody;   //体
+	CCollider mColSphereHead;   //頭
+	CCollider mColSphereSword;  //剣
+	CCollider mColSphereLeg0;   //足
+	CCollider mColSphereLeg1;   //足
+	CCollider mSearch;
+	CCollider mColBody;
+
+
+
+
+
+
+	void Collision(CCollider*mc, CCollider*yc);
+	void Render()override;
+
+
+public:
 
 	enum Estate
 	{
@@ -25,61 +79,22 @@ public:
 
 	};
 	Estate mstate;
-	//デフォルトコンストラクタ
-	CXPlayer();
-	CMatrix Matrix;
-
-	//コライダの宣言
-	CCamera mCamera;
-	CCollider mColSphereBody;   //体
-	CCollider mColSphereHead;   //頭
-	CCollider mColSphereSword;  //剣
-	CCollider mColSphereLeg0;   //足
-	CCollider mColSphereLeg1;   //足
-	CCollider mSearch;
-	CCollider mColBody;
-	
 
 	static CXPlayer *mpxPlayer;
-
-	void Init(CModelX*model);
-
-	//更新処理
-	void Update();
-
-	void TaskCollision();
 	static int mItem;
 	static float mWaterCount;
 	static float mWaterCountMax;
-	
-	int mHPNow;//プレイヤーのHP
 
-	float mWaterCountStop;
+	CXPlayer();
 
-	float mVelovcityJump;
-	float mSpeed;
-	int mBulletCount;
-	int mBulletCountMax;
-	int mClean_up;//水浄化アイテム
+	void Init(CModelX*model);
+
+
+
 	int mBomb;//爆弾アイテム
-	
-	int mInvincibleCount;
-	int mInvincibleCountMax;
-	int mMudCount;
-	int mDrawCount;//描画カウント
-
-	bool jflag;//ジャンプフラグ
-	bool waterflag;//水打つフラグ
-	bool Damege;//ダメージ
-	bool Damege2;//ダメージ2
+	int mClean_up;//水浄化アイテム
 
 	bool touchflag;//触れる
-
-	
-
-	void Collision(CCollider*mc, CCollider*yc);
-	void Render()override;
-
 
 };
 #endif

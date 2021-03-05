@@ -15,6 +15,7 @@
 #include"CRock.h"
 #include"CRock2.h"
 
+#define GAMEOVERA (0)
 #define  PUDDLE (4)
 #define  CREATE (10)
  
@@ -22,10 +23,8 @@ CMatrix Matrix;
 CModel mSky;
 CModel mPlane;
 bool CSceneGame::Countf = false;
-int CSceneGame::frame = 0;
+
 int CSceneGame::score = 0;
-int CSceneGame::Time = 60 * 60;
-bool CSceneGame::mEnd = false;
 CModel CSceneGame::mGun;
 CModel CSceneGame::mItem;
 
@@ -45,14 +44,15 @@ CScene::EScene CSceneGame::GetNextScene() {
 void CSceneGame::Init() {
 
 	mScene = EGAME;
-	
 
+	frame = 0;
+	Time = 60 * 60;
 
 	mEnd = false;
 
 	CXEnemy::mPointSize = 4;//ポイント数の設定
 	CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
-	
+
 	CXEnemy::mPoint[0].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
 	CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
 	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
@@ -60,7 +60,7 @@ void CSceneGame::Init() {
 
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
-	
+
 	mSky.Load("sky.obj", "sky.mtl");
 	mCube.Load("Cube.obj", "Cube.mtl");
 	Puddle.Load("sphere.obj", "sphere.mtl");
@@ -77,37 +77,31 @@ void CSceneGame::Init() {
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::mpPuddle->rock = false;
+		CPuddle::rock = false;
 	}
-	if (mpPuddle->mpModel == &MudPuddle){
-		CPuddle::mpPuddle->mudrock = false;
-	}
+	
 
-	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, -5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::mpPuddle->rock = false;
-	}
-	if (mpPuddle->mpModel == &MudPuddle){
-		CPuddle::mpPuddle->mudrock = false;
-	}
-
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, 5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	mpPuddle->mpModel = &MudPuddle;
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::mpPuddle->rock = false;
+		CPuddle::rock = false;
 	}
-	if (mpPuddle->mpModel == &MudPuddle){
-		CPuddle::mpPuddle->mudrock = false;
+
+
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+
+	mpPuddle->mpModel = &MudPuddle;
+	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::rock = false;
 	}
+	
 
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	//mpPuddle->mpModel = &MudPuddle;
+	
+	mpPuddle->mpModel = &MudPuddle;
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::mpPuddle->rock = false;
-	}
-	if (mpPuddle->mpModel == &MudPuddle){
-		CPuddle::mpPuddle->mudrock = false;
+		CPuddle::rock = false;
 	}
 	
 	
@@ -187,12 +181,15 @@ void CSceneGame::Init() {
 
 	new CWorkbench(&mWorkbench, CVector(0.0f, 0.0f, -50.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
+	mPuddlePoint = new CPuddlePoint();
+	
+	
 	//キャラクターにモデルを設定する
 
 	mPlayer.Init(&CRes::sModelX);
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -80);
 	
-	
+	mEye.mPosition.mY = 3.0f;
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -233,7 +230,8 @@ void CSceneGame::Update() {
 	
 	CCollisionManager::Get()->Collision();
 
-	mEye.mPosition = mPlayer.mPosition;
+	mEye.mPosition.mX = mPlayer.mPosition.mX;
+	mEye.mPosition.mZ = mPlayer.mPosition.mZ;
 	
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -299,24 +297,23 @@ void CSceneGame::Update() {
 		CXPlayer::mpxPlayer->touchflag = false;
 	}
 
-	if (CPuddle::mpPuddle->clearcount == PUDDLE){
+	if (CPuddle::mclearcount == PUDDLE){
 
 		CText::DrawString("GAME CLEAR", -100, 0, 20, 20);
 		mEnd = true;
 	}
 	
 	if (CXPlayer::mpxPlayer->mstate == CXPlayer::mpxPlayer->EDESU){
-		if (CPuddle::mpPuddle->clearcount == 0){
-			if (DesuCount > 0){
-				DesuCount--;
-			}
-			else{
 				CText::DrawString("GAME OVER", -100, 0, 20, 20);
 				mEnd = true;
 			}
-
-
-		}
+	if (CPuddle::mclearcount == GAMEOVERA){
+		CText::DrawString("GAME OVER", -100, 0, 20, 20);
+		mEnd = true;
+	}
+	if (Time ==GAMEOVERA){
+	CText::DrawString("GAME OVER", -100, 0, 20, 20);
+	mEnd = true;
 	}
 
 	/*sprintf(buf, "%d", CXPlayer::mpxPlayer->mBomb);

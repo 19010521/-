@@ -9,6 +9,7 @@ public:
 	//シーンの識別子
 	enum EScene {
 		EGAME,	//ゲーム
+		EGAME2,	//ゲーム
 		ETITLE, 	//タイトル
 	};
 	//次のシーン

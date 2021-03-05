@@ -8,9 +8,12 @@
 #include "CTexture.h"
 
 class  CRock2 :public CCharacter{
-public:
-	static CRock2 *mpRock;
+private:
+
 	CCollider mCollider;
+
+public:
+
 	//コンストラクタ
 	CRock2(CModel *model, CVector position, CVector rotation, CVector scale);
 };

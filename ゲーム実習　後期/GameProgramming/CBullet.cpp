@@ -29,7 +29,8 @@ void CBullet::Update(){
 	}
 	else{
 		//–³Œø‚É‚·‚é
-		mEnabled = false;
+		SetEnabled(false);
+
 	}
 
 }
@@ -42,7 +43,7 @@ void CBullet::Collision(CCollider*m, CCollider*y){
 			if (y->mTag == CCollider::EPLAYEREBODY){
 				if (CCollider::Collision(m, y)){
 				//Õ“Ë‚µ‚Ä‚¢‚é‚Æ‚«‚Í–³Œø‚É‚·‚é
-				mEnabled = false;
+					SetEnabled(false);
 			}
 		}
 	}

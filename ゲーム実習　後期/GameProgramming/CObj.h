@@ -4,14 +4,17 @@
 #include "CCollider.h"
 
 class CObj :public CCharacter{
+private:
+	~CObj();
+
 public:
 	//コライダの追加
 	CCollider*mpCollider;
-	CCollider mPuddle;
+	
 	//コンストラクタで初期せってい
 	CObj(CModel*model, const CVector &position,
 		const CVector &rotation, const CVector &scale);
-	~CObj();
+
 	
 };
 #endif

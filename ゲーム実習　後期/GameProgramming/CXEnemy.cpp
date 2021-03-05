@@ -8,7 +8,7 @@
 #include<stdio.h>
 #include<time.h>
 //誘導ポイント
-CPoint *CXEnemy::mPoint = 0;
+CPoint *CXEnemy::mPoint = nullptr;
 int CXEnemy::mPointSize = 0;
 bool CXEnemy::Attackflag = true;
 bool CXEnemy::Call = true;
@@ -177,7 +177,7 @@ void CXEnemy::Update(){
 			//アイテムの配置
 			mItem->mPosition = mPosition;
 			
-			mEnabled = false;
+			SetEnabled(false);
 			
 		}
 	}

@@ -5,12 +5,10 @@
 #include"CCollider.h"
 
 class CItem :public CCharacter{
-public:
-	
+private:
+
 	CCollider mCollider;
 	CCollider mCollider2;
-	//コンストラクタ
-	CItem();
 
 	void Update();
 	//衝突処理
@@ -18,5 +16,12 @@ public:
 
 	bool Recoveryflag;//回収
 
+public:
+	
+	
+	//コンストラクタ
+	CItem();
+
+	
 };
 #endif
