@@ -33,4 +33,5 @@ public:
 
 	void Set(float w, float d);
 };
+
 #endif

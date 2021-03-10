@@ -16,9 +16,9 @@
 #include"CRock2.h"
 
 #define GAMEOVERA (0)
-#define  PUDDLE (4)
+#define  PUDDLE (6)//水たまりの数
 #define  CREATE (10)
- 
+#define  BOMBCREATE (5)
 CMatrix Matrix;
 CModel mSky;
 CModel mPlane;
@@ -46,11 +46,11 @@ void CSceneGame::Init() {
 	mScene = EGAME;
 
 	frame = 0;
-	Time = 60 * 60;
+	Time = 360 * 60;
 
 	mEnd = false;
 
-	CXEnemy::mPointSize = 4;//ポイント数の設定
+	CXEnemy::mPointSize = 6;//ポイント数の設定
 	CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
 
 	CXEnemy::mPoint[0].Set(CVector(30.0f, 5.0f, -70.0f), 5.0f);
@@ -58,6 +58,19 @@ void CSceneGame::Init() {
 	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
 	CXEnemy::mPoint[3].Set(CVector(30.0f, 5.0f, -30.0f), 5.0f);
 
+	CXEnemy::mPoint[4].Set(CVector(-0.5f, 0.0f, -30.0f), 5.0f);
+	CXEnemy::mPoint[5].Set(CVector(-0.5f, 0.0f, -90.0f), 5.0f);
+
+
+	CXEnemy2::mPointSize = 6;//ポイント数の設定
+	CXEnemy2::mPoint = new CPoint[CXEnemy2::mPointSize];
+
+	CXEnemy2::mPoint[0].Set(CVector(-30.0f, 5.0f, 90.0f), 5.0f);
+	CXEnemy2::mPoint[1].Set(CVector(95.0f, 5.0f, 90.0f), 5.0f);
+	CXEnemy2::mPoint[2].Set(CVector(30.0f, 5.0f, 30.0f), 5.0f);
+	CXEnemy2::mPoint[3].Set(CVector(95.0f, 5.0f, 30.0f), 5.0f);
+	CXEnemy2::mPoint[4].Set(CVector(-60.0f, 0.0f, 30.0f), 5.0f);
+	CXEnemy2::mPoint[5].Set(CVector(-80.0f, 0.0f, 90.0f), 5.0f);
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
 
@@ -75,16 +88,32 @@ void CSceneGame::Init() {
 
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	
+
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::rock = false;
+		
+		CPuddle::mclearcount++;
 	}
 	
-
-	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, 5.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(80.0f, 0.0f, 90.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	mpPuddle->mpModel = &MudPuddle;
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::rock = false;
+		
+		CPuddle::mclearcount++;
+	}
+
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-60.0f, 0.0f, 30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+
+	if (mpPuddle->mpModel == &Puddle){
+		
+		CPuddle::mclearcount++;
+	}
+
+
+	mpPuddle = new CPuddle(&Puddle,&MudPuddle, CVector(30.0f, 0.0f, 10.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	
+	if (mpPuddle->mpModel == &Puddle){
+		
+		CPuddle::mclearcount++;
 	}
 
 
@@ -92,16 +121,18 @@ void CSceneGame::Init() {
 
 	mpPuddle->mpModel = &MudPuddle;
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::rock = false;
+		
+		CPuddle::mclearcount++;
 	}
 	
 
 
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(70.0f, 0.0f, -50.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
 	
 	mpPuddle->mpModel = &MudPuddle;
 	if (mpPuddle->mpModel == &Puddle){
-		CPuddle::rock = false;
+		
+		CPuddle::mclearcount++;
 	}
 	
 	
@@ -122,64 +153,56 @@ void CSceneGame::Init() {
 
 	//壊せる壁
 	new CRock(&mRock, CVector(56.0f, 0.0f, -18.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
+
+	new CRock(&mRock, CVector(-45.0f, 0.0f, 15.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
 	
 	//壁
-	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(20.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(20.0f, 5.0f, 1.0f));
 	
 	new CRock2(&mRock, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(13.0f, 5.0f, 1.5f));
-	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0f), CVector(), CVector(15.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(30.0f, 0.0f, -20.0f), CVector(), CVector(15.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(32.0f, 0.0f, -20.0f), CVector(), CVector(11.0f, 5.0f, 1.5f));
-	new CObj(&mCube, CVector(65.0f, 0.0f, 5.0f), CVector(), CVector(1.0f, 2.0f, 25.0f));
+	new CObj(&mCube, CVector(65.0f, 0.0f, 5.0f), CVector(), CVector(1.0f, 5.0f, 25.0f));
 	new CRock2(&mRock, CVector(65.0f, 0.0f, 5.0f), CVector(), CVector(1.5f, 5.0f, 15.0f));
-	new CObj(&mCube, CVector(45.0f, 0.0f, 5.0f), CVector(), CVector(1.0f, 2.0f, 25.0f));
+	new CObj(&mCube, CVector(45.0f, 0.0f, 5.0f), CVector(), CVector(1.0f, 5.0f, 25.0f));
 	new CRock2(&mRock, CVector(45.0f, 0.0f, 5.0f), CVector(), CVector(1.5f, 5.0f, 15.0f));
-	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0f), CVector(), CVector(25.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -20.0f), CVector(), CVector(25.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-14.0f, 0.0f, -20.0f), CVector(), CVector(9.0f, 5.0f, 1.5f));
-	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0f), CVector(), CVector(1.0f, 2.0f, 60.0f));
+	new CObj(&mCube, CVector(100.0f, 0.0f, -70.0f), CVector(), CVector(1.0f, 5.0f, 60.0f));
 	new CRock2(&mRock, CVector(100.0f, 0.0f, -78.0f), CVector(), CVector(1.5f, 5.0f, 40.0f));
-	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0f), CVector(), CVector(80.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(40.0f, 0.0f, -120.0f), CVector(), CVector(80.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(40.0f, 0.0f, -120.0f), CVector(), CVector(80.0f, 5.0f, 1.5f));
-	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0f), CVector(), CVector(1.0f, 2.0f, 60.0f));
+	new CObj(&mCube, CVector(-30.0f, 0.0f, -70.0f), CVector(), CVector(1.0f, 5.0f, 60.0f));
 	new CRock2(&mRock, CVector(-30.0f, 0.0f, -70.0f), CVector(), CVector(1.5f, 5.0f, 40.0f));
 
-	new CObj(&mCube, CVector(15.0f, 0.0f, 0.0f), CVector(), CVector(1.0f, 2.0f, 20.0f));
+	new CObj(&mCube, CVector(15.0f, 0.0f, 0.0f), CVector(), CVector(1.0f, 5.0f, 20.0f));
 	new CRock2(&mRock, CVector(15.0f, 0.0f, 0.0f), CVector(), CVector(1.5f, 5.0f, 13.0f));
-	new CObj(&mCube, CVector(-5.0f, 0.0f, -10.0f), CVector(), CVector(1.0f, 2.0f, 10.0f));
+	new CObj(&mCube, CVector(-5.0f, 0.0f, -10.0f), CVector(), CVector(1.0f, 5.0f, 10.0f));
 	new CRock2(&mRock, CVector(-5.0f, 0.0f, -10.0f), CVector(), CVector(1.5f, 5.0f, 7.0f));
 
-	new CObj(&mCube, CVector(-10.0f, 0.0f, 20.0f), CVector(), CVector(25.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(-10.0f, 0.0f, 20.0f), CVector(), CVector(25.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-8.0f, 0.0f, 20.0f), CVector(), CVector(18.0f,5.0f, 1.5f));
-	new CObj(&mCube, CVector(-65.0f, 0.0f, 3.0f), CVector(0.0f, 3.0f, 0.0f), CVector(60.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(-65.0f, 0.0f, 3.0f), CVector(0.0f, 3.0f, 0.0f), CVector(60.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-70.0f, 0.0f, 3.0f), CVector(0.0f, 3.0f, 0.0f), CVector(50.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(-30.0f, 0.0f, 50.0f), CVector(0.0f,10.0f,0.0f), CVector(1.0f, 2.0f, 30.0f));
-	new CRock2(&mRock, CVector(-30.0f, 0.0f, 51.0f), CVector(0.0f, 10.0f, 0.0f), CVector(1.5f, 5.0f, 19.0f));
-	new CObj(&mCube, CVector(-45.0f, 0.0f, 50.0f), CVector(0.0f, 10.0f, 0.0f), CVector(1.0f, 2.0f, 30.0f));
-	new CRock2(&mRock, CVector(-45.0f, 0.0f, 50.0f), CVector(0.0f, 10.0f, 0.0f), CVector(1.5f, 5.0f, 19.0f));
-	new CObj(&mCube, CVector(-75.0f, 0.0f, 22.0f), CVector(0.0f, 5.0f, 0.0f), CVector(25.0f, 2.0f, 1.0f));
-	new CRock2(&mRock, CVector(-75.0f, 0.0f, 22.0f), CVector(0.0f, 5.0f, 0.0f), CVector(18.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(-105.0f, 0.0f, 43.0f), CVector(0.0f, -10.0f, 0.0f), CVector(1.0f, 2.0f, 20.0f));
-	new CRock2(&mRock, CVector(-105.0f, 0.0f, 43.0f), CVector(0.0f, -10.0f, 0.0f), CVector(1.5f, 5.0f, 14.0f));
-	new CObj(&mCube, CVector(-120.0f, 0.0f, 50.0f), CVector(0.0f, 3.0f, 0.0f), CVector(1.0f, 2.0f, 45.0f));
+	new CObj(&mCube, CVector(-120.0f, 0.0f, 50.0f), CVector(0.0f, 3.0f, 0.0f), CVector(1.0f, 5.0f, 45.0f));
 	new CRock2(&mRock, CVector(-120.0f, 0.0f, 50.0f), CVector(0.0f, 3.0f, 0.0f), CVector(1.5f, 5.0f, 40.0f));
 
-	new CObj(&mCube, CVector(-75.0f, 0.0f, 70.0f), CVector(0.0f, -12.0f, 0.0f), CVector(35.0f, 2.0f, 1.0f));
-	new CRock2(&mRock, CVector(-75.0f, 0.0f, 70.0f), CVector(0.0f, -12.0f, 0.0f), CVector(20.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(10.0f, 0.0f, 70.0f), CVector(0.0f, 20.0f, 0.0f), CVector(35.0f, 2.0f, 1.0f));
-	new CRock2(&mRock, CVector(10.0f, 0.0f, 70.0f), CVector(0.0f, 20.0f, 0.0f), CVector(25.0f, 5.0f, 1.5f));
 
-	new CObj(&mCube, CVector(112.0f, 0.0f, 45.0f), CVector(0.0f, 12.0f, 0.0f), CVector(1.0f, 2.0f, 60.0f));
+
+	new CObj(&mCube, CVector(112.0f, 0.0f, 45.0f), CVector(0.0f, 12.0f, 0.0f), CVector(1.0f, 5.0f, 60.0f));
 	new CRock2(&mRock, CVector(112.0f, 0.0f, 45.0f), CVector(0.0f, 12.0f, 0.0f), CVector(1.5f, 5.0f, 45.0f));
-	new CObj(&mCube, CVector(70.0f, 0.0f, 110.0f), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(70.0f, 0.0f, 110.0f), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(70.0f, 0.0f, 110.0f), CVector(0.0f, 15.0f, 0.0f), CVector(60.0f, 5.0f, 1.5f));
-	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 2.0f, 1.0f));
+	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.5f));
 
-	new CBomb(&mBomb, CVector(80.0f, 0.0f, -70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
+	new CWorkbench2(&mWorkbench, CVector(-80.0f, 0.0f, 70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
 	new CWorkbench(&mWorkbench, CVector(0.0f, 0.0f, -50.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
+
 
 	mPuddlePoint = new CPuddlePoint();
 	
@@ -187,7 +210,7 @@ void CSceneGame::Init() {
 	//キャラクターにモデルを設定する
 
 	mPlayer.Init(&CRes::sModelX);
-	mPlayer.mPosition = CVector(0.0f, 0.0f, -80);
+	mPlayer.mPosition = CVector(0.0f, 0.0f, 80);
 	
 	mEye.mPosition.mY = 3.0f;
 	//テキストフォントの読み込みと設定
@@ -284,6 +307,17 @@ void CSceneGame::Update() {
 	sprintf(buf, "%d", Time / 60);
 	CText::DrawString(buf, 300, 250, 16, 16);
 	
+	if (CXPlayer::mpxPlayer->touchflag2 == true){
+		//製作に必要な数は
+		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
+		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
+		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
+		CText::DrawString(buf, 150, -40, 15, 15);
+		CText::DrawString("I", 210, -40, 15, 15);
+		sprintf(buf, "%d", BOMBCREATE);
+		CText::DrawString(buf, 240, -40, 15, 15);
+		CXPlayer::mpxPlayer->touchflag2 = false;
+	}
 
 	if (CXPlayer::mpxPlayer->touchflag == true){
 		//製作に必要な数は
@@ -291,9 +325,9 @@ void CSceneGame::Update() {
 		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
 		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
 		CText::DrawString(buf, 150, -40, 15, 15);
-		CText::DrawString("I", 190, -40, 15, 15);
+		CText::DrawString("I", 210, -40, 15, 15);
 		sprintf(buf, "%d", CREATE);
-		CText::DrawString(buf, 230, -40, 15, 15);
+		CText::DrawString(buf, 240, -40, 15, 15);
 		CXPlayer::mpxPlayer->touchflag = false;
 	}
 
@@ -316,8 +350,8 @@ void CSceneGame::Update() {
 	mEnd = true;
 	}
 
-	/*sprintf(buf, "%d", CXPlayer::mpxPlayer->mBomb);
-	CText::DrawString(buf, -280, -180, 20, 20);*/
+	sprintf(buf, "%d", CPuddle::mclearcount);
+	CText::DrawString(buf, -280, -180, 20, 20);
 
 	Amount->x = -350;
 	Amount->y = -260 + Amount->h;

@@ -29,8 +29,8 @@ public:
 		ESWORD,//剣
 		EBOMB,//ボム
 		EITEM,//アイテム
-		EWORKBENCH,//作業台
-		EWORKBENCH2,//作業台
+		EWORKBENCH,//作業台水きれいにする用
+		EWORKBENCH2,//作業台爆弾用
 		ESEARCHENEMY,//敵の出現
 		ESEARCHENEMY2,//敵の出現
 

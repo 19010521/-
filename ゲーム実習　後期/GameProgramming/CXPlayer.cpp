@@ -23,7 +23,8 @@ int CXPlayer::mItem = 0;
 #define MOUSE_SENSE 4
 #define TURN (-360.0f/60*3)//回転
 #define WATERUSE (20.0f) //水の消費量
-#define CREATE (10)
+#define CREATE (10)//水浄化
+#define CREATE2 (5)//ボム
 CXPlayer::CXPlayer()
 :mColSphereBody(this, CVector(0.0f, 3.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
@@ -391,6 +392,20 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 					if (mItem >= CREATE){
 						if (CKey::Once('Q')){
 							mClean_up++;
+							mItem -= CREATE;
+						}
+					}
+
+				}
+			}
+			//アイテム作成
+			if (yc->mTag == CCollider::EWORKBENCH2){
+				if (mc->mTag == CCollider::EPLAYEREBODY){
+					touchflag2 = true;
+					if (mItem >= CREATE2){
+						if (CKey::Once('Q')){
+							mBomb++;
+							mItem -= CREATE2;
 						}
 					}
 
@@ -410,7 +425,7 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 			}
 			if ( yc->mTag == CCollider::ESEARCHENEMY2){
 				if (mc->mTag == CCollider::EPLAYEREBODY){
-					CPuddle::Enemy1 = true;
+					CPuddle::Enemy2 = true;
 				}
 
 			}

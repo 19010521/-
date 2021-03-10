@@ -9,9 +9,21 @@ private:
 	CCollider mCollider;
 
 public:
-	static CWorkbench *mpCWorkbench;
 	
 	CWorkbench(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	//void Collision(CCollider*m, CCollider*y);
+
+
+};
+class CWorkbench2 :public CCharacter{
+private:
+
+	CCollider mCollider;
+
+public:
+	
+	CWorkbench2(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	//void Collision(CCollider*m, CCollider*y);
 

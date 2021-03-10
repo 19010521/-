@@ -5,7 +5,7 @@
 class CEye :public CCharacter{
 private:
 
-	CEye(CModel*model, CVector position, CVector rotation, CVector scale);
+	
 
 	int mMouseX;
 	int mMouseY;
@@ -13,7 +13,7 @@ private:
 	void Update();
 	
 public:
-	
+	CEye(CModel*model, CVector position, CVector rotation, CVector scale);
 	static CEye *mpthis;
 	
 	CEye(){

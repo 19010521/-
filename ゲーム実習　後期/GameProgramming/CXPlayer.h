@@ -95,6 +95,7 @@ public:
 	int mClean_up;//…ò‰»ƒAƒCƒeƒ€
 
 	bool touchflag;//G‚ê‚é
+	bool touchflag2;//G‚ê‚é
 
 };
 #endif

@@ -5,7 +5,7 @@
 
 class CObj :public CCharacter{
 private:
-	~CObj();
+
 
 public:
 	//ƒRƒ‰ƒCƒ_‚Ì’Ç‰Á
@@ -15,6 +15,6 @@ public:
 	CObj(CModel*model, const CVector &position,
 		const CVector &rotation, const CVector &scale);
 
-	
+	~CObj();
 };
 #endif
