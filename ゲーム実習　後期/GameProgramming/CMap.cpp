@@ -4,8 +4,8 @@
 CMap::CMap()
 {
 	//’n–Ê
-	mCollider[0].SetTriangle(this, CVector(200.0f, 0.0f, 200.0f), CVector(200.0f, 0.0f, -200.0f), CVector(-200.0f, 0.0f, 200.0f));
-	mCollider[1].SetTriangle(this, CVector(-200.0f, 0.0f, 200.0f), CVector(200.0f, 0.0f, -200.0f), CVector(-200.0f, 0.0f, -200.0f));
+	mCollider[0].SetTriangle(this, CVector(200.0f, -1.0f, 200.0f), CVector(200.0f, -1.0f, -200.0f), CVector(-200.0f, -1.0f, 200.0f));
+	mCollider[1].SetTriangle(this, CVector(-200.0f, -1.0f, 200.0f), CVector(200.0f, -1.0f, -200.0f), CVector(-200.0f, -1.0f, -200.0f));
 	////‘O•Ç
 	//mCollider[2].SetTriangle(this, CVector(135.0f, 0.0f, 135.0f), CVector(-135.0f, 0.0f, 135.0f), CVector(-110.0f, 110.0f, 110.0f));
 	//mCollider[3].SetTriangle(this, CVector(110.0f, 110.0f, 110.0f), CVector(135.0f, 0.0f, 135.0f), CVector(-110.0f, 110.0f, 110.0f));
