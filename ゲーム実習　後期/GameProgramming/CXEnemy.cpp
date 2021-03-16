@@ -14,6 +14,8 @@ bool CXEnemy::Attackflag = true;
 bool CXEnemy::Call = true;
 bool CXEnemy::Desuflag = false;
 
+
+
 #define G (9.8f/60.0f)//重力加速度
 #define JUMPV0 (2.0f)//ジャンプ初速
 #define POINT (4) 
@@ -30,24 +32,27 @@ CXEnemy::CXEnemy()
 , mSearch(this, CVector(0.0f, 0.0f, -10.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 20.0f)
 , mVelovcityJump(0), mnearCount(120), mnearCountMax(120), Randam(0), mCount(0), mCountMax(60 * 5), fCount(fCountMax), fCountMax(1000)
 , mSpeed(0), mAttaccount(180), mAttaccountMax(180)
-, mHPNow(0),mHPMax(1)
+, mHPNow(0), mHPMax(1)
 {
-	
-	
+
+
 	jflag = false;
+
 	Attackflag = false;
-	
+
 	mflag = false;
 
 	nflag = false;
-	
+
 	aflag = false;
-	
+
+	//Comboflag = true;
+
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
 	mHPNow = mHPMax;
 	mTag = EENEMY;
 	mSearch.mTag = CCollider::ESEARCH;
-	
+
 	mColSphereBody.mTag = CCollider::EENEMYBODY;
 	mColSphereSword0.mTag = CCollider::ESWORD;
 	mstate = ENORMAL;
@@ -57,8 +62,6 @@ CXEnemy::CXEnemy()
 
 
 }
-
-
 void CXEnemy::Init(CModelX*model){
 
 
@@ -100,8 +103,8 @@ void CXEnemy::Update(){
 	}
 
 
-	
-	
+
+
 	if (mHPNow <= 0){
 		ChangeAnimation(11, false, 30);
 	}
@@ -116,7 +119,7 @@ void CXEnemy::Update(){
 				CVector dir = mpPoint->mPosition - mPosition;
 				//左方向のベクトルを求める
 				CVector left = CVector(1.0f, 0.0f, 0.0f)*CMatrix().RotateY(mRotation.mY);
-				
+
 				CVector right = CVector(-1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 				//上方向のベクトルを求める
 				//CVector up = CVector(0.0f, 1.0f, 0.0f)*CMatrix().RotateX(mRotation.mX);
@@ -132,7 +135,7 @@ void CXEnemy::Update(){
 		}
 	}
 
-	
+
 	if (nflag == false){
 		if (fCount>0){
 			fCount--;
@@ -170,50 +173,58 @@ void CXEnemy::Update(){
 			jflag = true;
 		}
 	}
-	
-		
+
+
 	//死んだ--
 	if (mAnimationIndex == 11){
 		if (mAnimationFrame >= mAnimationFrameSize){
+			//mComboCount = mComboCountMax;
 			CSceneGame::score += 50;
+			CSceneGame::Defeats++;
+			CSceneGame::Combo++;
+
 			//アイテムの生成
 			mItem = new CItem();
 			//アイテムの配置
 			mItem->mPosition = mPosition;
-			
+
 			SetEnabled(false);
-			
+
 		}
 	}
 
-	if (mHPNow < 0){
 
+
+
+
+	if (mHPNow < 0){
 		mHPNow = 0;
 		ChangeAnimation(11, false, 30);
 
 	}
-	
+
 	//攻撃
+	if (mAnimationIndex != 7){
+		Attackflag = false;
+	}
+
 	if (aflag == true){
 		ChangeAnimation(7, false, 60);
 		if (mAttaccount > 0){
 			mAttaccount--;
 		}
 		else if (mAnimationIndex == 7){
-				if (mAnimationFrame >= mAnimationFrameSize){
-					aflag = false;
-					Attackflag = true;
-					ChangeAnimation(1, true, 60);
-					mAttaccount = mAttaccountMax;
-				}
-				else
-				{
-					Attackflag = false;
-
-				}
+			if (mAnimationFrame >= mAnimationFrameSize){
+				aflag = false;
+				Attackflag = true;
+				ChangeAnimation(1, true, 60);
+				mAttaccount = mAttaccountMax;
 			}
+
 		}
-	
+	}
+
+
 	if (mstate == ELANDING){
 		for (int s = 0; s < 359; s++){
 			CBullet*bullet = new CBullet();
@@ -253,7 +264,7 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 
-				
+
 
 				case EPLAYER:
 
@@ -270,25 +281,27 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 					break;
 
-				
+
 				}
 			}
-			
-			
+
+
 			else{
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPOINT://ポイントの時
 					//衝突したポインタと目指しているポインタが同じとき
 					if (y->mpParent == mpPoint){
+						if (mPointCnt == 0){
+							mPointCnt = rand() % RANDAMPOINT;//次のポイントにする
+						}
 
-						mPointCnt = rand() % RANDAMPOINT;//次のポイントにする
+
 						//次のぽいんとのポインタを設定
 						mpPoint = &mPoint[mPointCnt];
 					}
 
 					break;
-
 				}
 
 			}
@@ -297,14 +310,17 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 			//判定
 			if (m->mTag == CCollider::EENEMYBODY){
-				
-			
-				
+
+
+
 				switch (y->mpParent->mTag){
 
 				case EWATERGUN:
 
 					if (y->mTag == CCollider::EWATER){
+						CXPlayer::mpxPlayer->Comboflag = true;
+
+
 						mHPNow -= 10;
 					}
 					break;
@@ -313,31 +329,31 @@ void CXEnemy::Collision(CCollider*m, CCollider*y){
 
 					if (aflag == false){
 						aflag = true;
-				}
+					}
 					break;
 
 
 				}
 			}
-			
+
 		}
 	}
 	//自身コライダの判定タイプ
 	switch (m->mType){
 	case CCollider::ESPHERE://球コライダ
 		//相手のコライダが三角コライダの時
-		if (m->mTag != CCollider::ESEARCH&&m->mTag!=CCollider::EENEMYBODY){
+		if (m->mTag != CCollider::ESEARCH&&m->mTag != CCollider::EENEMYBODY){
 			if (y->mType == CCollider::ETRIANGLE){
 				CVector adjust;//調整用ベクトル		
 
 				if (CCollider::CollisionTriangleSphere(y, m, &adjust)){
 					if (mstate == EJUNP&&jflag == true){
 						mstate = ELANDING;
-						
+
 					}
 
 					jflag = false;
-					
+
 					mVelovcityJump = 0;
 					//位置の更新
 					mPosition = mPosition - adjust*-1;
@@ -357,6 +373,8 @@ bool CXEnemy2::Attackflag = true;
 bool CXEnemy2::Call = true;
 bool CXEnemy2::Desuflag = false;
 
+
+
 CXEnemy2::CXEnemy2()
 :mColSphereBody(this, CVector(0.5f, -2.0f, 0.0f), CVector(), CVector(1.5f, 3.0f, 1.5f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
@@ -373,6 +391,7 @@ CXEnemy2::CXEnemy2()
 
 
 	jflag = false;
+
 	Attackflag = false;
 
 	mflag = false;
@@ -380,6 +399,8 @@ CXEnemy2::CXEnemy2()
 	nflag = false;
 
 	aflag = false;
+
+	//Comboflag = true;
 
 	//mScale = CVector(1.0f, 1.0f, 1.0f);
 	mHPNow = mHPMax;
@@ -506,12 +527,16 @@ void CXEnemy2::Update(){
 			jflag = true;
 		}
 	}
-
+	
 
 	//死んだ--
 	if (mAnimationIndex == 11){
 		if (mAnimationFrame >= mAnimationFrameSize){
+			//mComboCount = mComboCountMax;
 			CSceneGame::score += 50;
+			CSceneGame::Defeats++;
+				CSceneGame::Combo++;
+			
 			//アイテムの生成
 			mItem = new CItem();
 			//アイテムの配置
@@ -522,33 +547,37 @@ void CXEnemy2::Update(){
 		}
 	}
 
-	if (mHPNow < 0){
+	
 
+	
+
+	if (mHPNow < 0){
 		mHPNow = 0;
 		ChangeAnimation(11, false, 30);
-
+		
 	}
 
 	//攻撃
-	if (aflag == true){
-		ChangeAnimation(7, false, 60);
-		if (mAttaccount > 0){
-			mAttaccount--;
-		}
-		else if (mAnimationIndex == 7){
-			if (mAnimationFrame >= mAnimationFrameSize){
-				aflag = false;
-				Attackflag = true;
-				ChangeAnimation(1, true, 60);
-				mAttaccount = mAttaccountMax;
-			}
-			else
-			{
-				Attackflag = false;
-
-			}
-		}
+	if (mAnimationIndex != 7){
+		Attackflag = false;
 	}
+	
+		if (aflag == true){
+			ChangeAnimation(7, false, 60);
+			if (mAttaccount > 0){
+				mAttaccount--;
+			}
+			else if (mAnimationIndex == 7){
+				if (mAnimationFrame >= mAnimationFrameSize){
+					aflag = false;
+					Attackflag = true;
+					ChangeAnimation(1, true, 60);
+					mAttaccount = mAttaccountMax;
+				}
+				
+			}
+		}
+	
 
 	if (mstate == ELANDING){
 		for (int s = 0; s < 359; s++){
@@ -643,6 +672,9 @@ void CXEnemy2::Collision(CCollider*m, CCollider*y){
 				case EWATERGUN:
 
 					if (y->mTag == CCollider::EWATER){
+						CXPlayer::mpxPlayer->Comboflag = true;
+					
+						
 						mHPNow -= 10;
 					}
 					break;

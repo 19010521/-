@@ -33,8 +33,8 @@ CXPlayer::CXPlayer()
 , mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCountStop(0)
 , mInvincibleCountMax(150), mInvincibleCount(150), mTunRotation(0.0f,2.5f,0.0f)
-, mMudCount(0), mDrawCount(0), mHPNow(100)
-, mSpeed(0), mClean_up(0), mBomb(0)
+, mMudCount(0), mDrawCount(0), mHPNow(10)
+, mSpeed(0), mClean_up(0), mBomb(0), mComboCount(120), mComboMemory(0), mComboCountMax(120)
 {
 	Damege = false;
 
@@ -100,72 +100,9 @@ void CXPlayer::Update(){
 	mVelovcityJump -= G;
 
 	
-		if ((mAnimationIndex != 11 && mstate == EMUD )|| mstate == EINVINCIBLE){
-			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
+		
 
-				mRotation.mY = CEye::mpthis->mRotation.mY;
-
-				ChangeAnimation(1, true, 60);
-
-				mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-
-				if (CKey::Push('S')){
-
-					mRotation.mY += 180;
-
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-				}
-
-				if (CKey::Push('A')){
-					mRotation.mY += 90;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-
-					if (CKey::Push('S')){
-						mRotation.mY += 225;
-						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-					}
-
-					if (CKey::Push('W')){
-						mRotation.mY += 315;
-						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-					}
-				}
-
-				if (CKey::Push('D')){
-					mRotation.mY += 270;
-					mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-					if (CKey::Push('S')){
-						mRotation.mY += 135;
-						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-					}
-
-					if (CKey::Push('W')){
-						mRotation.mY += 45;
-						mPosition = CVector(0.0f, 0.0f, 0.1f)*mMatrix;
-					}
-				}
-
-			}
-			else if (mAnimationIndex == 1){
-				ChangeAnimation(0, true, 60);
-			}
-
-
-
-			if (mAnimationIndex == 3){
-				if (mAnimationFrame >= mAnimationFrameSize){
-					ChangeAnimation(4, false, 30);
-				}
-			}
-
-			if (mAnimationIndex == 4){
-				if (mAnimationFrame >= mAnimationFrameSize){
-					ChangeAnimation(0, true, 60);
-				}
-			}
-		}
-
-		if (mAnimationIndex != 11 && mstate == ENORMAL){
+		if (mAnimationIndex != 11){
 		
 			if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D') || CKey::Push('S')){
 
@@ -294,42 +231,61 @@ void CXPlayer::Update(){
 				mInvincibleCount--;
 
 			}
-			else if (mMudCount < 3)
+			/*else if (mMudCount < 3)
 			{
 				mstate = ENORMAL;
 				mInvincibleCount = mInvincibleCountMax;
-
-			}
+				
+			}*/
 			else
 			{
-				mstate = EMUD;
+				mstate = ENORMAL;
 				mInvincibleCount = mInvincibleCountMax;
+				
 			}
 
 		}
 
-		
-		//泥状態になる
-		if (mMudCount > 3){
-			mstate = EMUD;
+		//コンボ
+		if (Comboflag == true){
+			if (mComboCount > 0){
+				mComboCount--;
+			}
+
+			else{
+				mComboMemory = CSceneGame::Combo;
+				if (mComboMemory > CSceneGame::ComboMax){
+					CSceneGame::ComboMax = mComboMemory;
+				}
+				CSceneGame::Combo = 0;
+				mComboCount =  mComboCountMax;
+				Comboflag = false;
+			}
+
 		}
+		
+		////泥状態になる
+		//if (mMudCount > 3){
+		//	mstate = EMUD;
+		//}
+
+
 		//ダメージ1
 		if (Damege == true){
-
+			Damege = false;
 			mHPNow -= 20;
 			mMudCount += 1;
-			Damege = false;
-
 			mstate = EINVINCIBLE;
+			
 		}
 	
 		//死んだ--
 	
 		if (mHPNow < 0){
+			mstate = EDESU;
 			ChangeAnimation(11, false, 30);
 			mHPNow = 0;
-			mstate = EDESU;
-
+		
 		}
 		CCharacter::Update();
 		CMatrix turnMatrix;
@@ -445,27 +401,29 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 				}
 			}
 
-	
-			
-			
+
+
+
 			//衝突したコライダの親の種類を判定
 			switch (yc->mpParent->mTag){
-			//敵
+				//敵
 			case EENEMY:
-				if (yc->mTag == CCollider::EENEMYBODY){
-					if (mAnimationIndex != 11){
-						if (mstate != EINVINCIBLE){
-							if (CXEnemy::Attackflag == false){
-								Damege = true;
+				if (Damege == false){
+					if (mstate != EINVINCIBLE){
+					if (yc->mTag == CCollider::EENEMYBODY){
+						if (mAnimationIndex != 11){
+								if (CXEnemy::Attackflag == true || CXEnemy2::Attackflag == true){
+									Damege = true;
 
+								}
 							}
 						}
+						break;
 					}
-					break;
 				}
 			}
-		}
 
+		}
 	}
 }
 void CXPlayer::Render(){

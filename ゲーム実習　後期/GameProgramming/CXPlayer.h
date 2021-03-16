@@ -25,6 +25,10 @@ private:
 	int mBulletCount;
 	int mBulletCountMax;
 
+	int mComboCount;//コンボのカウント
+	int mComboCountMax;//コンボのカウント最大
+
+	int mComboMemory;//コンボ記憶させておく
 
 
 	int mInvincibleCount;
@@ -36,6 +40,7 @@ private:
 	bool waterflag;//水打つフラグ
 	bool Damege;//ダメージ
 	bool Damege2;//ダメージ2
+	
 
 	CVector mTunRotation; //軸
 	float mTurn; //回転
@@ -84,6 +89,7 @@ public:
 	static int mItem;
 	static float mWaterCount;
 	static float mWaterCountMax;
+	
 
 	CXPlayer();
 
@@ -96,6 +102,7 @@ public:
 
 	bool touchflag;//触れる
 	bool touchflag2;//触れる
+	bool Comboflag;//コンボの時間
 
 };
 #endif

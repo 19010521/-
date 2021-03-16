@@ -1,8 +1,8 @@
-﻿2021/03/12 4:34:51 にビルドを開始しました。
+﻿2021/03/16 16:23:11 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\GameProgramming\GameProgramming.vcxproj" (Build ターゲット)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CMap.cpp
-         CMap.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CSceneGame.cpp
+         CSceneGame.cpp
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(66): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(147): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(222): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
@@ -10,6 +10,46 @@
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CModelX.h(226): warning C4150: 'CMaterial' 型を削除するため delete 演算子が呼び出されましたが、定義がありません。
                  c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CMyShader.h(7) : 'CMaterial' の宣言を確認してください。
      1>c:\users\森近　淳哉\desktop\git\akusyon\ゲーム実習　後期\gameprogramming\CTask.h(26): warning C4800: 'int' : ブール値を 'true' または 'false' に強制的に設定します (警告の処理)
+     1>CSceneGame.cpp(308): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(311): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(313): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(321): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(324): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(333): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(336): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(363): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(366): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(369): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(673): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(676): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(678): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(686): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(689): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(698): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(701): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(728): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(731): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
+     1>CSceneGame.cpp(734): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 'sprintf' の宣言を確認してください。
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.exe" /INCREMENTAL:NO /NOLOGO glew32.lib glfw3.lib glfw3dll.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\森近　淳哉\Desktop\Git\Akusyon\ゲーム実習　後期\Release\GameProgramming.lib" /MACHINE:X86 /SAFESEH Release\CAmount.obj
          Release\CBillBoard.obj
@@ -40,7 +80,6 @@
          Release\CRock2.obj
          Release\CSceneTitle.obj
          Release\CShader.obj
-         Release\CStage2.obj
          Release\CWorkbench.obj
          Release\CXEnemy.obj
          Release\CXPlayer.obj
@@ -64,4 +103,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.64
+経過時間 00:00:01.53

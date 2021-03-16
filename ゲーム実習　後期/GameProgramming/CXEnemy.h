@@ -33,11 +33,13 @@ private:
 	int fCountMax;
 	int mAttaccount;
 	int mAttaccountMax;
+	
 	bool nflag;//気づいたフラグ
 	bool jflag;//ジャンプフラグ
 	bool lflag;//後転フラグ
 	bool aflag;//攻撃フラグ
 	bool mflag;//動くフラグ
+
 	float mHPMax;//敵のHP
 	float mHPNow;
 
@@ -84,6 +86,8 @@ public:
 	//CEnemy(モデル,位置,回転,拡縮)
 
 	
+	
+
 	static bool Attackflag;
 	static bool Call;//仲間を呼ぶ
 	static bool Desuflag;//死んだフラグ
@@ -115,11 +119,13 @@ private:
 	int fCountMax;
 	int mAttaccount;
 	int mAttaccountMax;
+	
 	bool nflag;//気づいたフラグ
 	bool jflag;//ジャンプフラグ
 	bool lflag;//後転フラグ
 	bool aflag;//攻撃フラグ
 	bool mflag;//動くフラグ
+
 	float mHPMax;//敵のHP
 	float mHPNow;
 
@@ -165,6 +171,7 @@ public:
 	CItem *mItem;
 	//CEnemy(モデル,位置,回転,拡縮)
 
+	
 
 	static bool Attackflag;
 	static bool Call;//仲間を呼ぶ
