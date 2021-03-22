@@ -17,8 +17,7 @@
 
 #define GAMEOVERA (0)
 #define  PUDDLE (6)//水たまりの数
-#define  CREATE (10)
-#define  BOMBCREATE (5)
+
 CMatrix Matrix;
 CModel mSky;
 CModel mPlane;
@@ -128,6 +127,14 @@ void CSceneGame::Init() {
 		CPuddle::mclearcount++;
 	}
 	
+	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-0.5f, 0.0f, -70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+
+	//mpPuddle->mpModel = &MudPuddle;
+	if (mpPuddle->mpModel == &Puddle){
+
+		CPuddle::mclearcount++;
+	}
+
 
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(70.0f, 0.0f, -50.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
@@ -154,10 +161,10 @@ void CSceneGame::Init() {
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//10ダミー
 	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
-	//壊せる壁
-	new CRock(&mRock, CVector(56.0f, 0.0f, -18.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
+	////壊せる壁
+	//new CRock(&mRock, CVector(56.0f, 0.0f, -18.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
 
-	new CRock(&mRock, CVector(-45.0f, 0.0f, 15.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
+	//new CRock(&mRock, CVector(-45.0f, 0.0f, 15.0f), CVector(), CVector(6.0f, 6.0f, 6.0f));
 	
 	//壁
 	new CObj(&mCube, CVector(85.0f, 0.0f, -20.0f), CVector(), CVector(20.0f, 5.0f, 1.0f));
@@ -202,9 +209,6 @@ void CSceneGame::Init() {
 	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.5f));
 
-	new CWorkbench2(&mWorkbench, CVector(-80.0f, 0.0f, 70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
-
-	new CWorkbench(&mWorkbench, CVector(0.0f, 0.0f, -50.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
 
 	mPuddlePoint = new CPuddlePoint();
@@ -310,33 +314,12 @@ void CSceneGame::Update() {
 
 		sprintf(buf, "%d", Time / 60);
 		CText::DrawString(buf, 300, 250, 16, 16);
+		CText::DrawString("COMBO", 210, -150, 20, 20);
 		sprintf(buf, "%d", Combo);
-		CText::DrawString(buf, -280, -180, 20, 20);
+		CText::DrawString(buf, 295, -200, 20, 20);
 
 	}
-	if (CXPlayer::mpxPlayer->touchflag2 == true){
-		//製作に必要な数は
-		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
-		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
-		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
-		CText::DrawString(buf, 150, -40, 15, 15);
-		CText::DrawString("I", 210, -40, 15, 15);
-		sprintf(buf, "%d", BOMBCREATE);
-		CText::DrawString(buf, 240, -40, 15, 15);
-		CXPlayer::mpxPlayer->touchflag2 = false;
-	}
-
-	if (CXPlayer::mpxPlayer->touchflag == true){
-		//製作に必要な数は
-		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
-		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
-		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
-		CText::DrawString(buf, 150, -40, 15, 15);
-		CText::DrawString("I", 210, -40, 15, 15);
-		sprintf(buf, "%d", CREATE);
-		CText::DrawString(buf, 240, -40, 15, 15);
-		CXPlayer::mpxPlayer->touchflag = false;
-	}
+	
 
 	if (CPuddle::mclearcount == PUDDLE){
 
@@ -563,9 +546,7 @@ void CSceneGame2::Init() {
 	new CObj(&mCube, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.0f));
 	new CRock2(&mRock, CVector(-50.0f, 0.0f, 110.0f), CVector(0.0f, -15.0f, 0.0f), CVector(70.0f, 5.0f, 1.5f));
 
-	new CWorkbench2(&mWorkbench, CVector(-80.0f, 0.0f, 70.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
-
-	new CWorkbench(&mWorkbench, CVector(0.0f, 0.0f, -50.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
+	
 
 
 	mPuddlePoint = new CPuddlePoint();
@@ -672,33 +653,13 @@ void CSceneGame2::Update() {
 
 		sprintf(buf, "%d", Time / 60);
 		CText::DrawString(buf, 300, 250, 16, 16);
+		CText::DrawString("COMBO", 210, -150, 20, 20);
 		sprintf(buf, "%d", Combo);
-		CText::DrawString(buf, -280, -180, 20, 20);
+		CText::DrawString(buf, 295, -200, 20, 20);
+
 
 	}
-	if (CXPlayer::mpxPlayer->touchflag2 == true){
-		//製作に必要な数は
-		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
-		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
-		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
-		CText::DrawString(buf, 150, -40, 15, 15);
-		CText::DrawString("I", 210, -40, 15, 15);
-		sprintf(buf, "%d", BOMBCREATE);
-		CText::DrawString(buf, 240, -40, 15, 15);
-		CXPlayer::mpxPlayer->touchflag2 = false;
-	}
 
-	if (CXPlayer::mpxPlayer->touchflag == true){
-		//製作に必要な数は
-		CText::DrawString("THE NUMBER REQUIRED", -350, 0, 15, 15);
-		CText::DrawString("FOR PRODUCTION", -300, -40, 15, 15);
-		sprintf(buf, "%d", CXPlayer::mpxPlayer->mItem);
-		CText::DrawString(buf, 150, -40, 15, 15);
-		CText::DrawString("I", 210, -40, 15, 15);
-		sprintf(buf, "%d", CREATE);
-		CText::DrawString(buf, 240, -40, 15, 15);
-		CXPlayer::mpxPlayer->touchflag = false;
-	}
 
 	if (CPuddle::mclearcount == PUDDLE){
 

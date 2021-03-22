@@ -66,10 +66,13 @@ void CItem::Collision(CCollider*m, CCollider*y){
 			if (m->mTag == CCollider::EITEM){
 				if (y->mTag == CCollider::EPLAYEREBODY){
 					if (GetEnabled() != false){
-						CXPlayer::mpxPlayer->mItem++;
+						CXPlayer::mpxPlayer->mClean_up++;
 					}
 					SetEnabled(false); 
 
+				}
+				if (y->mTag == CCollider::EENEMYBODY){
+					SetEnabled(false);
 				}
 
 			}

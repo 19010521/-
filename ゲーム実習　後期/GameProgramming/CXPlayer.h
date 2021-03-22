@@ -16,7 +16,7 @@ private:
 	void TaskCollision();
 
 
-	int mHPNow;//プレイヤーのHP
+	
 
 	float mWaterCountStop;
 
@@ -38,8 +38,8 @@ private:
 
 	bool jflag;//ジャンプフラグ
 	bool waterflag;//水打つフラグ
-	bool Damege;//ダメージ
-	bool Damege2;//ダメージ2
+	
+	
 	
 
 	CVector mTunRotation; //軸
@@ -97,12 +97,14 @@ public:
 
 
 
-	int mBomb;//爆弾アイテム
+
 	int mClean_up;//水浄化アイテム
+	int mHPNow;//プレイヤーのHP
 
 	bool touchflag;//触れる
 	bool touchflag2;//触れる
 	bool Comboflag;//コンボの時間
+	bool Damege;//ダメージ
 
 };
 #endif

@@ -182,12 +182,12 @@ void CXEnemy::Update(){
 			CSceneGame::score += 50;
 			CSceneGame::Defeats++;
 			CSceneGame::Combo++;
-
-			//アイテムの生成
-			mItem = new CItem();
-			//アイテムの配置
-			mItem->mPosition = mPosition;
-
+			
+				//アイテムの生成
+				mItem = new CItem();
+				//アイテムの配置
+				mItem->mPosition = mPosition;
+			
 			SetEnabled(false);
 
 		}
@@ -245,7 +245,7 @@ void CXEnemy::Update(){
 			}
 			else
 			{
-				mPosition = CVector(0.0f, 0.0f, -0.05f)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, -0.23f)*mMatrix;
 			}
 
 		}
@@ -536,12 +536,12 @@ void CXEnemy2::Update(){
 			CSceneGame::score += 50;
 			CSceneGame::Defeats++;
 				CSceneGame::Combo++;
-			
-			//アイテムの生成
-			mItem = new CItem();
-			//アイテムの配置
-			mItem->mPosition = mPosition;
-
+				
+					//アイテムの生成
+					mItem = new CItem();
+					//アイテムの配置
+					mItem->mPosition = mPosition;
+				
 			SetEnabled(false);
 
 		}

@@ -12,7 +12,7 @@ private:
 	CModel *Puddle;
 	CModel *MudPuddle;
 
-
+	CCollider*mpCollider;
 	CXEnemy *mEnemy;
 
 	CXEnemy2 *mEnemy2;

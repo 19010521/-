@@ -23,8 +23,8 @@ int CXPlayer::mItem = 0;
 #define MOUSE_SENSE 4
 #define TURN (-360.0f/60*3)//回転
 #define WATERUSE (20.0f) //水の消費量
-#define CREATE (10)//水浄化
-#define CREATE2 (5)//ボム
+#define CREATE (2)//水浄化
+#define CREATE2 (1)//ボム
 CXPlayer::CXPlayer()
 :mColSphereBody(this, CVector(0.0f, 3.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
@@ -34,7 +34,7 @@ CXPlayer::CXPlayer()
 , mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCountStop(0)
 , mInvincibleCountMax(150), mInvincibleCount(150), mTunRotation(0.0f,2.5f,0.0f)
 , mMudCount(0), mDrawCount(0), mHPNow(10)
-, mSpeed(0), mClean_up(0), mBomb(0), mComboCount(120), mComboMemory(0), mComboCountMax(120)
+, mSpeed(0), mClean_up(0), mComboCount(120), mComboMemory(0), mComboCountMax(120)
 {
 	Damege = false;
 
@@ -111,37 +111,37 @@ void CXPlayer::Update(){
 
 				ChangeAnimation(1, true, 60);
 
-				mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+				mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 
 				if (CKey::Push('S')){
 					mRotation.mY += 180;
 
-					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 				}
 
 				if (CKey::Push('A')){
 					mRotation.mY += 90;
-					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					if (CKey::Push('S')){
 						mRotation.mY += 225;
-						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+						mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					}
 					if (CKey::Push('W')){
 						mRotation.mY += 315;
-						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+						mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					}
 				}
 
 				if (CKey::Push('D')){
 					mRotation.mY += 270;
-					mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+					mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					if (CKey::Push('S')){
 						mRotation.mY += 135;
-						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+						mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					}
 					if (CKey::Push('W')){
 						mRotation.mY += 45;
-						mPosition = CVector(0.0f, 0.0f, 0.2f - mSpeed)*mMatrix;
+						mPosition = CVector(0.0f, 0.0f, 0.3f - mSpeed)*mMatrix;
 					}
 				}
 
@@ -321,55 +321,7 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		break;
 	}
 
-	//共に球コライダの時
-	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
-		//コライダのｍとｙが衝突しているか判定
-		if (CCollider::Collision(mc, yc)){
-			//破壊できる岩
-			if (yc->mTag == CCollider::EROCK){
-				if (mc->mTag == CCollider::EPLAYEREBODY){
-					CVector adjust;
-					if (CCollider::CollisionSphere(mc, yc, &adjust)){
-						mPosition = mPosition - adjust * -1.0;
-						CCharacter::Update();
-					}
-				}
-			}
-		}
-	}
 
-	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
-		//コライダのｍとｙが衝突しているか判定
-		if (CCollider::Collision(mc, yc)){
-		    //アイテム作成
-			if (yc->mTag == CCollider::EWORKBENCH){
-				if (mc->mTag == CCollider::EPLAYEREBODY){
-					touchflag = true;
-					if (mItem >= CREATE){
-						if (CKey::Once('Q')){
-							mClean_up++;
-							mItem -= CREATE;
-						}
-					}
-
-				}
-			}
-			//アイテム作成
-			if (yc->mTag == CCollider::EWORKBENCH2){
-				if (mc->mTag == CCollider::EPLAYEREBODY){
-					touchflag2 = true;
-					if (mItem >= CREATE2){
-						if (CKey::Once('Q')){
-							mBomb++;
-							mItem -= CREATE2;
-						}
-					}
-
-				}
-			}
-		}
-		
-	}
 	if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ESPHERE){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(mc, yc)){
@@ -392,17 +344,6 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(mc, yc)){
 
-			//爆弾
-			if (yc->mTag == CCollider::EBOMB){
-				if (CKey::Once('Q')){
-
-					mBomb++;
-
-				}
-			}
-
-
-
 
 			//衝突したコライダの親の種類を判定
 			switch (yc->mpParent->mTag){
@@ -410,19 +351,20 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 			case EENEMY:
 				if (Damege == false){
 					if (mstate != EINVINCIBLE){
-					if (yc->mTag == CCollider::EENEMYBODY){
-						if (mAnimationIndex != 11){
+						if (yc->mTag == CCollider::EENEMYBODY){
+							if (mAnimationIndex != 11){
 								if (CXEnemy::Attackflag == true || CXEnemy2::Attackflag == true){
 									Damege = true;
 
 								}
 							}
 						}
-						break;
+
 					}
 				}
+				break;
+			
 			}
-
 		}
 	}
 }

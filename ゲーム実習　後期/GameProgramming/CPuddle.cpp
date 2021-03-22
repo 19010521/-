@@ -4,18 +4,18 @@
 #include"CRes.h"
 
 #define WATERUSE (0.001f) //水の異動量
+#define RECOVERYWATERUSE (0.001f)//水の回復量
+#define MUDWATERUSE (0.01f) //泥水の異動量
 
 int CPuddle::mclearcount = 0;
 bool CPuddle::mClean_upCountflag;
 bool CPuddle::Enemy;
 bool CPuddle::Enemy2;
 CPuddle::CPuddle(CModel*model, CModel*model2, CVector position, CVector rotation, CVector scale)
-:mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(5.0f, 3.0f, 5.0f), 2.0f)
+:mPuddle(this, CVector(0.0f, 1.0f, 0.0f), CVector(), CVector(4.0f, 2.0f, 4.0f), 1.0f)
 , EnemyCount(0), EnemyCount1(0), mClean_upCount(300), mClean_upCountMax(600)
 , x(6.0f), y(0.5f), z(6.0f), mx(0.0f), mz(0.0f), mxMax(6.0f), mzMax(6.0f), frame(0), frame1(0), mCount(120), mCountMax(120)
-
 {
-
 	
 	mTag = ENORMALPUDDLE;
 	mPuddle.mTag = CCollider::EPUDDLE;
@@ -32,6 +32,7 @@ CPuddle::CPuddle(CModel*model, CModel*model2, CVector position, CVector rotation
 	Enemy = false;
 	Enemy2 = false;
 	mScale = CVector(x, y, z);
+
 	
 	
 }
@@ -70,23 +71,29 @@ void CPuddle::Update(){
 	
 	}
 	
-	if (x > 0 && z > 0){
+	if (x > 1 && z > 1){
 		if (usefrag == true){
 			mScale = CVector(x -= mx, y, z -= mz);
+			CXPlayer::mpxPlayer->mWaterCount++;
 		}
 	}
-	if (x < mxMax&&z < mzMax){
-		if (usefrag == false){
+	//泥水が徐々に増える
+	if (mPuddle.mTag == CCollider::EMUDPUDDLE){
+		mScale.mX = mScale.mX + MUDWATERUSE;
 
-			if (mCount > 0){
-				mCount--;
-			}
-			else
-			{
-				mScale = CVector(x += mx, y, z += mz);
-				mCount = mCountMax;
-			}
+		mScale.mZ = mScale.mZ + MUDWATERUSE;
 
+		mPuddle.mRadius += MUDWATERUSE;
+		}
+	//水が少しずつ回復する
+	if (mPuddle.mTag == CCollider::EPUDDLE){
+		if (x < mxMax&&z < mzMax){
+			if (usefrag == false){
+
+				
+					mScale = CVector(x += RECOVERYWATERUSE, y, z += RECOVERYWATERUSE);
+					
+			}
 		}
 	}
 
@@ -161,13 +168,16 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(m, y)){
 			//泥の水たまり
-			if (m->mTag == CCollider::EMUDPUDDLE){
+			if (m->mTag == CCollider::EMUDPUDDLE){	
 				if (y->mTag == CCollider::EPLAYEREBODY){
+					CXPlayer::mpxPlayer->Damege = true;
+				}
 					//アイテム
 					if (CXPlayer::mpxPlayer->mClean_up > 0){
 						if (CKey::Push('Q')){
 							if (mpModel == MudPuddle){
 								CXPlayer::mpxPlayer->mClean_up--;
+								CXPlayer::mpxPlayer->mHPNow++;
 								CClean*mClean = new CClean();
 								mClean->mPosition = mPosition;
 								mClean_upCountflag = true;
@@ -191,15 +201,19 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 
 					}
 				}
-			}
+			
 			//普通の水たまり
 				if (m->mTag == CCollider::EPUDDLE){
-					
+					if (y->mTag == CCollider::EMUDPUDDLE){
+						mclearcount--;
+ 						mpModel = MudPuddle;
+
+					}
 					if (y->mTag == CCollider::EPLAYEREBODY){
 						
 						if (CKey::Push('Q') && CXPlayer::mpxPlayer->mWaterCount < CXPlayer::mpxPlayer->mWaterCountMax){
 
-							if (mx <= 1.0f && mz <= 1.0f){
+							if (mx <= 0.1f && mz <= 0.1f){
 								mx += WATERUSE;
 								mz += WATERUSE;
 
@@ -209,7 +223,7 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 								mz = 0;
 
 							}
-							CXPlayer::mpxPlayer->mWaterCount++;
+							
 							usefrag = true;
 
 						}

@@ -141,9 +141,6 @@
     <ClCompile Include="CBomb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CWorkbench.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CItem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -285,9 +282,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CBomb.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CWorkbench.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CItem.h">

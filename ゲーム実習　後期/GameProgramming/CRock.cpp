@@ -30,13 +30,7 @@ void CRock::Collision(CCollider *m, CCollider *y){
 			if (y->mTag == CCollider::EPLAYEREBODY){
 				if (m->mTag == CCollider::EROCK2){
 					if (CKey::Once('Q')){
-						if (CXPlayer::mpxPlayer->mBomb > 0){
-							new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp1, 4, 4, 1);
-							if (GetEnabled() !=  false){
-								CXPlayer::mpxPlayer->mBomb--;
-							}
-							SetEnabled(false);
-						}
+					
 					}
 				}
 			}

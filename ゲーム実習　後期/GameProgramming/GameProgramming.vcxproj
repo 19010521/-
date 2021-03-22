@@ -112,7 +112,6 @@
     <ClCompile Include="CRock2.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
-    <ClCompile Include="CWorkbench.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="CRes.cpp" />
@@ -160,7 +159,6 @@
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CVertex.h" />
-    <ClInclude Include="CWorkbench.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />
     <ClInclude Include="CRes.h" />
