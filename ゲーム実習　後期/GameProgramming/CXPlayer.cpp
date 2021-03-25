@@ -14,7 +14,7 @@ CXPlayer *CXPlayer::mpxPlayer = nullptr;
 
 float CXPlayer::mWaterCountMax = 60;
 float CXPlayer::mWaterCount = 0;
-int CXPlayer::mItem = 0;
+
 
 
 #define G (9.8f/60.0f)//d—Í‰Á‘¬“x
@@ -33,8 +33,8 @@ CXPlayer::CXPlayer()
 , mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCountStop(0)
 , mInvincibleCountMax(150), mInvincibleCount(150), mTunRotation(0.0f,2.5f,0.0f)
-, mMudCount(0), mDrawCount(0), mHPNow(10)
-, mSpeed(0), mClean_up(0), mComboCount(120), mComboMemory(0), mComboCountMax(120)
+, mMudCount(0), mDrawCount(0), mHPNow(100)
+, mSpeed(0), mClean_up(1), mComboCount(120), mComboMemory(0), mComboCountMax(120)
 {
 	Damege = false;
 
@@ -336,6 +336,13 @@ void CXPlayer::Collision(CCollider*mc, CCollider*yc){
 					CPuddle::Enemy2 = true;
 				}
 
+			}
+			if (Damege == false){
+				if (mstate != EINVINCIBLE){
+					if (yc->mTag == CCollider::EMUDPUDDLE){
+						CXPlayer::mpxPlayer->Damege = true;
+					}
+				}
 			}
 		}
 	}

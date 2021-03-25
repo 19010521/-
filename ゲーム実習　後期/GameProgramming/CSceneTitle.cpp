@@ -28,7 +28,7 @@ void CSceneTitle::Update() {
 
 	if (CKey::Once(VK_RETURN)) {
 		//次のシーンはゲーム
-		mScene = EGAME;
+		mScene = EGAME2;
 	}
 	
 	//2D描画終了

@@ -86,7 +86,7 @@ public:
 	Estate mstate;
 
 	static CXPlayer *mpxPlayer;
-	static int mItem;
+
 	static float mWaterCount;
 	static float mWaterCountMax;
 	

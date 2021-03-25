@@ -7,6 +7,7 @@
 #define RECOVERYWATERUSE (0.001f)//水の回復量
 #define MUDWATERUSE (0.01f) //泥水の異動量
 
+
 int CPuddle::mclearcount = 0;
 bool CPuddle::mClean_upCountflag;
 bool CPuddle::Enemy;
@@ -79,12 +80,19 @@ void CPuddle::Update(){
 	}
 	//泥水が徐々に増える
 	if (mPuddle.mTag == CCollider::EMUDPUDDLE){
-		mScale.mX = mScale.mX + MUDWATERUSE;
-
-		mScale.mZ = mScale.mZ + MUDWATERUSE;
-
+		mScale = CVector(x += MUDWATERUSE, y, z += MUDWATERUSE);
+		
 		mPuddle.mRadius += MUDWATERUSE;
 		}
+
+	//泥水が治ったとき
+	if (x > mxMax&&z > mzMax){
+		if (mPuddle.mTag == CCollider::EPUDDLE){
+			mScale = CVector(x -= MUDWATERUSE, y, z -= MUDWATERUSE);
+
+			mPuddle.mRadius = MUDWATERUSE;
+		}
+	}
 	//水が少しずつ回復する
 	if (mPuddle.mTag == CCollider::EPUDDLE){
 		if (x < mxMax&&z < mzMax){
@@ -168,10 +176,8 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 		//コライダのｍとｙが衝突しているか判定
 		if (CCollider::Collision(m, y)){
 			//泥の水たまり
-			if (m->mTag == CCollider::EMUDPUDDLE){	
+			if (m->mTag == CCollider::EMUDPUDDLE){
 				if (y->mTag == CCollider::EPLAYEREBODY){
-					CXPlayer::mpxPlayer->Damege = true;
-				}
 					//アイテム
 					if (CXPlayer::mpxPlayer->mClean_up > 0){
 						if (CKey::Push('Q')){
@@ -181,12 +187,13 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 								CClean*mClean = new CClean();
 								mClean->mPosition = mPosition;
 								mClean_upCountflag = true;
-							
+
 								rock = false;
 							}
 						}
 
 					}
+					//時間差で治る
 					if (mClean_upCountflag == true){
 						if (mClean_upCount > 0){
 							mClean_upCount--;
@@ -201,7 +208,7 @@ void CPuddle::Collision(CCollider*m, CCollider*y){
 
 					}
 				}
-			
+			}
 			//普通の水たまり
 				if (m->mTag == CCollider::EPUDDLE){
 					if (y->mTag == CCollider::EMUDPUDDLE){
