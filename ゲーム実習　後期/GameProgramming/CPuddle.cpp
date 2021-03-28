@@ -112,18 +112,18 @@ void CPuddle::Update(){
 				if (EnemyCount < 5){
 					frame++;//ƒtƒŒ[ƒ€”‚É1‰ÁŽZ
 					if (frame < 1000 && frame % 150 == 0){
-						//“G‹@‚Ì¶¬
-						mEnemy = new CXEnemy();
-						//“G‚Ì‰ŠúÝ’è
-						mEnemy->Init(&CRes::sKnight);
-						EnemyCount++;
-						//“G‚Ì”z’u
-						mEnemy->mAnimationFrameSize = 1024;
-						mEnemy->mPosition = mPosition;
-						mEnemy->ChangeAnimation(2, true, 200);
-						if (Enemy == true){
-							Enemy = false;
-						}
+						////“G‹@‚Ì¶¬
+						//mEnemy = new CXEnemy();
+						////“G‚Ì‰ŠúÝ’è
+						//mEnemy->Init(&CRes::sKnight);
+						//EnemyCount++;
+						////“G‚Ì”z’u
+						//mEnemy->mAnimationFrameSize = 1024;
+						//mEnemy->mPosition = mPosition;
+						//mEnemy->ChangeAnimation(2, true, 200);
+						//if (Enemy == true){
+						//	Enemy = false;
+						//}
 					}
 					else if (frame > 1000)
 					{

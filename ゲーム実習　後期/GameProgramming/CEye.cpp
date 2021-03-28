@@ -2,7 +2,8 @@
 #include"CKey.h"
 #include"CSceneGame.h"
 
-#define MOUSE_SENSE 3
+#define MOUSE_SENSE 2
+#define MOUSE_X 40
 CEye *CEye::mpthis = nullptr;
 
 CEye::CEye(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -42,15 +43,20 @@ void CEye::Update(){
 			//マウスの移動量の分だけ回転
 			mRotation.mY += (mMouseX - mx) / m;
 		}
+		
 		if (my < mMouseY) {
-			//マウスの移動量の分だけ回転
-			mRotation.mX -= (mMouseY - my) / m;
+			if (mRotation.mX > -MOUSE_X){
+				//マウスの移動量の分だけ回転
+				mRotation.mX -= (mMouseY - my) / m;
+			}
 		}
+	    //マウス下
 		if (mMouseY < my) {
 			//マウスの移動量の分だけ回転
-			mRotation.mX -= (mMouseY - my) / m;
+			if (mRotation.mX < MOUSE_X){
+				mRotation.mX -= (mMouseY - my) / m;
+			}
 		}
-	
 	CCharacter::Update();
 
 }

@@ -85,7 +85,6 @@
   <ItemGroup>
     <ClCompile Include="CAmount.cpp" />
     <ClCompile Include="CBillBoard.cpp" />
-    <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
@@ -112,6 +111,7 @@
     <ClCompile Include="CRock2.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CUmbrella.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="CRes.cpp" />
@@ -131,7 +131,6 @@
   <ItemGroup>
     <ClInclude Include="CAmount.h" />
     <ClInclude Include="CBillBoard.h" />
-    <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
@@ -158,6 +157,7 @@
     <ClInclude Include="CRock2.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CUmbrella.h" />
     <ClInclude Include="CVertex.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />

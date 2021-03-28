@@ -376,7 +376,7 @@ int CSceneGame2::ComboMax = 0;
 int CSceneGame2::Defeats = 0;
 CModel CSceneGame2::mGun;
 CModel CSceneGame2::mItem;
-
+CModel CSceneGame2::mUmbrella;
 
 //キャラクタのインスタンス
 //CXCharacter mPlayer;
@@ -398,27 +398,30 @@ void CSceneGame2::Init() {
 
 	mEnd = false;
 
-	CXEnemy::mPointSize = 6;//ポイント数の設定
-	CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
+	//CXEnemy::mPointSize = 6;//ポイント数の設定
+	//CXEnemy::mPoint = new CPoint[CXEnemy::mPointSize];
 
-	CXEnemy::mPoint[0].Set(CVector(0.0f, 5.0f, -70.0f), 5.0f);
-	CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
-	CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[3].Set(CVector(30.0f, 5.0f, -30.0f), 5.0f);
+	//CXEnemy::mPoint[0].Set(CVector(0.0f, 5.0f, -70.0f), 5.0f);
+	//CXEnemy::mPoint[1].Set(CVector(95.0f, 5.0f, -110.0f), 5.0f);
+	//CXEnemy::mPoint[2].Set(CVector(95.0f, 5.0f, -30.0f), 5.0f);
+	//CXEnemy::mPoint[3].Set(CVector(30.0f, 5.0f, -30.0f), 5.0f);
 
-	CXEnemy::mPoint[4].Set(CVector(-0.5f, 0.0f, -30.0f), 5.0f);
-	CXEnemy::mPoint[5].Set(CVector(-45.5f, 0.0f, -70.0f), 5.0f);
+	//CXEnemy::mPoint[4].Set(CVector(-0.5f, 0.0f, -30.0f), 5.0f);
+	//CXEnemy::mPoint[5].Set(CVector(-45.5f, 0.0f, -70.0f), 5.0f);
 
 
-	CXEnemy2::mPointSize = 6;//ポイント数の設定
+	CXEnemy2::mPointSize = 8;//ポイント数の設定
 	CXEnemy2::mPoint = new CPoint[CXEnemy2::mPointSize];
+	CXEnemy2::mPoint[0].Set(CVector(60.0f, 5.0f, 60.0f), 5.0f);
+	CXEnemy2::mPoint[1].Set(CVector(12.0f, 5.0f, 60.0f), 5.0f);
+	CXEnemy2::mPoint[2].Set(CVector(-35.0f, 5.0f, 60.0f), 5.0f);
+	CXEnemy2::mPoint[3].Set(CVector(-35.0f, 5.0f, 0.0f), 5.0f);
+	CXEnemy2::mPoint[4].Set(CVector(-35.0f, 5.0f, -60.0f), 5.0f);
+	CXEnemy2::mPoint[5].Set(CVector(12.0f, 5.0f, -60.0f), 5.0f);
+	CXEnemy2::mPoint[6].Set(CVector(60.0f, 5.0f, -60.0f), 5.0f);
+	CXEnemy2::mPoint[7].Set(CVector(60.0f, 5.0f, 0.0f), 5.0f);
 
-	CXEnemy2::mPoint[0].Set(CVector(-30.0f, 5.0f, 70.0f), 5.0f);
-	CXEnemy2::mPoint[1].Set(CVector(60.0f, 5.0f, 70.0f), 5.0f);
-	CXEnemy2::mPoint[2].Set(CVector(30.0f, 15.0f, 30.0f), 5.0f);
-	CXEnemy2::mPoint[3].Set(CVector(70.0f, 5.0f, 30.0f), 5.0f);
-	CXEnemy2::mPoint[4].Set(CVector(-60.0f, 0.0f, 30.0f), 5.0f);
-	CXEnemy2::mPoint[5].Set(CVector(-80.0f, 0.0f, 90.0f), 5.0f);
+	
 
 	mRock.Load("Rock1.obj", "Rock1.mtl");
 
@@ -428,8 +431,8 @@ void CSceneGame2::Init() {
 	MudPuddle.Load("sphere2.obj", "sphere2.mtl");
 	mGun.Load("sphere.obj", "sphere.mtl");
 	mBomb.Load("sphere.obj", "sphere.mtl");
-	mWorkbench.Load("sphere.obj", "sphere.mtl");
 	mItem.Load("Rock1.obj", "Rock1.mtl");
+	mUmbrella.Load("sphere2.obj", "sphere2.mtl");
 	TextureExp1->Load("exp.tga");
 
 	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 10.5f, 70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
@@ -557,11 +560,11 @@ void CSceneGame2::Init() {
 	new CObj(&mCube, CVector(-92.0f, 8.1f, 50.0f), CVector(), CVector(37.0f, 1.0f, 35.0f));
 
 
-	new CObj(&mCube, CVector(89.0f, 8.1f, -115.0f), CVector(), CVector(65.0f, 1.0f, 35.0f));
-	new CObj(&mCube, CVector(117.0f, 8.1f, -50.0f), CVector(), CVector(37.0f, 1.0f, 35.0f));
+	//new CObj(&mCube, CVector(89.0f, 8.1f, -115.0f), CVector(), CVector(65.0f, 1.0f, 35.0f));
+	//new CObj(&mCube, CVector(117.0f, 8.1f, -50.0f), CVector(), CVector(37.0f, 1.0f, 35.0f));
 
-	new CObj(&mCube, CVector(-65.0f, 8.1f, -115.0f), CVector(), CVector(65.0f, 1.0f, 35.0f));
-	new CObj(&mCube, CVector(-92.0f, 8.1f, -50.0f), CVector(), CVector(37.0f, 1.0f, 35.0f));
+	//new CObj(&mCube, CVector(-65.0f, 8.1f, -115.0f), CVector(), CVector(65.0f, 1.0f, 35.0f));
+	//new CObj(&mCube, CVector(-92.0f, 8.1f, -50.0f), CVector(), CVector(37.0f, 1.0f, 35.0f));
 
 	mPuddlePoint = new CPuddlePoint();
 
@@ -570,8 +573,9 @@ void CSceneGame2::Init() {
 
 	mPlayer.Init(&CRes::sModelX);
 	mPlayer.mPosition = CVector(0.0f, 0.0f, 80);
-
-	mEye.mPosition.mY = 3.0f;
+	//ジャンプの時以外にする
+	mEye.mPosition.mY = mPlayer.mPosition.mY;
+	//mEye.mPosition.mY = 3.0f;
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -607,23 +611,26 @@ void CSceneGame2::Update() {
 			mScene = ETITLE;
 		}
 	}
+
+
 	//キャラクタークラスの更新
 
-
-
 	CCollisionManager::Get()->Collision();
+	
+	
 
 	mEye.mPosition.mX = mPlayer.mPosition.mX;
 	mEye.mPosition.mZ = mPlayer.mPosition.mZ;
 
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
-	e = CVector(0.0f, 5.0f, -10.0f)*mEye.mMatrix;
+	e = CVector(0.0f, 15.0f, -10.0f)*mEye.mMatrix;
 
-	c = mEye.mPosition + CVector(0.0f, 2.0f, 0.0f);
+	c = mEye.mPosition + CVector(0.0f, 8.0f, 0.0f);
 
 	//上方向を求める
-	u = CVector(0.0f, 1.0f, 0.0f)*mEye.mMatrixRotate;
+	u = CVector(0.0f, 10.0f, 0.0f)*mEye.mMatrixRotate;
 
 	if (CKey::Push('M')){
 
@@ -721,5 +728,9 @@ void CSceneGame2::Update() {
 	End2D();
 
 	return;
+
+}
+
+CVector GetEnemyTargetVector(CXEnemy*pEnemy){
 
 }

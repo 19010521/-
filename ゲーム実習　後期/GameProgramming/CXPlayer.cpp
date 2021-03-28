@@ -29,8 +29,6 @@ CXPlayer::CXPlayer()
 :mColSphereBody(this, CVector(0.0f, 3.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mColSphereHead(this, CVector(0.0f, 0.5f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
 , mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
-, mColSphereLeg0(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
-, mColSphereLeg1(this, CVector(0.0f, 1.5f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0f), 0.5f)
 , mVelovcityJump(0), mBulletCount(0), mBulletCountMax(60), mWaterCountStop(0)
 , mInvincibleCountMax(150), mInvincibleCount(150), mTunRotation(0.0f,2.5f,0.0f)
 , mMudCount(0), mDrawCount(0), mHPNow(100)
@@ -72,11 +70,7 @@ void CXPlayer::Init(CModelX*model){
 	mColSphereSword.mpCombinedMatrix =
 		&mpCombinedMatrix[21];
 
-	mColSphereLeg0.mpCombinedMatrix =
-		&mpCombinedMatrix[25];
-
-	mColSphereLeg1.mpCombinedMatrix =
-		&mpCombinedMatrix[30];
+	
 
 }
 
@@ -84,10 +78,10 @@ void CXPlayer::TaskCollision()
 {
 	mColSphereBody.ChangePriority();
 	mColSphereHead.ChangePriority();
-	mColSphereLeg0.ChangePriority();
+
 	CCollisionManager::Get()->Collision(&mColSphereBody);
 	CCollisionManager::Get()->Collision(&mColSphereHead);
-	CCollisionManager::Get()->Collision(&mColSphereLeg0);
+	
 
 }
 

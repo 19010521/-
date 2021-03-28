@@ -3,7 +3,6 @@
 #include"CXPlayer.h"
 #include"CBullet.h"
 #include"CPuddle.h"
-
 #include"CSceneGame.h"
 #include<stdio.h>
 #include<time.h>
@@ -400,9 +399,17 @@ CXEnemy2::CXEnemy2()
 
 	aflag = false;
 
-	//Comboflag = true;
+	routeflag = false;
 
-	//mScale = CVector(1.0f, 1.0f, 1.0f);
+	//if (rand() % 100<50){
+		//mUmbrella = new CUmbrella();
+		
+		//mUmbrella->mPosition.mY -= 5.0f;
+	//}
+	//else
+	//{
+		
+	//}
 	mHPNow = mHPMax;
 	mTag = EENEMY;
 	mSearch.mTag = CCollider::ESEARCH;
@@ -410,7 +417,6 @@ CXEnemy2::CXEnemy2()
 	mColSphereBody.mTag = CCollider::EENEMYBODY;
 	mColSphereSword0.mTag = CCollider::ESWORD;
 	mstate = ENORMAL;
-
 	mPointCnt = rand() % POINT;//最初のポイントを設定
 	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
 
@@ -447,6 +453,9 @@ void CXEnemy2::Init(CModelX*model){
 }
 
 void CXEnemy2::Update(){
+
+
+	//mUmbrella->mPosition = mPosition;
 
 	mVelovcityJump -= G;
 
@@ -577,7 +586,14 @@ void CXEnemy2::Update(){
 				
 			}
 		}
-	
+		//ルート選択
+		if (routeflag == true){
+		
+				mPointCnt ++;//次のポイントにする
+				//次のぽいんとのポインタを設定
+				mpPoint = &mPoint[mPointCnt];
+				routeflag = false;
+		}
 
 	if (mstate == ELANDING){
 		for (int s = 0; s < 359; s++){
@@ -644,16 +660,8 @@ void CXEnemy2::Collision(CCollider*m, CCollider*y){
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag){
 				case EPOINT://ポイントの時
-					//衝突したポインタと目指しているポインタが同じとき
-					if (y->mpParent == mpPoint){
-						if (mPointCnt == 0){
-							mPointCnt = rand() % RANDAMPOINT;//次のポイントにする
-						}
-						
-						
-						//次のぽいんとのポインタを設定
-						mpPoint = &mPoint[mPointCnt];
-					}
+					routeflag = true;
+					
 
 					break;
 				}

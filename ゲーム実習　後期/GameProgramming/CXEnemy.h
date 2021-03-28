@@ -5,6 +5,7 @@
 #include"CCollider.h"
 #include"CPoint.h"
 #include"CItem.h"
+#include"CUmbrella.h"
 
 
 class CXEnemy :public CXCharacter{
@@ -125,7 +126,7 @@ private:
 	bool lflag;//後転フラグ
 	bool aflag;//攻撃フラグ
 	bool mflag;//動くフラグ
-
+	bool routeflag;//ルートフラグ
 	float mHPMax;//敵のHP
 	float mHPNow;
 
@@ -167,6 +168,7 @@ public:
 	//誘導ポイント
 	static CPoint *mPoint;
 
+	CUmbrella *mUmbrella;
 
 	CItem *mItem;
 	//CEnemy(モデル,位置,回転,拡縮)

@@ -9,7 +9,7 @@
 #include"CPuddle.h"
 #include"CEye.h"
 #include"CAmount.h"
-#include"CBomb.h"
+
 
 #include"CPuddlePoint.h"
 
@@ -147,6 +147,8 @@ public:
 
 	static CModel mItem;
 
+	static CModel mUmbrella;
+
 	static int Combo;//コンボ
 
 	static int ComboMax;//コンボ最大
@@ -158,7 +160,7 @@ public:
 
 	static bool Countf;
 
-
+	CVector GetEnemyTargetVector(CXEnemy*pEnemy);
 
 };
 

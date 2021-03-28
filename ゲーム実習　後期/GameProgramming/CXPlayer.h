@@ -56,8 +56,6 @@ private:
 	CCollider mColSphereBody;   //‘Ì
 	CCollider mColSphereHead;   //“ª
 	CCollider mColSphereSword;  //Œ•
-	CCollider mColSphereLeg0;   //‘«
-	CCollider mColSphereLeg1;   //‘«
 	CCollider mSearch;
 	CCollider mColBody;
 

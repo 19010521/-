@@ -27,7 +27,7 @@ public:
 		EWATER,//水
 		EINPACT,//衝撃
 		ESWORD,//剣
-		EBOMB,//ボム
+		EUMBRELLA,//傘
 		EITEM,//アイテム
 		EWORKBENCH,//作業台水きれいにする用
 		EWORKBENCH2,//作業台爆弾用
