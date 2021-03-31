@@ -7,7 +7,7 @@
 #define RECOVERYWATERUSE (0.001f)//…‚Ì‰ñ•œ—Ê
 #define MUDWATERUSE (0.01f) //“D…‚ÌˆÙ“®—Ê
 
-
+CPuddle *CPuddle::mpPuddle = nullptr;
 int CPuddle::mclearcount = 0;
 bool CPuddle::mClean_upCountflag;
 bool CPuddle::Enemy;

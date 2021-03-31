@@ -59,11 +59,6 @@ private:
 	CCollider mSearch;
 	CCollider mColBody;
 
-
-
-
-
-
 	void Collision(CCollider*mc, CCollider*yc);
 	void Render()override;
 

@@ -6,6 +6,9 @@
 #include"CSceneGame.h"
 #include<stdio.h>
 #include<time.h>
+
+
+CXEnemy *CXEnemy::mpxEnemy = nullptr;
 //誘導ポイント
 CPoint *CXEnemy::mPoint = nullptr;
 int CXEnemy::mPointSize = 0;
@@ -448,7 +451,6 @@ void CXEnemy2::Init(CModelX*model){
 	//合成行列
 	mColSphereLeg1.mpCombinedMatrix =
 		&mpCombinedMatrix[1];
-
 
 }
 

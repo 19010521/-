@@ -435,50 +435,51 @@ void CSceneGame2::Init() {
 	mUmbrella.Load("sphere2.obj", "sphere2.mtl");
 	TextureExp1->Load("exp.tga");
 
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 10.5f, 70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-
-	if (mpPuddle->mpModel == &Puddle){
-
-		CPuddle::mclearcount++;
-	}
-
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(70.0f, 0.0f, 70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-	mpPuddle->mpModel = &MudPuddle;
-	if (mpPuddle->mpModel == &Puddle){
+	mpPuddle[0] = new CPuddle(&Puddle, &MudPuddle, CVector(-80.0f, 10.5f, 70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	if (mpPuddle[0]->mpModel == &Puddle){
 
 		CPuddle::mclearcount++;
 	}
 
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-60.0f, 10.5f, 30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-
-	if (mpPuddle->mpModel == &Puddle){
+	mpPuddle[1] = new CPuddle(&Puddle, &MudPuddle, CVector(70.0f, 0.0f, 70.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	mpPuddle[1]->mpModel = &MudPuddle;
+	if (mpPuddle[1]->mpModel == &Puddle){
 
 		CPuddle::mclearcount++;
 	}
 
-
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(30.0f, 10.5f, 10.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-
-	if (mpPuddle->mpModel == &Puddle){
+	mpPuddle[2] = new CPuddle(&Puddle, &MudPuddle, CVector(-60.0f, 10.5f, 30.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	if (mpPuddle[2]->mpModel == &Puddle){
 
 		CPuddle::mclearcount++;
 	}
 
 
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(-30.5f, 10.5f, -120.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mpPuddle[3] = new CPuddle(&Puddle, &MudPuddle, CVector(30.0f, 10.5f, 10.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	if (mpPuddle[3]->mpModel == &Puddle){
 
-	mpPuddle->mpModel = &MudPuddle;
-	if (mpPuddle->mpModel == &Puddle){
+		CPuddle::mclearcount++;
+	}
+
+
+	mpPuddle[4] = new CPuddle(&Puddle, &MudPuddle, CVector(-30.5f, 10.5f, -120.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	mpPuddle[4]->mpModel = &MudPuddle;
+	if (mpPuddle[4]->mpModel == &Puddle){
 
 		CPuddle::mclearcount++;
 	}
 
 
 
-	mpPuddle = new CPuddle(&Puddle, &MudPuddle, CVector(90.0f, 0.0f, -60.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
-
-	mpPuddle->mpModel = &MudPuddle;
-	if (mpPuddle->mpModel == &Puddle){
+	mpPuddle[5] = new CPuddle(&Puddle, &MudPuddle, CVector(90.0f, 0.0f, -60.0f), CVector(), CVector(0.9f, 0.1f, 0.9f));
+	mPuddleNum++;
+	mpPuddle[5]->mpModel = &MudPuddle;
+	if (mpPuddle[5]->mpModel == &Puddle){
 
 		CPuddle::mclearcount++;
 	}
@@ -730,7 +731,51 @@ void CSceneGame2::Update() {
 	return;
 
 }
+/*
+敵のコントロール処理
+引数の敵の移動先座標を返す
+pEnemy　敵のポインタ
+戻り値　移動先座標
+*/
+CVector CSceneGame2::GetEnemyTargetVector(CXEnemy*pEnemy){
 
-CVector GetEnemyTargetVector(CXEnemy*pEnemy){
+	//最短座標の退避エリア
+	CVector vector;
+	//最短の距離
+	float length;
+
+	//プレイヤーとの距離を求める
+	CVector Player = pEnemy->mPosition - CXPlayer::mpxPlayer->mPosition;
+
+	//プレイヤーの座標を代入する
+	CVector PlayerCoordinate = CXPlayer::mpxPlayer->mPosition;
+
+	length = Player.Length();
+
+	//全ての水たまりと比較
+	for (int i = 0; i < mPuddleNum; i++){
+
+		//きれいな水たまりは処理する
+		if (mpPuddle[i]->mTag == CCharacter::ENORMALPUDDLE){
+
+			//きれいな水たまりの距離を求める
+			CVector Puddle = pEnemy->mPosition - mpPuddle[i]->mPosition;
+
+			//水たまりとの距離比較
+			if (Puddle.Length() > length){
+
+				//最短の距離を更新
+				length = Puddle.Length();
+				//最短の座標
+				vector = mpPuddle[i]->mPosition;;
+
+			}
+		}
+		
+	}
+
+	//一番近い座標を返す
+	return vector;
+
 
 }

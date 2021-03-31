@@ -76,6 +76,7 @@ public:
 	void Init(CModelX*model);
 
 	static int mPointSize;//ポイントの数
+	static  CXEnemy*mpxEnemy;
 	CPoint*mpPoint;//目指すポイント
 	int mPointCnt;//ポイントのカウンタ
 
@@ -94,7 +95,7 @@ public:
 	static bool Desuflag;//死んだフラグ
 };
 
-class CXEnemy2 :public CXCharacter{
+class CXEnemy2 :public CXEnemy{
 private:
 
 	int Randam;

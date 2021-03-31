@@ -23,8 +23,8 @@ private:
 	char buf[10];
 
 	CXPlayer mPlayer;
-	//敵のインスタンス
-	CXEnemy *mEnemy;
+	////敵のインスタンス
+	//CXEnemy *mEnemy;
 
 	CAmount *Amount;
 
@@ -96,8 +96,8 @@ private:
 	char buf[10];
 
 	CXPlayer mPlayer;
-	//敵のインスタンス
-	CXEnemy *mEnemy;
+	////敵のインスタンス
+	//CXEnemy *mEnemy;
 
 	CAmount *Amount;
 
@@ -121,12 +121,14 @@ private:
 	CModel MudPuddle;
 	CModel mWorkbench;
 
-	CPuddle *mpPuddle;
+	CPuddle *mpPuddle[6];
+	
 
 	EScene GetNextScene();
 
 	int DesuCount = 30;
-
+	int mPuddleNum;//水たまりの数
+	float mPuddlevalue;//水たまりの値
 	int frame;//フレーム数のカウント
 
 	int Time;

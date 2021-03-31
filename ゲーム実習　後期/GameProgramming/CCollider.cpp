@@ -63,9 +63,6 @@ void CCollider::ChangePriority(){
 	CCollisionManager::Get()->Add(this); //ƒŠƒXƒg‚É’Ç‰Á‚·‚é
 }
 
-
-
-
 //•`‰æ
 void CCollider::Render() {
 
